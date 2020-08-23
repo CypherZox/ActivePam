@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+// login & register button
 class LRButton extends StatelessWidget {
   final String title;
   final Function onPressed;
@@ -10,16 +11,17 @@ class LRButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 1.0),
+      padding: EdgeInsets.symmetric(vertical: 2.0),
       child: MaterialButton(
         color: Colors.white,
         elevation: 2.0,
         onPressed: onPressed,
         minWidth: width,
-        height: 36.0,
+        height: 46.0,
         child: Text(
           title,
           style: TextStyle(
+            fontSize: 17,
             color: Colors.black54,
           ),
         ),

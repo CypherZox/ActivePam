@@ -15,7 +15,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 60.0),
+        padding: const EdgeInsets.symmetric(horizontal: 40.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
             LRButton(
               onPressed: () {},
               title: 'log in',
-              width: 220.0,
+              width: 290.0,
             ),
             SizedBox(
               height: 9.0,
@@ -46,7 +46,14 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 70.0,
             ),
-            FlatButton(onPressed: () {}, child: Text('Register!'))
+            FlatButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/Register');
+                },
+                child: Text(
+                  'Register!',
+                  style: TextStyle(fontSize: 18, letterSpacing: 2.0),
+                ))
           ],
         ),
       ),
