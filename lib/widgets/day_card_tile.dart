@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_active_prf/widgets/thembnail_avi.dart';
 import 'package:get_active_prf/styles/decorations.dart';
 
 class DayCardTile extends StatelessWidget {
@@ -43,15 +42,18 @@ class DayCardTile extends StatelessWidget {
                 SizedBox(
                   width: 20,
                 ),
-                ThumbNailAvi(),
-                SizedBox(
-                  width: 20,
-                ),
-                ThumbNailAvi(),
-                SizedBox(
-                  width: 20,
-                ),
-                ThumbNailAvi(),
+                // Expanded(
+                //   child: ListView.builder(
+                //     scrollDirection: Axis.horizontal,
+                //     itemBuilder: (context, index) {
+                //       final vid = DayVidList().vids[index];
+                //       return ThumbNailAvi(
+                //         vidID: vid,
+                //       );
+                //     },
+                //     itemCount: DayVidList().vidsCount,
+                //   ),
+                // ),
               ],
             ),
           ],

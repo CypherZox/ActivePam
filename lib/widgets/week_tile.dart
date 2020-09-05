@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_active_prf/screens/choose_version.dart';
 import 'package:get_active_prf/styles/decorations.dart';
 
 class WeekTile extends StatelessWidget {
@@ -27,7 +28,11 @@ class WeekTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 9.0),
       child: Center(
         child: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ChooseVersion(no: no)));
+            print(no);
+          },
           child: container,
         ),
       ),

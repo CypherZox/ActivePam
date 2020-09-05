@@ -5,6 +5,9 @@ import 'package:get_active_prf/widgets/day_card_tile.dart';
 import 'package:get_active_prf/widgets/start_button.dart';
 
 class StartWorkout extends StatefulWidget {
+  final int no;
+  final String version;
+  StartWorkout({this.no, this.version});
   @override
   _StartWorkoutState createState() => _StartWorkoutState();
 }

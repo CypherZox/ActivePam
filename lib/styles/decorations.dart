@@ -16,12 +16,13 @@ const inputdecoration = InputDecoration(
   ),
 );
 var shadedboxdecoration = BoxDecoration(
-    color: Colors.black,
-    boxShadow: [
-      BoxShadow(
-          offset: Offset(3, 3),
-          color: Colors.grey.withOpacity(0.4),
-          spreadRadius: 2.0,
-          blurRadius: 4.0)
-    ],
-    borderRadius: BorderRadius.circular(9));
+  color: Colors.black,
+  boxShadow: [
+    BoxShadow(
+        offset: Offset(3, 3),
+        color: Colors.grey.withOpacity(0.4),
+        spreadRadius: 2.0,
+        blurRadius: 4.0)
+  ],
+  borderRadius: BorderRadius.circular(9),
+);

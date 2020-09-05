@@ -5,6 +5,7 @@ import 'package:get_active_prf/screens/explore.dart';
 import 'package:get_active_prf/screens/log_in.dart';
 import 'package:get_active_prf/screens/register.dart';
 import 'package:get_active_prf/screens/start_workout.dart';
+import 'package:get_active_prf/screens/test.dart';
 import 'package:get_active_prf/screens/vid_screen.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/Explore',
+      initialRoute: '/testScreen',
       routes: {
         '/log_n': (context) => Login(),
         '/Register': (context) => Register(),
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         '/Choose_version': (context) => ChooseVersion(),
         '/StartWorkout': (context) => StartWorkout(),
         '/VidScreen': (context) => VidScreen(),
-        '/DoneScreen': (context) => Done()
+        '/DoneScreen': (context) => Done(),
+        '/testScreen': (context) => TestScreen(),
       },
     );
   }
