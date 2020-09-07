@@ -7,8 +7,11 @@ import 'package:get_active_prf/screens/register.dart';
 import 'package:get_active_prf/screens/start_workout.dart';
 import 'package:get_active_prf/screens/test.dart';
 import 'package:get_active_prf/screens/vid_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/testScreen',
+      initialRoute: '/log_n',
       routes: {
         '/log_n': (context) => Login(),
         '/Register': (context) => Register(),

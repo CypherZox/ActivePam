@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "738418482182",
+    "firebase_url": "https://getactiveprf.firebaseio.com",
+    "project_id": "getactiveprf",
+    "storage_bucket": "getactiveprf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738418482182:android:666b5434b99dbb39f37787",
+        "android_client_info": {
+          "package_name": "com.hanzy.get_active_prf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "738418482182-dc4l3uhhcu6evbvfkmhdk90lodvaltha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuJgk1AAM3G81u5v9-A1KL8MT2H3siFxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "738418482182-dc4l3uhhcu6evbvfkmhdk90lodvaltha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
