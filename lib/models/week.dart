@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class Week {
-  int no;
+  String no;
   Color color;
-  Week({this.color, this.no});
+  bool done = false;
+  Week({this.color, this.no, this.done});
 }

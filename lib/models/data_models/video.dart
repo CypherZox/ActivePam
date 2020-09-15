@@ -8,8 +8,8 @@ class VideoModel {
   Future<List<dynamic>> getIDs(
       String dayNo, String weekNo, String version) async {
     Map<String, dynamic> dmap =
-        await DataService().parseJsonFromAssets('assets/week1.json');
-    // print(dmap['day$dayNo']['$version']['vids'].runtimeType);
+        await DataService().parseJsonFromAssets('assets/week$weekNo.json');
+    //  print(dmap['day$dayNo']['$version']['vids'].runtimeType);
     return dmap['day$dayNo']['$version']['vids'];
   }
 }

@@ -4,7 +4,7 @@ import 'package:get_active_prf/styles/decorations.dart';
 
 class WeekTile extends StatelessWidget {
   final Color color;
-  final int no;
+  final String no;
   WeekTile({
     this.color,
     this.no,
@@ -29,8 +29,10 @@ class WeekTile extends StatelessWidget {
       child: Center(
         child: GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ChooseVersion(no: no)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ChooseVersion(weekNo: no)));
             print(no);
           },
           child: container,

@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/models/data_models/video.dart';
+import 'package:get_active_prf/screens/vid_screen.dart';
 import 'package:get_active_prf/widgets/DayNumber.dart';
 import 'package:get_active_prf/widgets/days_view.dart';
 import 'package:get_active_prf/widgets/start_button.dart';
 
 class TestScreen extends StatefulWidget {
+  final String weekNo;
+  final String version;
+  TestScreen({this.weekNo, this.version});
   @override
   _TestScreenState createState() => _TestScreenState();
 }
 
 class _TestScreenState extends State<TestScreen> {
-  String dayNo = '5';
+  String dayNo = '1';
+  List<String> ids;
   final pageController = PageController(initialPage: 0, keepPage: true);
   final navItems = [
     DayNumber(no: '1'),
@@ -98,7 +103,8 @@ class _TestScreenState extends State<TestScreen> {
                 ),
                 Expanded(
                     child: FutureBuilder<List<dynamic>>(
-                  future: VideoModel().getIDs(this.dayNo, '3', '45min'),
+                  future: VideoModel().getIDs(
+                      this.dayNo, this.widget.weekNo, this.widget.version),
                   builder: (context, snapshot) {
                     return snapshot.hasData
                         ? DaysList(vidIds: snapshot.data)
@@ -109,6 +115,19 @@ class _TestScreenState extends State<TestScreen> {
             ),
           ),
           StartButton(onpressed: () {
+            VideoModel()
+                .getIDs(this.dayNo, this.widget.weekNo, this.widget.version)
+                .then((value) {
+              print(value);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => VidScreen(
+                            ids: value,
+                            weekNo: this.widget.weekNo,
+                            version: this.widget.version,
+                          )));
+            });
             Navigator.pushNamed(context, '/VidScreen');
           })
         ],
