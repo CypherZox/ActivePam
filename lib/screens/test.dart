@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/models/data_models/video.dart';
 import 'package:get_active_prf/screens/vid_screen.dart';
 import 'package:get_active_prf/widgets/DayNumber.dart';
 import 'package:get_active_prf/widgets/days_view.dart';
 import 'package:get_active_prf/widgets/start_button.dart';
+import 'package:provider/provider.dart';
 
 class TestScreen extends StatefulWidget {
   final String weekNo;
@@ -36,6 +38,8 @@ class _TestScreenState extends State<TestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final prcntgeProvider =
+        Provider.of<PrcntgLogic>(context, listen: true).progressprcntg;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -107,7 +111,12 @@ class _TestScreenState extends State<TestScreen> {
                       this.dayNo, this.widget.weekNo, this.widget.version),
                   builder: (context, snapshot) {
                     return snapshot.hasData
-                        ? DaysList(vidIds: snapshot.data)
+                        ? DaysList(
+                            vidIds: snapshot.data,
+                            prcntg: prcntgeProvider.toInt(),
+                            // prcntg: Provider.of<DataService>(context).getUserProgress(this.widget.dayNo
+                            // this.widget.weekNo)
+                          )
                         : Center(child: CircularProgressIndicator());
                   },
                 )),

@@ -1,9 +1,12 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/screens/test.dart';
 import 'package:get_active_prf/styles/decorations.dart';
+import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -80,10 +83,64 @@ class _VidScreenState extends State<VidScreen> {
     super.dispose();
   }
 
+  int get totalnum {
+    return _ids.length;
+  }
+
+  int finished = 0;
+  double unFinished = 0;
+  PrcntgLogic progressprcntg;
+
   @override
   Widget build(BuildContext context) {
+    final prcntgeProvider = Provider.of<PrcntgLogic>(context, listen: true);
     return Scaffold(
         backgroundColor: Colors.white,
+        appBar: AppBar(
+          leading: BackButton(
+            onPressed: () {
+              showDialog(
+                    context: context,
+                    builder: (context) => new AlertDialog(
+                      title: new Text('Are you sure?'),
+                      content: new Text('Do you want to exit an App'),
+                      actions: <Widget>[
+                        new GestureDetector(
+                          onTap: () => Navigator.of(context).pop(false),
+                          child: Text("NO"),
+                        ),
+                        SizedBox(height: 16),
+                        new GestureDetector(
+                          onTap: () async {
+                            _controller.pause();
+                            setState(() {
+                              unFinished += ((_controller
+                                          .metadata.duration.inSeconds -
+                                      (_controller.metadata.duration.inSeconds -
+                                          _controller
+                                              .value.position.inSeconds)) /
+                                  _controller.metadata.duration.inSeconds);
+                            });
+                            prcntgeProvider.getPrsntg(
+                                this.finished, this.unFinished, this.totalnum);
+                            // _getPrcntg();
+                            _controller.pause();
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TestScreen(
+                                        weekNo: this.widget.weekNo,
+                                        version: this.widget.version)));
+                          },
+                          child: Text("YES"),
+                        ),
+                      ],
+                    ),
+                  ) ??
+                  false;
+            },
+          ),
+        ),
         body: YoutubePlayerBuilder(
           onExitFullScreen: () {
             // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
@@ -93,6 +150,7 @@ class _VidScreenState extends State<VidScreen> {
             controller: _controller,
             showVideoProgressIndicator: true,
             progressIndicatorColor: Colors.blueAccent,
+            bottomActions: [CurrentPosition()],
             topActions: <Widget>[
               const SizedBox(width: 8.0),
               Expanded(
@@ -121,10 +179,16 @@ class _VidScreenState extends State<VidScreen> {
               _isPlayerReady = true;
             },
             onEnded: (data) {
+              setState(() {
+                finished += 1;
+              });
               if ((_ids.indexOf(_videoMetaData.videoId) + 1) < _ids.length) {
                 _controller.load(_ids[(_ids.indexOf(data.videoId) + 1)]);
                 _showSnackBar('Next Video Started!');
               } else {
+                prcntgeProvider.getPrsntg(
+                    this.finished, this.unFinished, this.totalnum);
+                // _getPrcntg();
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -150,13 +214,26 @@ class _VidScreenState extends State<VidScreen> {
                       GestureDetector(
                         onTap: () {
                           // print(_ids[_ids.indexOf(_videoMetaData.videoId) + 1]);
-                          _controller.pause();
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TestScreen(
-                                      weekNo: this.widget.weekNo,
-                                      version: this.widget.version)));
+
+                          if ((_ids.indexOf(_videoMetaData.videoId) + 1) <
+                              _ids.length) {
+                            _controller.pause();
+
+                            setState(() {
+                              unFinished += ((_controller
+                                          .metadata.duration.inSeconds -
+                                      (_controller.metadata.duration.inSeconds -
+                                          _controller
+                                              .value.position.inSeconds)) /
+                                  _controller.metadata.duration.inSeconds);
+                            });
+                            prcntgeProvider.getPrsntg(
+                                this.finished, this.unFinished, this.totalnum);
+                            // _getPrcntg();
+                            _controller.load(_ids[
+                                (_ids.indexOf(_videoMetaData.videoId) + 1)]);
+                            _showSnackBar('Next Video Started!');
+                          }
                         },
                         child: Container(
                           child: ((_ids.indexOf(_videoMetaData.videoId) + 1) <
@@ -282,32 +359,54 @@ class _VidScreenState extends State<VidScreen> {
       ),
     );
   }
+
+  // void _getPrcntg() {
+  //   // PrcntgLogic progressprcntg = PrcntgLogic(
+  //   //     finished: this.finished,
+  //   //     unFinished: this.unFinished,
+  //   //     totalnum: this.totalnum);
+  //   // progressprcntg.getPrsntg();
+  //   // print(progressprcntg.progressprcntg);
+  // }
+
+  Future<bool> _onBackPressed() {
+    // final prcntgeProvider = Provider.of<PrcntgLogic>(context, listen: true);
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Are you sure?'),
+            content: new Text('Do you want to exit an App'),
+            actions: <Widget>[
+              new GestureDetector(
+                onTap: () => Navigator.of(context).pop(false),
+                child: Text("NO"),
+              ),
+              SizedBox(height: 16),
+              new GestureDetector(
+                onTap: () async {
+                  _controller.pause();
+                  setState(() {
+                    unFinished += ((_controller.metadata.duration.inSeconds -
+                            (_controller.metadata.duration.inSeconds -
+                                _controller.value.position.inSeconds)) /
+                        _controller.metadata.duration.inSeconds);
+                  });
+                  // prcntgeProvider.getPrsntg(
+                  // this.finished, this.unFinished, this.totalnum);
+                  // _getPrcntg();
+                  _controller.pause();
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TestScreen(
+                              weekNo: this.widget.weekNo,
+                              version: this.widget.version)));
+                },
+                child: Text("YES"),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
 }
-//  Column(
-//   children: [
-//     Container(
-//       width: MediaQuery.of(context).size.width,
-//       height: 250,
-//       color: Colors.pink.withOpacity(0.1),
-//     ),
-//     SizedBox(
-//       height: 100,
-//     ),
-//     Text(
-//       'Coming next',
-//       style: TextStyle(
-//           color: Colors.grey[800],
-//           fontSize: 30,
-//           fontWeight: FontWeight.w600),
-//     ),
-//     SizedBox(
-//       height: 25,
-//     ),
-//     Container(
-//       width: MediaQuery.of(context).size.width / 3.6,
-//       height: (MediaQuery.of(context).size.width / 5.0) * 2.5,
-//       decoration: shadedboxdecoration.copyWith(
-//           color: Colors.pinkAccent.withOpacity(0.3)),
-//     ),
-//   ],
-// ),
