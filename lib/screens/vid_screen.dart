@@ -1,10 +1,10 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/screens/test.dart';
+import 'package:get_active_prf/services/database_service.dart';
 import 'package:get_active_prf/styles/decorations.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -17,7 +17,8 @@ class VidScreen extends StatefulWidget {
   final List<dynamic> ids;
   final String weekNo;
   final String version;
-  VidScreen({this.ids, this.weekNo, this.version});
+  final String dayNo;
+  VidScreen({this.ids, this.weekNo, this.version, this.dayNo});
   @override
   _VidScreenState createState() => _VidScreenState();
 }
@@ -31,8 +32,6 @@ class _VidScreenState extends State<VidScreen> {
   YoutubeMetaData currentId;
   PlayerState _playerState;
   YoutubeMetaData _videoMetaData;
-  double _volume = 100;
-  bool _muted = false;
   bool _isPlayerReady = false;
   List<dynamic> _ids = [];
   @override
@@ -87,10 +86,14 @@ class _VidScreenState extends State<VidScreen> {
     return _ids.length;
   }
 
+  int get dayno {
+    return int.parse(widget.dayNo) - 1;
+  }
+
   int finished = 0;
   double unFinished = 0;
   PrcntgLogic progressprcntg;
-
+  DatabaseService databaseService = DatabaseService();
   @override
   Widget build(BuildContext context) {
     final prcntgeProvider = Provider.of<PrcntgLogic>(context, listen: true);
@@ -122,8 +125,11 @@ class _VidScreenState extends State<VidScreen> {
                                   _controller.metadata.duration.inSeconds);
                             });
                             prcntgeProvider.getPrsntg(
-                                this.finished, this.unFinished, this.totalnum);
-                            // _getPrcntg();
+                                this.finished,
+                                this.unFinished,
+                                this.totalnum,
+                                'week${this.widget.weekNo}',
+                                this.dayno);
                             _controller.pause();
                             Navigator.pushReplacement(
                                 context,
@@ -186,9 +192,8 @@ class _VidScreenState extends State<VidScreen> {
                 _controller.load(_ids[(_ids.indexOf(data.videoId) + 1)]);
                 _showSnackBar('Next Video Started!');
               } else {
-                prcntgeProvider.getPrsntg(
-                    this.finished, this.unFinished, this.totalnum);
-                // _getPrcntg();
+                prcntgeProvider.getPrsntg(this.finished, this.unFinished,
+                    this.totalnum, 'week${this.widget.weekNo}', this.dayno);
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -213,12 +218,10 @@ class _VidScreenState extends State<VidScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // print(_ids[_ids.indexOf(_videoMetaData.videoId) + 1]);
-
                           if ((_ids.indexOf(_videoMetaData.videoId) + 1) <
                               _ids.length) {
                             _controller.pause();
-
+                            print(this.dayno);
                             setState(() {
                               unFinished += ((_controller
                                           .metadata.duration.inSeconds -
@@ -228,8 +231,11 @@ class _VidScreenState extends State<VidScreen> {
                                   _controller.metadata.duration.inSeconds);
                             });
                             prcntgeProvider.getPrsntg(
-                                this.finished, this.unFinished, this.totalnum);
-                            // _getPrcntg();
+                                this.finished,
+                                this.unFinished,
+                                this.totalnum,
+                                'week${this.widget.weekNo}',
+                                this.dayno);
                             _controller.load(_ids[
                                 (_ids.indexOf(_videoMetaData.videoId) + 1)]);
                             _showSnackBar('Next Video Started!');
@@ -259,86 +265,6 @@ class _VidScreenState extends State<VidScreen> {
         ));
   }
 
-  Widget _text(String title, String value) {
-    return RichText(
-      text: TextSpan(
-        text: '$title : ',
-        style: const TextStyle(
-          color: Colors.blueAccent,
-          fontWeight: FontWeight.bold,
-        ),
-        children: [
-          TextSpan(
-            text: value ?? '',
-            style: const TextStyle(
-              color: Colors.blueAccent,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Color _getStateColor(PlayerState state) {
-    switch (state) {
-      case PlayerState.unknown:
-        return Colors.grey[700];
-      case PlayerState.unStarted:
-        return Colors.pink;
-      case PlayerState.ended:
-        return Colors.red;
-      case PlayerState.playing:
-        return Colors.blueAccent;
-      case PlayerState.paused:
-        return Colors.orange;
-      case PlayerState.buffering:
-        return Colors.yellow;
-      case PlayerState.cued:
-        return Colors.blue[900];
-      default:
-        return Colors.blue;
-    }
-  }
-
-  Widget get _space => const SizedBox(height: 10);
-
-  Widget _loadCueButton(String action) {
-    return Expanded(
-      child: MaterialButton(
-        color: Colors.blueAccent,
-        onPressed: _isPlayerReady
-            ? () {
-                if (_idController.text.isNotEmpty) {
-                  var id = YoutubePlayer.convertUrlToId(
-                    _idController.text,
-                  );
-                  if (action == 'LOAD') _controller.load(id);
-                  if (action == 'CUE') _controller.cue(id);
-                  FocusScope.of(context).requestFocus(FocusNode());
-                } else {
-                  _showSnackBar('Source can\'t be empty!');
-                }
-              }
-            : null,
-        disabledColor: Colors.grey,
-        disabledTextColor: Colors.black,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14.0),
-          child: Text(
-            action,
-            style: const TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-              fontWeight: FontWeight.w300,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
-  }
-
   void _showSnackBar(String message) {
     _scaffoldKey.currentState.showSnackBar(
       SnackBar(
@@ -358,55 +284,5 @@ class _VidScreenState extends State<VidScreen> {
         ),
       ),
     );
-  }
-
-  // void _getPrcntg() {
-  //   // PrcntgLogic progressprcntg = PrcntgLogic(
-  //   //     finished: this.finished,
-  //   //     unFinished: this.unFinished,
-  //   //     totalnum: this.totalnum);
-  //   // progressprcntg.getPrsntg();
-  //   // print(progressprcntg.progressprcntg);
-  // }
-
-  Future<bool> _onBackPressed() {
-    // final prcntgeProvider = Provider.of<PrcntgLogic>(context, listen: true);
-    return showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Are you sure?'),
-            content: new Text('Do you want to exit an App'),
-            actions: <Widget>[
-              new GestureDetector(
-                onTap: () => Navigator.of(context).pop(false),
-                child: Text("NO"),
-              ),
-              SizedBox(height: 16),
-              new GestureDetector(
-                onTap: () async {
-                  _controller.pause();
-                  setState(() {
-                    unFinished += ((_controller.metadata.duration.inSeconds -
-                            (_controller.metadata.duration.inSeconds -
-                                _controller.value.position.inSeconds)) /
-                        _controller.metadata.duration.inSeconds);
-                  });
-                  // prcntgeProvider.getPrsntg(
-                  // this.finished, this.unFinished, this.totalnum);
-                  // _getPrcntg();
-                  _controller.pause();
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TestScreen(
-                              weekNo: this.widget.weekNo,
-                              version: this.widget.version)));
-                },
-                child: Text("YES"),
-              ),
-            ],
-          ),
-        ) ??
-        false;
   }
 }

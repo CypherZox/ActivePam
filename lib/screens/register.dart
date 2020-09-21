@@ -9,7 +9,7 @@ class Register extends StatefulWidget {
   _RegisterState createState() => _RegisterState();
 }
 
-final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+// final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 final TextEditingController _emailController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
 bool _success;
@@ -48,9 +48,6 @@ class _RegisterState extends State<Register> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // TextFormField(
-            //   decoration: inputdecoration.copyWith(hintText: 'name'),
-            // ),
             SizedBox(
               height: 12.0,
             ),
@@ -82,11 +79,6 @@ class _RegisterState extends State<Register> {
             SizedBox(
               height: 12.0,
             ),
-            // TextField(
-            //   obscureText: true,
-            //   decoration:
-            //       inputdecoration.copyWith(hintText: 'Confirm password'),
-            // ),
             SizedBox(
               height: 14.0,
             ),

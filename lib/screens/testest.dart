@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_active_prf/screens/jussst.dart';
-import 'package:provider/provider.dart';
-import 'package:get_active_prf/data/percentage_logic.dart';
 
 class JustAtest extends StatefulWidget {
   @override
@@ -18,6 +15,7 @@ class _JustAtestState extends State<JustAtest>
     _controller = AnimationController(vsync: this);
   }
 
+  var shared = new List.filled(5, 0);
   @override
   void dispose() {
     super.dispose();
@@ -26,20 +24,68 @@ class _JustAtestState extends State<JustAtest>
 
   @override
   Widget build(BuildContext context) {
-    final prcntgeProvider = Provider.of<PrcntgLogic>(context, listen: true);
-    return Column(
-      children: [
-        RaisedButton(onPressed: () {
-          prcntgeProvider.getPrsntg(1, 0.5, 4);
-        }),
-        Container(
-          child: Text('${prcntgeProvider.progressprcntg}'),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30.0, 70.0, 10.0, 0.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 20.0,
+                ),
+                GestureDetector(
+                    child: Icon(
+                  Icons.access_alarm,
+                )),
+                SizedBox(
+                  width: 20.0,
+                ),
+                Icon(Icons.bubble_chart),
+                SizedBox(
+                  width: 20.0,
+                ),
+                Icon(Icons.keyboard)
+              ],
+            ),
+          ),
+          Container(
+            height: 400.0,
+            width: 350.0,
+            decoration: BoxDecoration(
+                color: Colors.blueGrey[900],
+                borderRadius: BorderRadius.circular(30.0)),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class Number extends StatelessWidget {
+  final String no;
+  Number({this.no});
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: AnimatedContainer(
+        duration: Duration(seconds: 3),
+        height: 50.0,
+        width: 40,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 13.0, 0.0, 0.0),
+          child: Text(
+            '$no',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white),
+          ),
         ),
-        RaisedButton(onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Jusst()));
-        })
-      ],
+        decoration: BoxDecoration(
+            color: Colors.blueGrey[900],
+            borderRadius: BorderRadius.circular(30)),
+      ),
     );
   }
 }
