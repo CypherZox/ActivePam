@@ -1,0 +1,32 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.pichillilorenzo.flutter_inappwebview" >
+4
+5    <uses-sdk android:minSdkVersion="17" />
+5-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml
+6
+7    <application>
+7-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml:4:5-8:19
+8        <activity
+8-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml:5:9-199
+9            android:name="com.pichillilorenzo.flutter_inappwebview.InAppBrowser.InAppBrowserActivity"
+9-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml:5:51-140
+10            android:configChanges="orientation|screenSize"
+10-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml:5:141-187
+11            android:theme="@style/AppTheme" />
+11-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml:5:19-50
+12        <activity
+12-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml:6:9-215
+13            android:name="com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ChromeCustomTabsActivity"
+13-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml:6:59-156
+14            android:configChanges="orientation|screenSize"
+14-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml:6:157-203
+15            android:theme="@style/ThemeTransparent" />
+15-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml:6:19-58
+16
+17        <receiver android:name="com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ActionBroadcastReceiver" />
+17-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml:7:9-118
+17-->C:\src\flutter\.pub-cache\hosted\pub.dartlang.org\flutter_inappwebview-4.0.0+4\android\src\main\AndroidManifest.xml:7:19-115
+18    </application>
+19
+20</manifest>

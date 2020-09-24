@@ -3,6 +3,7 @@ import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/screens/choose_version.dart';
 import 'package:get_active_prf/screens/done_screen.dart';
 import 'package:get_active_prf/screens/explore.dart';
+import 'package:get_active_prf/screens/jussst.dart';
 import 'package:get_active_prf/screens/log_in.dart';
 import 'package:get_active_prf/screens/register.dart';
 import 'package:get_active_prf/screens/start_workout.dart';
@@ -24,9 +25,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/just',
       routes: {
-        '/log_n': (context) => Login(),
+        '/log_n': (context) => LogIn(),
         '/Register': (context) => Register(),
         '/Explore': (context) => Explore(),
         '/Choose_version': (context) => ChooseVersion(),
@@ -34,7 +36,8 @@ class MyApp extends StatelessWidget {
         '/VidScreen': (context) => VidScreen(),
         '/DoneScreen': (context) => Done(),
         '/testScreen': (context) => TestScreen(),
-        '/just': (context) => JustAtest()
+        '/just': (context) => JustAtest(),
+        '/jusst': (context) => Jusst()
       },
     );
   }

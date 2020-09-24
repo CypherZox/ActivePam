@@ -1,90 +1,230 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_active_prf/custom_icons/google_icon_icons.dart';
+import 'package:get_active_prf/services/auth.dart';
+import 'package:get_active_prf/styles/decorations.dart';
 
 class JustAtest extends StatefulWidget {
   @override
   _JustAtestState createState() => _JustAtestState();
 }
 
-class _JustAtestState extends State<JustAtest>
-    with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+class _JustAtestState extends State<JustAtest> {
+  AuthService auth = AuthService();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this);
-  }
-
-  var shared = new List.filled(5, 0);
   @override
   void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
     super.dispose();
-    _controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(30.0, 70.0, 10.0, 0.0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 20.0,
-                ),
-                GestureDetector(
-                    child: Icon(
-                  Icons.access_alarm,
-                )),
-                SizedBox(
-                  width: 20.0,
-                ),
-                Icon(Icons.bubble_chart),
-                SizedBox(
-                  width: 20.0,
-                ),
-                Icon(Icons.keyboard)
-              ],
+    return Form(
+      key: _formKey,
+      child: Scaffold(
+        backgroundColor: Color(0xfff4f4f4),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 26.0),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 50),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      child: Text(
+                        'Log in',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'mija',
+                            color: Colors.black.withOpacity(0.2)),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Sign up',
+                          style: TextStyle(fontSize: 36, fontFamily: 'mija'),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: inputdecoration,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: EmailValidator.validate,
+                      ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      TextFormField(
+                          validator: NameValidator.validate,
+                          controller: _nameController,
+                          decoration:
+                              inputdecoration.copyWith(labelText: 'Name')),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      TextFormField(
+                          validator: PasswordValidator.validate,
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration:
+                              inputdecoration.copyWith(labelText: 'Password')),
+                      SizedBox(
+                        height: 40.0,
+                      ),
+                      LRbutton(
+                        onpressedfunc: () async {
+                          try {
+                            await auth.createUserWithEmailAndPassword(
+                                _emailController.text,
+                                _passwordController.text,
+                                _nameController.text);
+                          } catch (e) {
+                            print('$e');
+                          }
+                          await showDialog(
+                              context: context,
+                              builder: (context) {
+                                Future.delayed(Duration(seconds: 7), () {
+                                  Navigator.of(context).pop(true);
+                                });
+                                return AlertDialog(
+                                  title: Text(
+                                    'Signed up succesfully! ',
+                                    style: TextStyle(
+                                        fontFamily: 'mija', fontSize: 16),
+                                  ),
+                                );
+                              });
+                          final FirebaseAuth _auth = FirebaseAuth.instance;
+                          User currentUser = _auth.currentUser;
+                          await currentUser.updateProfile(
+                            displayName: _nameController.text,
+                          );
+                          print(currentUser.displayName);
+                          Navigator.pushNamed(context, '/log_n');
+                        },
+                        title: 'Sign Up',
+                      ),
+                      SizedBox(
+                        height: 60,
+                      ),
+                      Center(
+                        child: Text(
+                          'Or log in with google account',
+                          style: TextStyle(
+                              fontSize: 19,
+                              fontFamily: 'mija',
+                              color: Colors.black),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: SizedBox(
+                          width: 165,
+                          height: 45,
+                          child: OutlineButton(
+                            borderSide: BorderSide(
+                                color: Colors.black.withOpacity(0.7), width: 2),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    GoogleIcon.icons8_google,
+                                    size: 16,
+                                  ),
+                                  SizedBox(width: 11),
+                                  Text(
+                                    'Google',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'mija',
+                                        color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            ),
+                            onPressed: () async {
+                              try {
+                                await auth.signInWithGoogle();
+                              } catch (e) {
+                                print('$e');
+                              }
+                            },
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(90.0)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-          Container(
-            height: 400.0,
-            width: 350.0,
-            decoration: BoxDecoration(
-                color: Colors.blueGrey[900],
-                borderRadius: BorderRadius.circular(30.0)),
-          )
-        ],
+        ),
       ),
     );
   }
 }
 
-class Number extends StatelessWidget {
-  final String no;
-  Number({this.no});
+class LRbutton extends StatelessWidget {
+  final Function onpressedfunc;
+  final String title;
+  LRbutton({this.onpressedfunc, this.title});
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-      child: AnimatedContainer(
-        duration: Duration(seconds: 3),
-        height: 50.0,
-        width: 40,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 13.0, 0.0, 0.0),
-          child: Text(
-            '$no',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white),
+    return SizedBox(
+      height: 55,
+      width: double.infinity,
+      child: Container(
+        decoration: BoxDecoration(boxShadow: <BoxShadow>[
+          BoxShadow(
+              offset: Offset(6, 9),
+              color: Colors.grey.withOpacity(0.9),
+              spreadRadius: 5.0,
+              blurRadius: 14.0),
+        ], borderRadius: BorderRadius.circular(40)),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(40),
+          child: RaisedButton(
+            color: Color(0xff000000),
+            child: Center(
+              child: Text(
+                '$title',
+                style: TextStyle(
+                  fontFamily: 'mija',
+                  color: Color(0xfff4f4f4),
+                ),
+              ),
+            ),
+            onPressed: onpressedfunc,
           ),
         ),
-        decoration: BoxDecoration(
-            color: Colors.blueGrey[900],
-            borderRadius: BorderRadius.circular(30)),
       ),
     );
   }

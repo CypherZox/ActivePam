@@ -31,6 +31,7 @@
 .pub/
 /build/
 lib/screens/test.dart
+lib/screens/jussst.dart
 lib/screens/testest.dart
 # Web related
 lib/generated_plugin_registrant.dart

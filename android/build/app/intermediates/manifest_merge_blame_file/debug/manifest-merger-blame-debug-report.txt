@@ -1,0 +1,340 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.hanzy.get_active_prf"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="29" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\debug\AndroidManifest.xml:6:22-64
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->[com.google.firebase:firebase-inappmessaging-display:19.0.6] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\677b0112d2c1feb33cb3dc610cd346f4\firebase-inappmessaging-display-19.0.6\AndroidManifest.xml:11:5-79
+15-->[com.google.firebase:firebase-inappmessaging-display:19.0.6] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\677b0112d2c1feb33cb3dc610cd346f4\firebase-inappmessaging-display-19.0.6\AndroidManifest.xml:11:22-76
+16    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+16-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:24:5-68
+16-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:24:22-65
+17    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+17-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:26:5-82
+17-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:26:22-79
+18    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+18-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:26:5-110
+18-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:26:22-107
+19    <!--
+20 io.flutter.app.FlutterApplication is an android.app.Application that
+21         calls FlutterMain.startInitialization(this); in its onCreate method.
+22         In most cases you can leave this as-is, but you if you want to provide
+23         additional functionality it is fine to subclass or reimplement
+24         FlutterApplication and put your custom class here.
+25    -->
+26    <application
+26-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:8:5-46:19
+27        android:name="io.flutter.app.FlutterApplication"
+27-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:9:9-57
+28        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+28-->[androidx.core:core:1.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\0a88e15c27fe8f45486868f55d363bed\core-1.1.0\AndroidManifest.xml:24:18-86
+29        android:debuggable="true"
+30        android:icon="@mipmap/ic_launcher"
+30-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:11:9-43
+31        android:label="get_active_prf" >
+31-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:10:9-39
+32        <activity
+32-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:12:9-40:20
+33            android:name="com.example.get_active_prf.MainActivity"
+33-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:13:13-41
+34            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+34-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:16:13-163
+35            android:hardwareAccelerated="true"
+35-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:17:13-47
+36            android:launchMode="singleTop"
+36-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:14:13-43
+37            android:theme="@style/LaunchTheme"
+37-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:15:13-47
+38            android:windowSoftInputMode="adjustResize" >
+38-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:18:13-55
+39
+40            <!--
+41                 Specifies an Android theme to apply to this Activity as soon as
+42                 the Android process has started. This theme is visible to the user
+43                 while the Flutter UI initializes. After that, this theme continues
+44                 to determine the Window background behind the Flutter UI.
+45            -->
+46            <meta-data
+46-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:23:13-26:17
+47                android:name="io.flutter.embedding.android.NormalTheme"
+47-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:24:15-70
+48                android:resource="@style/NormalTheme" />
+48-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:25:15-52
+49            <!--
+50                 Displays an Android View that continues showing the launch screen
+51                 Drawable until Flutter paints its first frame, then this splash
+52                 screen fades out. A splash screen is useful to avoid any visual
+53                 gap between the end of Android's launch screen and the painting of
+54                 Flutter's first frame.
+55            -->
+56            <meta-data
+56-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:32:13-35:17
+57                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+57-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:33:15-79
+58                android:resource="@drawable/launch_background" />
+58-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:34:15-61
+59
+60            <intent-filter>
+60-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:36:13-39:29
+61                <action android:name="android.intent.action.MAIN" />
+61-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:37:17-68
+61-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:37:25-66
+62
+63                <category android:name="android.intent.category.LAUNCHER" />
+63-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:38:17-76
+63-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:38:27-74
+64            </intent-filter>
+65        </activity>
+66        <!--
+67             Don't delete the meta-data below.
+68             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+69        -->
+70        <meta-data
+70-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:43:9-45:33
+71            android:name="flutterEmbedding"
+71-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:44:13-44
+72            android:value="2" />
+72-->C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\android\app\src\main\AndroidManifest.xml:45:13-30
+73
+74        <service
+74-->[:firebase_auth] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+75            android:name="com.google.firebase.components.ComponentDiscoveryService"
+75-->[:firebase_auth] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-89
+76            android:directBootAware="true"
+76-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\a1cc6c17dceae54d01bb6e1ef294ec9f\jetified-firebase-common-19.3.0\AndroidManifest.xml:34:13-43
+77            android:exported="false" >
+77-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\2b94f0e10fbc0fddbabced8054a2df06\firebase-auth-19.3.2\AndroidManifest.xml:35:13-37
+78            <meta-data
+78-->[:firebase_auth] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+79                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
+79-->[:firebase_auth] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-124
+80                android:value="com.google.firebase.components.ComponentRegistrar" />
+80-->[:firebase_auth] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+81            <meta-data
+81-->[:cloud_firestore] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+82                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar"
+82-->[:cloud_firestore] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-134
+83                android:value="com.google.firebase.components.ComponentRegistrar" />
+83-->[:cloud_firestore] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\cloud_firestore\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+84            <meta-data
+84-->[:firebase_core] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+85                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+85-->[:firebase_core] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-124
+86                android:value="com.google.firebase.components.ComponentRegistrar" />
+86-->[:firebase_core] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+87            <meta-data
+87-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\2b94f0e10fbc0fddbabced8054a2df06\firebase-auth-19.3.2\AndroidManifest.xml:36:13-38:85
+88                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+88-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\2b94f0e10fbc0fddbabced8054a2df06\firebase-auth-19.3.2\AndroidManifest.xml:37:17-109
+89                android:value="com.google.firebase.components.ComponentRegistrar" />
+89-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\2b94f0e10fbc0fddbabced8054a2df06\firebase-auth-19.3.2\AndroidManifest.xml:38:17-82
+90            <meta-data
+90-->[com.google.firebase:firebase-inappmessaging-display:19.0.6] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\677b0112d2c1feb33cb3dc610cd346f4\firebase-inappmessaging-display-19.0.6\AndroidManifest.xml:18:13-20:85
+91                android:name="com.google.firebase.components:com.google.firebase.inappmessaging.display.FirebaseInAppMessagingDisplayRegistrar"
+91-->[com.google.firebase:firebase-inappmessaging-display:19.0.6] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\677b0112d2c1feb33cb3dc610cd346f4\firebase-inappmessaging-display-19.0.6\AndroidManifest.xml:19:17-144
+92                android:value="com.google.firebase.components.ComponentRegistrar" />
+92-->[com.google.firebase:firebase-inappmessaging-display:19.0.6] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\677b0112d2c1feb33cb3dc610cd346f4\firebase-inappmessaging-display-19.0.6\AndroidManifest.xml:20:17-82
+93            <meta-data
+93-->[com.google.firebase:firebase-firestore:21.4.3] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\e62367e6799cc4836d7f9dc973d01560\jetified-firebase-firestore-21.4.3\AndroidManifest.xml:20:13-22:85
+94                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+94-->[com.google.firebase:firebase-firestore:21.4.3] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\e62367e6799cc4836d7f9dc973d01560\jetified-firebase-firestore-21.4.3\AndroidManifest.xml:21:17-111
+95                android:value="com.google.firebase.components.ComponentRegistrar" />
+95-->[com.google.firebase:firebase-firestore:21.4.3] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\e62367e6799cc4836d7f9dc973d01560\jetified-firebase-firestore-21.4.3\AndroidManifest.xml:22:17-82
+96            <meta-data
+96-->[com.google.firebase:firebase-inappmessaging:19.0.6] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\704d980b8fc8c0e45230a5741986e86f\jetified-firebase-inappmessaging-19.0.6\AndroidManifest.xml:17:13-19:85
+97                android:name="com.google.firebase.components:com.google.firebase.inappmessaging.FirebaseInAppMessagingRegistrar"
+97-->[com.google.firebase:firebase-inappmessaging:19.0.6] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\704d980b8fc8c0e45230a5741986e86f\jetified-firebase-inappmessaging-19.0.6\AndroidManifest.xml:18:17-129
+98                android:value="com.google.firebase.components.ComponentRegistrar" />
+98-->[com.google.firebase:firebase-inappmessaging:19.0.6] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\704d980b8fc8c0e45230a5741986e86f\jetified-firebase-inappmessaging-19.0.6\AndroidManifest.xml:19:17-82
+99            <meta-data
+99-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:32:13-34:85
+100                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+100-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:33:17-96
+101                android:value="com.google.firebase.components.ComponentRegistrar" />
+101-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:34:17-82
+102            <meta-data
+102-->[com.google.android.gms:play-services-measurement-api:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\42ae81f10aa71a9ece023fce4647b405\play-services-measurement-api-17.5.0\AndroidManifest.xml:30:13-32:85
+103                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+103-->[com.google.android.gms:play-services-measurement-api:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\42ae81f10aa71a9ece023fce4647b405\play-services-measurement-api-17.5.0\AndroidManifest.xml:31:17-139
+104                android:value="com.google.firebase.components.ComponentRegistrar" />
+104-->[com.google.android.gms:play-services-measurement-api:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\42ae81f10aa71a9ece023fce4647b405\play-services-measurement-api-17.5.0\AndroidManifest.xml:32:17-82
+105            <meta-data
+105-->[com.google.firebase:firebase-installations:16.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\0ab2e7af15821bd2aaebae71b08e932e\firebase-installations-16.3.2\AndroidManifest.xml:17:13-19:85
+106                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+106-->[com.google.firebase:firebase-installations:16.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\0ab2e7af15821bd2aaebae71b08e932e\firebase-installations-16.3.2\AndroidManifest.xml:18:17-127
+107                android:value="com.google.firebase.components.ComponentRegistrar" />
+107-->[com.google.firebase:firebase-installations:16.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\0ab2e7af15821bd2aaebae71b08e932e\firebase-installations-16.3.2\AndroidManifest.xml:19:17-82
+108            <meta-data
+108-->[com.google.firebase:firebase-abt:19.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\1403a82f2ae4e0aefc92beeac5a3d2b4\firebase-abt-19.0.1\AndroidManifest.xml:13:13-15:85
+109                android:name="com.google.firebase.components:com.google.firebase.abt.component.AbtRegistrar"
+109-->[com.google.firebase:firebase-abt:19.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\1403a82f2ae4e0aefc92beeac5a3d2b4\firebase-abt-19.0.1\AndroidManifest.xml:14:17-109
+110                android:value="com.google.firebase.components.ComponentRegistrar" />
+110-->[com.google.firebase:firebase-abt:19.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\1403a82f2ae4e0aefc92beeac5a3d2b4\firebase-abt-19.0.1\AndroidManifest.xml:15:17-82
+111            <meta-data
+111-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\acb09fd2526e0fd66be6234eb0b73f3a\firebase-datatransport-17.0.3\AndroidManifest.xml:28:13-30:85
+112                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+112-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\acb09fd2526e0fd66be6234eb0b73f3a\firebase-datatransport-17.0.3\AndroidManifest.xml:29:17-115
+113                android:value="com.google.firebase.components.ComponentRegistrar" />
+113-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\acb09fd2526e0fd66be6234eb0b73f3a\firebase-datatransport-17.0.3\AndroidManifest.xml:30:17-82
+114        </service>
+115
+116        <activity
+116-->[:flutter_inappwebview] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:47
+117            android:name="com.pichillilorenzo.flutter_inappwebview.InAppBrowser.InAppBrowserActivity"
+117-->[:flutter_inappwebview] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-102
+118            android:configChanges="orientation|screenSize"
+118-->[:flutter_inappwebview] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-59
+119            android:theme="@style/AppTheme" />
+119-->[:flutter_inappwebview] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-44
+120        <activity
+120-->[:flutter_inappwebview] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-15:55
+121            android:name="com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ChromeCustomTabsActivity"
+121-->[:flutter_inappwebview] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-110
+122            android:configChanges="orientation|screenSize"
+122-->[:flutter_inappwebview] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-59
+123            android:theme="@style/ThemeTransparent" />
+123-->[:flutter_inappwebview] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-52
+124
+125        <receiver android:name="com.pichillilorenzo.flutter_inappwebview.ChromeCustomTabs.ActionBroadcastReceiver" />
+125-->[:flutter_inappwebview] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:17:9-118
+125-->[:flutter_inappwebview] C:\Users\Hanaa' Fawzi\Desktop\programming\get_active_prf\build\flutter_inappwebview\intermediates\library_manifest\debug\AndroidManifest.xml:17:19-115
+126
+127        <activity
+127-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\2b94f0e10fbc0fddbabced8054a2df06\firebase-auth-19.3.2\AndroidManifest.xml:24:9-31:50
+128            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+128-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\2b94f0e10fbc0fddbabced8054a2df06\firebase-auth-19.3.2\AndroidManifest.xml:25:13-85
+129            android:excludeFromRecents="true"
+129-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\2b94f0e10fbc0fddbabced8054a2df06\firebase-auth-19.3.2\AndroidManifest.xml:26:13-46
+130            android:exported="true"
+130-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\2b94f0e10fbc0fddbabced8054a2df06\firebase-auth-19.3.2\AndroidManifest.xml:27:13-36
+131            android:launchMode="singleTask"
+131-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\2b94f0e10fbc0fddbabced8054a2df06\firebase-auth-19.3.2\AndroidManifest.xml:28:13-44
+132            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+132-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\2b94f0e10fbc0fddbabced8054a2df06\firebase-auth-19.3.2\AndroidManifest.xml:29:13-102
+133            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+133-->[com.google.firebase:firebase-auth:19.3.2] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\2b94f0e10fbc0fddbabced8054a2df06\firebase-auth-19.3.2\AndroidManifest.xml:30:13-72
+134
+135        <receiver
+135-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:37:9-44:20
+136            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+136-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:38:13-78
+137            android:exported="true"
+137-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:39:13-36
+138            android:permission="com.google.android.c2dm.permission.SEND" >
+138-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:40:13-73
+139            <intent-filter>
+139-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:41:13-43:29
+140                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+140-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:42:17-81
+140-->[com.google.firebase:firebase-iid:20.0.1] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7f38d312f758739a228e72076816e5c7\firebase-iid-20.0.1\AndroidManifest.xml:42:25-78
+141            </intent-filter>
+142        </receiver>
+143
+144        <activity
+144-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\11139722c985ff28aa4e11b218f92cf9\play-services-base-17.1.0\AndroidManifest.xml:23:9-26:75
+145            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+145-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\11139722c985ff28aa4e11b218f92cf9\play-services-base-17.1.0\AndroidManifest.xml:24:13-79
+146            android:exported="false"
+146-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\11139722c985ff28aa4e11b218f92cf9\play-services-base-17.1.0\AndroidManifest.xml:25:13-37
+147            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+147-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\11139722c985ff28aa4e11b218f92cf9\play-services-base-17.1.0\AndroidManifest.xml:26:13-72
+148
+149        <receiver
+149-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:29:9-33:20
+150            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+150-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:30:13-85
+151            android:enabled="true"
+151-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:31:13-35
+152            android:exported="false" >
+152-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:32:13-37
+153        </receiver>
+154
+155        <service
+155-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:35:9-38:40
+156            android:name="com.google.android.gms.measurement.AppMeasurementService"
+156-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:36:13-84
+157            android:enabled="true"
+157-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:37:13-35
+158            android:exported="false" />
+158-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:38:13-37
+159        <service
+159-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:39:9-43:72
+160            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+160-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:40:13-87
+161            android:enabled="true"
+161-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:41:13-35
+162            android:exported="false"
+162-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:42:13-37
+163            android:permission="android.permission.BIND_JOB_SERVICE" />
+163-->[com.google.android.gms:play-services-measurement:17.5.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\b554b02f0ea3a805655c0960b422e6fe\play-services-measurement-17.5.0\AndroidManifest.xml:43:13-69
+164
+165        <provider
+165-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\a1cc6c17dceae54d01bb6e1ef294ec9f\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
+166            android:name="com.google.firebase.provider.FirebaseInitProvider"
+166-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\a1cc6c17dceae54d01bb6e1ef294ec9f\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
+167            android:authorities="com.hanzy.get_active_prf.firebaseinitprovider"
+167-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\a1cc6c17dceae54d01bb6e1ef294ec9f\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
+168            android:exported="false"
+168-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\a1cc6c17dceae54d01bb6e1ef294ec9f\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
+169            android:initOrder="100" />
+169-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\a1cc6c17dceae54d01bb6e1ef294ec9f\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
+170
+171        <meta-data
+171-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\31ca582b68c3cf29ceb262011c5512b4\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+172            android:name="com.google.android.gms.version"
+172-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\31ca582b68c3cf29ceb262011c5512b4\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+173            android:value="@integer/google_play_services_version" />
+173-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\31ca582b68c3cf29ceb262011c5512b4\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+174
+175        <provider
+175-->[com.squareup.picasso:picasso:2.71828] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7063a2c488bdeedaae4d07b6e0709bed\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
+176            android:name="com.squareup.picasso.PicassoProvider"
+176-->[com.squareup.picasso:picasso:2.71828] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7063a2c488bdeedaae4d07b6e0709bed\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
+177            android:authorities="com.hanzy.get_active_prf.com.squareup.picasso"
+177-->[com.squareup.picasso:picasso:2.71828] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7063a2c488bdeedaae4d07b6e0709bed\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
+178            android:exported="false" />
+178-->[com.squareup.picasso:picasso:2.71828] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\7063a2c488bdeedaae4d07b6e0709bed\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
+179
+180        <service
+180-->[com.google.android.datatransport:transport-backend-cct:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\df2718467da5e261dbba896c927406f3\transport-backend-cct-2.1.0\AndroidManifest.xml:29:9-35:19
+181            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+181-->[com.google.android.datatransport:transport-backend-cct:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\df2718467da5e261dbba896c927406f3\transport-backend-cct-2.1.0\AndroidManifest.xml:30:13-103
+182            android:exported="false" >
+182-->[com.google.android.datatransport:transport-backend-cct:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\df2718467da5e261dbba896c927406f3\transport-backend-cct-2.1.0\AndroidManifest.xml:31:13-37
+183            <meta-data
+183-->[com.google.android.datatransport:transport-backend-cct:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\df2718467da5e261dbba896c927406f3\transport-backend-cct-2.1.0\AndroidManifest.xml:32:13-34:39
+184                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+184-->[com.google.android.datatransport:transport-backend-cct:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\df2718467da5e261dbba896c927406f3\transport-backend-cct-2.1.0\AndroidManifest.xml:33:17-94
+185                android:value="cct" />
+185-->[com.google.android.datatransport:transport-backend-cct:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\df2718467da5e261dbba896c927406f3\transport-backend-cct-2.1.0\AndroidManifest.xml:34:17-36
+186        </service>
+187        <service
+187-->[com.google.android.datatransport:transport-runtime:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\d61f8b2cb984b91a9d6a49f337253efa\transport-runtime-2.1.0\AndroidManifest.xml:26:9-30:19
+188            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+188-->[com.google.android.datatransport:transport-runtime:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\d61f8b2cb984b91a9d6a49f337253efa\transport-runtime-2.1.0\AndroidManifest.xml:27:13-117
+189            android:exported="false"
+189-->[com.google.android.datatransport:transport-runtime:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\d61f8b2cb984b91a9d6a49f337253efa\transport-runtime-2.1.0\AndroidManifest.xml:28:13-37
+190            android:permission="android.permission.BIND_JOB_SERVICE" >
+190-->[com.google.android.datatransport:transport-runtime:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\d61f8b2cb984b91a9d6a49f337253efa\transport-runtime-2.1.0\AndroidManifest.xml:29:13-69
+191        </service>
+192
+193        <receiver
+193-->[com.google.android.datatransport:transport-runtime:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\d61f8b2cb984b91a9d6a49f337253efa\transport-runtime-2.1.0\AndroidManifest.xml:32:9-34:40
+194            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+194-->[com.google.android.datatransport:transport-runtime:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\d61f8b2cb984b91a9d6a49f337253efa\transport-runtime-2.1.0\AndroidManifest.xml:33:13-132
+195            android:exported="false" />
+195-->[com.google.android.datatransport:transport-runtime:2.1.0] C:\Users\Hanaa' Fawzi\.gradle\gradle-5.6.4\caches\transforms-2\files-2.1\d61f8b2cb984b91a9d6a49f337253efa\transport-runtime-2.1.0\AndroidManifest.xml:34:13-37
+196    </application>
+197
+198</manifest>
