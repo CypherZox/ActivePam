@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/custom_icons/google_icon_icons.dart';
+import 'package:get_active_prf/screens/register.dart';
 import 'package:get_active_prf/services/auth.dart';
 import 'package:get_active_prf/styles/decorations.dart';
+import 'package:page_transition/page_transition.dart';
 
 class LogIn extends StatefulWidget {
   @override
@@ -39,6 +41,13 @@ class _LogInState extends State<LogIn> {
                   Align(
                     alignment: Alignment.topRight,
                     child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: Register(),
+                                type: PageTransitionType.leftToRight));
+                      },
                       child: Text(
                         'Sign Up',
                         style: TextStyle(
@@ -152,13 +161,28 @@ class _LogInState extends State<LogIn> {
                       LRbutton(
                         onpressedfunc: () async {
                           try {
-                            auth.signInWithEmailAndPassword(
+                            await auth.signInWithEmailAndPassword(
                                 _emailController.text,
                                 _passwordController.text);
                           } catch (e) {
                             print('$e');
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  Future.delayed(Duration(seconds: 4), () {
+                                    Navigator.of(context).pop(true);
+                                  });
+                                  return AlertDialog(
+                                    title: Text(
+                                      'Try again with correct e-mail and password! ',
+                                      style: TextStyle(
+                                          fontFamily: 'mija', fontSize: 16),
+                                    ),
+                                  );
+                                });
                           }
-                          Navigator.pushNamed(context, '/jusst');
+                          auth.setuserprogress();
+                          Navigator.pushNamed(context, '/Explore');
                         },
                         title: 'log in',
                       ),

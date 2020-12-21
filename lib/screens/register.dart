@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/custom_icons/google_icon_icons.dart';
+import 'package:get_active_prf/screens/log_in.dart';
 import 'package:get_active_prf/services/auth.dart';
 import 'package:get_active_prf/styles/decorations.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -15,7 +18,8 @@ class _RegisterState extends State<Register> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-
+  final CollectionReference progCollection =
+      FirebaseFirestore.instance.collection('userprogress');
   @override
   void dispose() {
     _emailController.dispose();
@@ -40,6 +44,13 @@ class _RegisterState extends State<Register> {
                   Align(
                     alignment: Alignment.topRight,
                     child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: LogIn(),
+                                type: PageTransitionType.rightToLeft));
+                      },
                       child: Text(
                         'Log in',
                         style: TextStyle(
@@ -99,13 +110,34 @@ class _RegisterState extends State<Register> {
                                 _nameController.text);
                           } catch (e) {
                             print('$e');
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  Future.delayed(Duration(seconds: 4), () {
+                                    Navigator.of(context).pop(true);
+                                  });
+                                  return AlertDialog(
+                                    title: Text(
+                                      'Try again with valid e-mail! ',
+                                      style: TextStyle(
+                                          fontFamily: 'mija', fontSize: 16),
+                                    ),
+                                  );
+                                });
                           }
+                          final FirebaseAuth _auth = FirebaseAuth.instance;
+                          User currentUser = _auth.currentUser;
+                          print(currentUser.uid);
+                          progCollection.doc('${currentUser.uid}').set({
+                            'week1': [0, 0, 0, 0, 0, 0, 0],
+                          });
                           await showDialog(
                               context: context,
                               builder: (context) {
                                 Future.delayed(Duration(seconds: 7), () {
                                   Navigator.of(context).pop(true);
                                 });
+
                                 return AlertDialog(
                                   title: Text(
                                     'Signed up succesfully! ',
@@ -114,12 +146,12 @@ class _RegisterState extends State<Register> {
                                   ),
                                 );
                               });
-                          final FirebaseAuth _auth = FirebaseAuth.instance;
-                          User currentUser = _auth.currentUser;
+
                           await currentUser.updateProfile(
                             displayName: _nameController.text,
                           );
                           print(currentUser.displayName);
+
                           Navigator.pushNamed(context, '/log_n');
                         },
                         title: 'Sign Up',

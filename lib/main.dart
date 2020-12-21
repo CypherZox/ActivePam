@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/screens/choose_version.dart';
+import 'package:get_active_prf/screens/DayScreen.dart';
 import 'package:get_active_prf/screens/done_screen.dart';
 import 'package:get_active_prf/screens/explore.dart';
 import 'package:get_active_prf/screens/jussst.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/just',
+      initialRoute: '/Explore',
       routes: {
         '/log_n': (context) => LogIn(),
         '/Register': (context) => Register(),
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
         '/DoneScreen': (context) => Done(),
         '/testScreen': (context) => TestScreen(),
         '/just': (context) => JustAtest(),
-        '/jusst': (context) => Jusst()
+        '/jusst': (context) => Jusst(),
+        '/dayscreen': (context) => DayScreen(),
       },
     );
   }

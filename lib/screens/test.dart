@@ -127,7 +127,7 @@ class _TestScreenState extends State<TestScreen> {
                           return snapshot.hasData
                               ? DaysList(
                                   vidIds: snapshot.data,
-                                  prcntg: prcntg,
+                                  // prcntg: prcntg,
                                   // prcntg: Provider.of<DataService>(context).getUserProgress(this.widget.dayNo
                                   // this.widget.weekNo)
                                 )

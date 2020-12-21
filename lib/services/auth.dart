@@ -43,6 +43,7 @@ class AuthService {
         .uid;
   }
 
+  void setuserprogress() {}
   // Sign Out
   signOut() {
     return _firebaseAuth.signOut();

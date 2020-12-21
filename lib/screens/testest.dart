@@ -1,193 +1,98 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get_active_prf/custom_icons/google_icon_icons.dart';
-import 'package:get_active_prf/services/auth.dart';
-import 'package:get_active_prf/styles/decorations.dart';
+import 'package:get_active_prf/models/data_models/video.dart';
+import 'package:get_active_prf/widgets/days_view.dart';
 
 class JustAtest extends StatefulWidget {
+  final String weekNo;
+  final String version;
+  JustAtest({this.weekNo, this.version});
   @override
   _JustAtestState createState() => _JustAtestState();
 }
 
 class _JustAtestState extends State<JustAtest> {
-  AuthService auth = AuthService();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
+  final String dayNo = '1';
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User get user {
+    return _auth.currentUser;
+  }
+
+  String get name {
+    return user.displayName;
+  }
+  //   User get user {
+  //     return _auth.currentUser;
+  //   }
+
+  // String get name {
+  //   return user.displayName;}
+  String getusername() {
+    var user = _auth.currentUser;
+    String name = user.displayName;
+    return name;
+  }
+
+  void initstate() {
+    super.initState();
+    // setState(() {
+    //   this.name = getusername();
+    // });
+  }
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _nameController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: Color(0xfff4f4f4),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 26.0),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 50),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: GestureDetector(
+        body: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              color: Color(0xffdbdbdb),
+              width: 40,
+            ),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(22.0, 60.0, 22.0, 0.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
                       child: Text(
-                        'Log in',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'mija',
-                            color: Colors.black.withOpacity(0.2)),
+                        '01',
+                        style: TextStyle(fontFamily: 'mija', fontSize: 46),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Column(
-                    children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          'Sign up',
-                          style: TextStyle(fontSize: 36, fontFamily: 'mija'),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: inputdecoration,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: EmailValidator.validate,
-                      ),
-                      SizedBox(
-                        height: 16.0,
-                      ),
-                      TextFormField(
-                          validator: NameValidator.validate,
-                          controller: _nameController,
-                          decoration:
-                              inputdecoration.copyWith(labelText: 'Name')),
-                      SizedBox(
-                        height: 16.0,
-                      ),
-                      TextFormField(
-                          validator: PasswordValidator.validate,
-                          controller: _passwordController,
-                          obscureText: true,
-                          decoration:
-                              inputdecoration.copyWith(labelText: 'Password')),
-                      SizedBox(
-                        height: 40.0,
-                      ),
-                      LRbutton(
-                        onpressedfunc: () async {
-                          try {
-                            await auth.createUserWithEmailAndPassword(
-                                _emailController.text,
-                                _passwordController.text,
-                                _nameController.text);
-                          } catch (e) {
-                            print('$e');
-                          }
-                          await showDialog(
-                              context: context,
-                              builder: (context) {
-                                Future.delayed(Duration(seconds: 7), () {
-                                  Navigator.of(context).pop(true);
-                                });
-                                return AlertDialog(
-                                  title: Text(
-                                    'Signed up succesfully! ',
-                                    style: TextStyle(
-                                        fontFamily: 'mija', fontSize: 16),
-                                  ),
-                                );
-                              });
-                          final FirebaseAuth _auth = FirebaseAuth.instance;
-                          User currentUser = _auth.currentUser;
-                          await currentUser.updateProfile(
-                            displayName: _nameController.text,
-                          );
-                          print(currentUser.displayName);
-                          Navigator.pushNamed(context, '/log_n');
-                        },
-                        title: 'Sign Up',
-                      ),
-                      SizedBox(
-                        height: 60,
-                      ),
-                      Center(
-                        child: Text(
-                          'Or log in with google account',
-                          style: TextStyle(
-                              fontSize: 19,
-                              fontFamily: 'mija',
-                              color: Colors.black),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: SizedBox(
-                          width: 165,
-                          height: 45,
-                          child: OutlineButton(
-                            borderSide: BorderSide(
-                                color: Colors.black.withOpacity(0.7), width: 2),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    GoogleIcon.icons8_google,
-                                    size: 16,
-                                  ),
-                                  SizedBox(width: 11),
-                                  Text(
-                                    'Google',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'mija',
-                                        color: Colors.black),
-                                  )
-                                ],
-                              ),
-                            ),
-                            onPressed: () async {
-                              try {
-                                await auth.signInWithGoogle();
-                              } catch (e) {
-                                print('$e');
-                              }
-                            },
-                            shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(90.0)),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    SizedBox(
+                      height: 1.0,
+                    ),
+                    Expanded(
+                        child: FutureBuilder<List<dynamic>>(
+                      future: VideoModel().getIDs('1', '1', 'beginner'),
+                      builder: (context, snapshot) {
+                        return snapshot.hasData
+                            ? DaysList(
+                                vidIds: snapshot.data,
+                                // prcntg: prcntg,
+                                // prcntg: Provider.of<DataService>(context).getUserProgress(this.widget.dayNo
+                                // this.widget.weekNo)
+                              )
+                            : Center(child: CircularProgressIndicator());
+                      },
+                    )),
+                  ],
+                ),
               ),
-            ),
-          ),
-        ),
-      ),
-    );
+            )
+          ],
+        ));
   }
 }
 
