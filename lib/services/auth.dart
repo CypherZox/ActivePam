@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
-class AuthService {
+class AuthService extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -10,7 +12,7 @@ class AuthService {
       );
 
   // GET UID
-  Future<String> getCurrentUID() async {
+  String getCurrentUID() {
     return (_firebaseAuth.currentUser).uid;
   }
 

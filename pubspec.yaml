@@ -48,6 +48,7 @@ dependencies:
   page_transition: ^1.1.6
   dots_indicator: ^1.2.0
   cached_network_image: ^2.4.1
+  cupertino_will_pop_scope: ^1.0.4
 
 
  
@@ -101,6 +102,10 @@ flutter:
     - family: ForwardArrow
       fonts:
        - asset: assets/icons/ForwaredArrow.ttf
+    
+    - family: options
+      fonts:
+       - asset: assets/icons/Options.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

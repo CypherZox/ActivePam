@@ -13,6 +13,7 @@ import 'package:get_active_prf/screens/testest.dart';
 import 'package:get_active_prf/screens/vid_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:cupertino_will_pop_scope/cupertino_will_pop_scope.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          platform: TargetPlatform.iOS,
+          pageTransitionsTheme: PageTransitionsTheme(builders: {
+            TargetPlatform.android: ZoomPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoWillPopScopePageTransionsBuilder(),
+          })),
       debugShowCheckedModeBanner: false,
       initialRoute: '/Explore',
       routes: {

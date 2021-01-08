@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:get_active_prf/screens/explore.dart';
 import 'package:get_active_prf/screens/jussst.dart';
 import 'package:get_active_prf/screens/vid_screen.dart';
 import 'package:get_active_prf/services/cloud_data.dart';
@@ -12,7 +11,9 @@ import 'package:get_active_prf/widgets/DayNumber.dart';
 
 class DayScreen extends StatefulWidget {
   final Stream week;
-  DayScreen({this.week});
+  final String weekNo;
+  String dayNo;
+  DayScreen({this.week, this.weekNo, this.dayNo});
   @override
   _DayScreenState createState() => _DayScreenState();
 }
@@ -20,7 +21,7 @@ class DayScreen extends StatefulWidget {
 class _DayScreenState extends State<DayScreen> {
   final PageController ctrl = PageController(viewportFraction: 0.8);
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String dayNo = '1';
+  // String dayNo = this.dayNo;
   int prcntg;
   int currentPage = 0;
   User get user {
@@ -36,6 +37,7 @@ class _DayScreenState extends State<DayScreen> {
     DayNumber(no: '6'),
     DayNumber(no: '7'),
   ];
+
   @override
   void dispose() {
     super.dispose();
@@ -61,112 +63,126 @@ class _DayScreenState extends State<DayScreen> {
   // final week = CloudData().vidIds.doc('week1').snapshots();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffe1d4e5),
-      body: StreamBuilder(
-          stream: this.widget.week,
-          builder: (context, AsyncSnapshot snap) {
-            if (snap.hasError) {
-              return Text('Something went wrong');
-            }
-            if (snap.connectionState == ConnectionState.waiting) {
-              return Text("Loading");
-            }
-            final vids = snap.data.data()['day${this.dayNo}'];
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        child: Container(
-                          width: 40,
-                          color: Color(0xffCABECE),
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(0.0, 90, 0.0, 0.0),
-                            child: Column(
-                              children: [
-                                DayNumber(
-                                  no: '1',
-                                  numberChosen: () {
-                                    setState(() {
-                                      dayNo = '1';
-                                      // prcntg = snap.data.data()['week1'][0];
-                                    });
-                                  },
-                                ),
-                                DayNumber(
-                                  no: '2',
-                                  numberChosen: () {
-                                    setState(() {
-                                      dayNo = '2';
-                                      // prcntg = snap.data.data()['week1'][2];
-                                    });
-                                  },
-                                ),
-                                DayNumber(
-                                  no: '3',
-                                  numberChosen: () {
-                                    setState(() {
-                                      dayNo = '3';
-                                      // prcntg = snap.data.data()['week1'][2];
-                                    });
-                                  },
-                                ),
-                                // DayNumber(no: '4', numberChosen: onNumberTapped('4')),
-                                DayNumber(
-                                  no: '5',
-                                  numberChosen: () {
-                                    setState(() {
-                                      dayNo = '5';
-                                      // prcntg = snap.data.data()['week1'][3];
-                                    });
-                                  },
-                                ),
-                                DayNumber(
-                                  no: '6',
-                                  numberChosen: () {
-                                    setState(() {
-                                      dayNo = '6';
-                                      // prcntg = snap.data.data()['week1'][4];
-                                    });
-                                  },
-                                ),
-                                //
-                              ],
+    return GestureDetector(
+      onPanUpdate: (details) {
+        if (details.delta.dx > 0) {
+          Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  duration: Duration(milliseconds: 35),
+                  child: Explore(),
+                  type: PageTransitionType.leftToRight));
+          ;
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Color(0xffe1d4e5),
+        body: StreamBuilder(
+            stream: this.widget.week,
+            builder: (context, AsyncSnapshot snap) {
+              if (snap.hasError) {
+                return Text('Something went wrong');
+              }
+              if (snap.connectionState == ConnectionState.waiting) {
+                return Text("Loading");
+              }
+              final vids = snap.data.data()['day${this.widget.dayNo}'];
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Container(
+                            width: 40,
+                            color: Color(0xffCABECE),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(0.0, 90, 0.0, 0.0),
+                              child: Column(
+                                children: [
+                                  DayNumber(
+                                    no: '1',
+                                    numberChosen: () {
+                                      setState(() {
+                                        this.widget.dayNo = '1';
+                                        // prcntg = snap.data.data()['week1'][0];
+                                      });
+                                    },
+                                  ),
+                                  DayNumber(
+                                    no: '2',
+                                    numberChosen: () {
+                                      setState(() {
+                                        this.widget.dayNo = '2';
+                                        // prcntg = snap.data.data()['week1'][2];
+                                      });
+                                    },
+                                  ),
+                                  DayNumber(
+                                    no: '3',
+                                    numberChosen: () {
+                                      setState(() {
+                                        this.widget.dayNo = '3';
+                                        // prcntg = snap.data.data()['week1'][2];
+                                      });
+                                    },
+                                  ),
+                                  // DayNumber(no: '4', numberChosen: onNumberTapped('4')),
+                                  DayNumber(
+                                    no: '5',
+                                    numberChosen: () {
+                                      setState(() {
+                                        this.widget.dayNo = '5';
+                                        // prcntg = snap.data.data()['week1'][3];
+                                      });
+                                    },
+                                  ),
+                                  DayNumber(
+                                    no: '6',
+                                    numberChosen: () {
+                                      setState(() {
+                                        this.widget.dayNo = '6';
+                                        // prcntg = snap.data.data()['week1'][4];
+                                      });
+                                    },
+                                  ),
+                                  //
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 8,
-                  child: PageView.builder(
-                      controller: ctrl,
-                      itemCount: vids.length,
-                      itemBuilder: (context, int currentIdx) {
-                        // Active page
-                        bool active = currentIdx == currentPage;
-                        return _buildStoryPage(
-                            vids[currentIdx], active, context);
-                      }),
-                ),
-              ],
-            );
-          }),
+                  Expanded(
+                    flex: 8,
+                    child: PageView.builder(
+                        controller: ctrl,
+                        itemCount: vids.length,
+                        itemBuilder: (context, int currentIdx) {
+                          // Active page
+                          bool active = currentIdx == currentPage;
+                          return _buildStoryPage(vids[currentIdx], active,
+                              context, this.widget.dayNo, this.widget.weekNo);
+                        }),
+                  ),
+                ],
+              );
+            }),
+      ),
     );
     //   ),
     // );
   }
 }
 
-_buildStoryPage(Map data, bool active, BuildContext context) {
+_buildStoryPage(
+    Map data, bool active, BuildContext context, String dayNo, String weekNo) {
   // Animated Properties
   final double blur = active ? 2 : 0;
   final double offset = active ? 0 : 0;
@@ -234,14 +250,15 @@ _buildStoryPage(Map data, bool active, BuildContext context) {
           child: IconButton(
               alignment: Alignment.bottomLeft,
               onPressed: () {
+                print('$dayNo');
                 Navigator.push(
                     context,
                     PageTransition(
                         type: PageTransitionType.upToDown,
                         child: VidScreen(
                           ids: vids,
-                          dayNo: '1',
-                          weekNo: '1',
+                          dayNo: dayNo,
+                          weekNo: weekNo,
                           version: version,
                         )));
               },

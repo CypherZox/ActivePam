@@ -3,15 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/screens/DayScreen.dart';
-import 'package:get_active_prf/screens/test.dart';
+import 'package:get_active_prf/screens/explore.dart';
 import 'package:get_active_prf/services/database_service.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:get_active_prf/services/cloud_data.dart';
 
-var globalContext;
+// var globalContext;
 
 class VidScreen extends StatefulWidget {
   final List<dynamic> ids;
@@ -129,7 +130,7 @@ class _VidScreenState extends State<VidScreen> {
                       SizedBox(height: 16),
                       new GestureDetector(
                         onTap: () async {
-                          _controller.pause();
+                          await _controller.pause();
                           setState(() {
                             unFinished += ((_controller
                                         .metadata.duration.inSeconds -
@@ -137,16 +138,24 @@ class _VidScreenState extends State<VidScreen> {
                                         _controller.value.position.inSeconds)) /
                                 _controller.metadata.duration.inSeconds);
                           });
-                          // prcntgeProvider.getPrsntg(
-                          //     this.finished,
-                          //     this.unFinished,
-                          //     this.totalnum,
-                          //     'week${this.widget.weekNo}',
-                          //     this.dayno);
+                          if (unFinished != null) {
+                            prcntgeProvider.getPrsntg(
+                                this.finished,
+                                this.unFinished,
+                                this.totalnum,
+                                'week${this.widget.weekNo}',
+                                this.dayno);
+                          }
+                          Stream mystream =
+                              CloudData().getweeksstream(this.widget.weekNo);
+                          int current = await DatabaseService().getcurrentday();
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => DayScreen()));
+                                  builder: (context) => DayScreen(
+                                      dayNo: current.toString(),
+                                      week: mystream,
+                                      weekNo: this.widget.weekNo)));
                         },
                         child: Text("YES",
                             style: TextStyle(
@@ -198,7 +207,7 @@ class _VidScreenState extends State<VidScreen> {
           onReady: () {
             _isPlayerReady = true;
           },
-          onEnded: (data) {
+          onEnded: (data) async {
             setState(() {
               finished += 1;
             });
@@ -206,14 +215,27 @@ class _VidScreenState extends State<VidScreen> {
               _controller.load(_ids[(_ids.indexOf(data.videoId) + 1)]);
               _showSnackBar('Next Video Started!');
             } else {
-              prcntgeProvider.getPrsntg(this.finished, this.unFinished,
-                  this.totalnum, 'week${this.widget.weekNo}', this.dayno);
+              print('dayno ${this.widget.dayNo}');
+              prcntgeProvider.getPrsntg(
+                  this.finished,
+                  this.unFinished,
+                  this.totalnum,
+                  'week${this.widget.weekNo}',
+                  int.parse(this.widget.dayNo));
+
+              Stream mystream = CloudData().getweeksstream(this.widget.weekNo);
+              int current = await DatabaseService().getcurrentday();
+
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => TestScreen(
-                          weekNo: this.widget.weekNo,
-                          version: this.widget.version)));
+                      builder: ((current + 1) % 7) == 0
+                          ? (context) => Explore()
+                          : (context) => DayScreen(
+                                dayNo: ((current + 1) % 7).toString(),
+                                week: mystream,
+                                weekNo: this.widget.weekNo,
+                              )));
             }
           },
         ),
@@ -223,7 +245,7 @@ class _VidScreenState extends State<VidScreen> {
             color: Color(0xffe1d4e5),
             child: GestureDetector(
               onTap: () {
-                if ((_ids.indexOf(_videoMetaData.videoId) + 1) < _ids.length) {
+                if ((_ids.indexOf(_videoMetaData.videoId)) + 1 < totalnum) {
                   _controller.pause();
                   print(this.dayno);
                   setState(() {
@@ -232,10 +254,13 @@ class _VidScreenState extends State<VidScreen> {
                                 _controller.value.position.inSeconds)) /
                         _controller.metadata.duration.inSeconds);
                   });
-                  prcntgeProvider.getPrsntg(this.finished, this.unFinished,
-                      this.totalnum, 'week${this.widget.weekNo}', this.dayno);
+
+                  if (unFinished != null) {
+                    prcntgeProvider.getPrsntg(this.finished, this.unFinished,
+                        this.totalnum, 'week${this.widget.weekNo}', this.dayno);
+                  }
                   _controller
-                      .load(_ids[(_ids.indexOf(_videoMetaData.videoId) + 1)]);
+                      .load(_ids[(_ids.indexOf(_videoMetaData.videoId)) + 1]);
                   _showSnackBar(
                     'Next Video Started!',
                   );
@@ -246,19 +271,32 @@ class _VidScreenState extends State<VidScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),
                 child: Container(
                   color: Color(0xffe1d4e5),
-                  child:
-                      ((_ids.indexOf(_videoMetaData.videoId) + 1) < _ids.length)
+                  child: ((_ids.indexOf(_videoMetaData.videoId) + 1) < totalnum)
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://img.youtube.com/vi/${_ids[_ids.indexOf(_videoMetaData.videoId) + 1]}/maxresdefault.jpg',
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          ),
+                        )
+                      : ((_ids.indexOf(_videoMetaData.videoId) + 1) == totalnum)
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(12),
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    'https://img.youtube.com/vi/${_ids[_ids.indexOf(_videoMetaData.videoId) + 1]}/maxresdefault.jpg',
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            )
+                              child: Container(
+                                  child: Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    0.0, 0.0, 0.0, 100.0),
+                                child: Text('well Done!',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 26,
+                                        fontFamily: 'mija',
+                                        color: Colors.black.withOpacity(0.3))),
+                              )))
                           : Center(
                               child: Text('well Done!',
                                   style: TextStyle(

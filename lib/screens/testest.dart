@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/models/data_models/video.dart';
 import 'package:get_active_prf/widgets/days_view.dart';
+import 'package:get_active_prf/services/database_service.dart';
 
 class JustAtest extends StatefulWidget {
   final String weekNo;
@@ -73,6 +74,9 @@ class _JustAtestState extends State<JustAtest> {
                     SizedBox(
                       height: 1.0,
                     ),
+                    MaterialButton(onPressed: () {
+                      DatabaseService().updatecurrentday();
+                    }),
                     Expanded(
                         child: FutureBuilder<List<dynamic>>(
                       future: VideoModel().getIDs('1', '1', 'beginner'),
