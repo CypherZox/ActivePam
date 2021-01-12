@@ -50,18 +50,37 @@ class DatabaseService {
     return currentday;
   }
 
+  Future<int> getweekprctng() async {
+    int weekprctng = await progCollection.doc(uid).get().then((value) {
+      return value.data()['weekprctng'];
+    });
+    return weekprctng;
+  }
+
   Future<List> chngdata(String week, int dayNo, int prcntg) async {
     List toEditList = [0, 0, 0, 0, 0, 0];
     List currentWeek = await getData(week);
     if (currentWeek != null) {
       toEditList = currentWeek;
     }
-    toEditList[dayNo] = prcntg;
+    if (prcntg <= 100) {
+      toEditList[dayNo] = prcntg;
+    } else {
+      toEditList[dayNo] = 100;
+    }
     // print(toEditList);
     progCollection.doc(uid).update({
       '$week': toEditList,
     });
     return getData(week);
+  }
+
+  void updateweekprcntg(int weekprctng) {
+    if (weekprctng != null) {
+      progCollection.doc(uid).update({
+        'weekprctng': weekprctng,
+      });
+    }
   }
 
   void updatecurrentweek() async {
@@ -74,7 +93,7 @@ class DatabaseService {
   void updatecurrentday() async {
     int current = await getcurrentday();
     progCollection.doc(uid).update({
-      'current_day': (current + 1) % 7,
+      'current_day': (current % 7) + 1,
     });
   }
 

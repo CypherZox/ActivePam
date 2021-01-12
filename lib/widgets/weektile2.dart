@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/screens/DayScreen.dart';
 import 'package:get_active_prf/screens/jussst.dart';
 import 'package:get_active_prf/services/cloud_data.dart';
 import 'package:get_active_prf/services/database_service.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
 class WeekTile2 extends StatelessWidget {
   final String no;
   final List flags;
   final int index;
+  final int weekprctng;
   String dayNo;
-  WeekTile2({this.no, this.flags, this.index, this.dayNo});
+  WeekTile2({this.no, this.flags, this.index, this.dayNo, this.weekprctng});
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -32,10 +35,10 @@ class WeekTile2 extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 9),
           child: GestureDetector(
-            onPanUpdate: (details) {
+            onPanUpdate: (details) async {
               if (details.delta.dy < 0) {
-                print('week on tile is $dayNo');
-                Stream mystream = CloudData().getweeksstream(no);
+                print('week on tile is $no');
+                Stream mystream = await CloudData().getweeksstream(no);
                 Navigator.push(
                     context,
                     PageTransition(
@@ -65,6 +68,19 @@ class WeekTile2 extends StatelessWidget {
                           fontSize: 46,
                           fontFamily: 'mija',
                         ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 2,
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        '${weekprctng.toString()}%',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'mija',
+                            color: Colors.black45),
                       ),
                     ),
                   ],

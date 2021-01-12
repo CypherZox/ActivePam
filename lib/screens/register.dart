@@ -103,6 +103,16 @@ class _RegisterState extends State<Register> {
                       ),
                       LRbutton(
                         onpressedfunc: () async {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                      valueColor:
+                                          new AlwaysStoppedAnimation<Color>(
+                                              Colors.white)),
+                                );
+                              });
                           try {
                             await auth.createUserWithEmailAndPassword(
                                 _emailController.text,
@@ -130,11 +140,13 @@ class _RegisterState extends State<Register> {
                           print(currentUser.uid);
                           progCollection.doc('${currentUser.uid}').set({
                             'week1': [0, 0, 0, 0, 0, 0, 0],
+                            'current_day': 1,
+                            'current_week': 1,
                           });
                           await showDialog(
                               context: context,
                               builder: (context) {
-                                Future.delayed(Duration(seconds: 7), () {
+                                Future.delayed(Duration(seconds: 3), () {
                                   Navigator.of(context).pop(true);
                                 });
 
@@ -202,6 +214,15 @@ class _RegisterState extends State<Register> {
                             onPressed: () async {
                               try {
                                 await auth.signInWithGoogle();
+                                final FirebaseAuth _auth =
+                                    FirebaseAuth.instance;
+                                User currentUser = _auth.currentUser;
+                                print(currentUser.uid);
+                                progCollection.doc('${currentUser.uid}').set({
+                                  'week1': [0, 0, 0, 0, 0, 0, 0],
+                                  'current_day': 1,
+                                  'current_week': 1,
+                                });
                               } catch (e) {
                                 print('$e');
                               }

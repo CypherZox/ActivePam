@@ -12,11 +12,18 @@ import 'package:get_active_prf/screens/test.dart';
 import 'package:get_active_prf/screens/testest.dart';
 import 'package:get_active_prf/screens/vid_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get_active_prf/services/notifications_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:cupertino_will_pop_scope/cupertino_will_pop_scope.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  var initializationSettingsAndroid = AndroidInitializationSettings('ucon');
+  var initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
   await Firebase.initializeApp();
   runApp(ChangeNotifierProvider(
       create: (context) => PrcntgLogic(), child: MyApp()));
@@ -28,6 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+          primaryColor: Colors.black,
           platform: TargetPlatform.iOS,
           pageTransitionsTheme: PageTransitionsTheme(builders: {
             TargetPlatform.android: ZoomPageTransitionsBuilder(),

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/models/data_models/video.dart';
+import 'package:get_active_prf/services/auth.dart';
 import 'package:get_active_prf/widgets/days_view.dart';
 import 'package:get_active_prf/services/database_service.dart';
 
@@ -91,6 +92,12 @@ class _JustAtestState extends State<JustAtest> {
                             : Center(child: CircularProgressIndicator());
                       },
                     )),
+                    MaterialButton(
+                      onPressed: () {
+                        AuthService().signOut();
+                      },
+                      color: Colors.amber,
+                    )
                   ],
                 ),
               ),

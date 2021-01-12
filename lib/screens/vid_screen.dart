@@ -98,220 +98,230 @@ class _VidScreenState extends State<VidScreen> {
   @override
   Widget build(BuildContext context) {
     final prcntgeProvider = Provider.of<PrcntgLogic>(context, listen: true);
-    return Scaffold(
-      backgroundColor: Color(0xffe1d4e5),
-      appBar: AppBar(
-        backgroundColor: Color(0xffe1d4e5),
-        leading: BackButton(
-          onPressed: () {
-            showDialog(
-                  context: context,
-                  builder: (context) => new AlertDialog(
-                    backgroundColor: Color(0xfff6eaf6),
-                    title: new Text('Are you sure?',
-                        style: TextStyle(
-                            fontSize: 21,
-                            fontFamily: 'mija',
-                            color: Colors.black.withOpacity(0.8))),
-                    content: new Text('Do you want to exit this session?',
-                        style: TextStyle(
-                            fontSize: 21,
-                            fontFamily: 'mija',
-                            color: Colors.black.withOpacity(0.8))),
-                    actions: <Widget>[
-                      new GestureDetector(
-                        onTap: () => Navigator.of(context).pop(false),
-                        child: Text("NO",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'mija',
-                                color: Colors.black.withOpacity(0.7))),
-                      ),
-                      SizedBox(height: 16),
-                      new GestureDetector(
-                        onTap: () async {
-                          await _controller.pause();
-                          setState(() {
-                            unFinished += ((_controller
-                                        .metadata.duration.inSeconds -
-                                    (_controller.metadata.duration.inSeconds -
-                                        _controller.value.position.inSeconds)) /
-                                _controller.metadata.duration.inSeconds);
-                          });
-                          if (unFinished != null) {
-                            prcntgeProvider.getPrsntg(
-                                this.finished,
-                                this.unFinished,
-                                this.totalnum,
-                                'week${this.widget.weekNo}',
-                                this.dayno);
-                          }
-                          Stream mystream =
-                              CloudData().getweeksstream(this.widget.weekNo);
-                          int current = await DatabaseService().getcurrentday();
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DayScreen(
-                                      dayNo: current.toString(),
-                                      week: mystream,
-                                      weekNo: this.widget.weekNo)));
-                        },
-                        child: Text("YES",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'mija',
-                                color: Colors.black.withOpacity(0.7))),
-                      ),
-                    ],
-                  ),
-                ) ??
-                false;
-          },
-        ),
-      ),
-      body: YoutubePlayerBuilder(
-        onExitFullScreen: () {
-          // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
-          SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-        },
-        player: YoutubePlayer(
-          controller: _controller,
-          showVideoProgressIndicator: true,
-          progressIndicatorColor: Colors.blueAccent,
-          bottomActions: [CurrentPosition()],
-          topActions: <Widget>[
-            const SizedBox(width: 8.0),
-            Expanded(
-              child: Text(
-                _controller.metadata.title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
+    return GestureDetector(
+      onPanUpdate: (details) {
+        if (details.delta.dx > 0) {
+          showDialog(
+            context: context,
+            builder: (context) => new AlertDialog(
+              backgroundColor: Color(0xfff6eaf6),
+              title: new Text('Are you sure?',
+                  style: TextStyle(
+                      fontSize: 21,
+                      fontFamily: 'mija',
+                      color: Colors.black.withOpacity(0.8))),
+              content: new Text('Do you want to exit this session?',
+                  style: TextStyle(
+                      fontSize: 21,
+                      fontFamily: 'mija',
+                      color: Colors.black.withOpacity(0.8))),
+              actions: <Widget>[
+                new GestureDetector(
+                  onTap: () => Navigator.of(context).pop(false),
+                  child: Text("NO",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'mija',
+                          color: Colors.black.withOpacity(0.7))),
                 ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.settings,
-                color: Colors.white,
-                size: 25.0,
-              ),
-              onPressed: () {
-                log('Settings Tapped!');
-              },
-            ),
-          ],
-          onReady: () {
-            _isPlayerReady = true;
-          },
-          onEnded: (data) async {
-            setState(() {
-              finished += 1;
-            });
-            if ((_ids.indexOf(_videoMetaData.videoId) + 1) < _ids.length) {
-              _controller.load(_ids[(_ids.indexOf(data.videoId) + 1)]);
-              _showSnackBar('Next Video Started!');
-            } else {
-              print('dayno ${this.widget.dayNo}');
-              prcntgeProvider.getPrsntg(
-                  this.finished,
-                  this.unFinished,
-                  this.totalnum,
-                  'week${this.widget.weekNo}',
-                  int.parse(this.widget.dayNo));
+                SizedBox(height: 16),
+                new GestureDetector(
+                  onTap: () async {
+                    _controller.pause();
 
-              Stream mystream = CloudData().getweeksstream(this.widget.weekNo);
-              int current = await DatabaseService().getcurrentday();
-
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((current + 1) % 7) == 0
-                          ? (context) => Explore()
-                          : (context) => DayScreen(
-                                dayNo: ((current + 1) % 7).toString(),
+                    setState(() {
+                      unFinished += ((_controller.metadata.duration.inSeconds -
+                              (_controller.metadata.duration.inSeconds -
+                                  _controller.value.position.inSeconds)) /
+                          _controller.metadata.duration.inSeconds);
+                    });
+                    if (unFinished != null) {
+                      prcntgeProvider.getPrsntg(
+                          this.finished,
+                          this.unFinished,
+                          this.totalnum,
+                          'week${this.widget.weekNo}',
+                          this.dayno);
+                    }
+                    Stream mystream =
+                        CloudData().getweeksstream(this.widget.weekNo);
+                    int current = await DatabaseService().getcurrentday();
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DayScreen(
+                                dayNo: current.toString(),
                                 week: mystream,
-                                weekNo: this.widget.weekNo,
-                              )));
-            }
+                                weekNo: this.widget.weekNo)));
+                    _controller.reset();
+                  },
+                  child: Text("YES",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'mija',
+                          color: Colors.black.withOpacity(0.7))),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Color(0xffF7F7F7),
+        body: YoutubePlayerBuilder(
+          onExitFullScreen: () {
+            // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
+            SystemChrome.setPreferredOrientations(DeviceOrientation.values);
           },
-        ),
-        builder: (context, player) => Scaffold(
-          backgroundColor: Color(0xffe1d4e5),
-          bottomNavigationBar: BottomAppBar(
-            color: Color(0xffe1d4e5),
-            child: GestureDetector(
-              onTap: () {
-                if ((_ids.indexOf(_videoMetaData.videoId)) + 1 < totalnum) {
-                  _controller.pause();
-                  print(this.dayno);
-                  setState(() {
-                    unFinished += ((_controller.metadata.duration.inSeconds -
-                            (_controller.metadata.duration.inSeconds -
-                                _controller.value.position.inSeconds)) /
-                        _controller.metadata.duration.inSeconds);
-                  });
-
-                  if (unFinished != null) {
-                    prcntgeProvider.getPrsntg(this.finished, this.unFinished,
-                        this.totalnum, 'week${this.widget.weekNo}', this.dayno);
-                  }
-                  _controller
-                      .load(_ids[(_ids.indexOf(_videoMetaData.videoId)) + 1]);
-                  _showSnackBar(
-                    'Next Video Started!',
-                  );
+          player: YoutubePlayer(
+            controller: _controller,
+            showVideoProgressIndicator: true,
+            progressIndicatorColor: Colors.white,
+            bottomActions: [CurrentPosition()],
+            topActions: <Widget>[
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: Text(
+                  _controller.metadata.title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                  size: 25.0,
+                ),
+                onPressed: () {
+                  log('Settings Tapped!');
+                },
+              ),
+            ],
+            onReady: () {
+              _isPlayerReady = true;
+            },
+            onEnded: (data) async {
+              setState(() {
+                finished += 1;
+              });
+              if ((_ids.indexOf(_videoMetaData.videoId) + 1) < _ids.length) {
+                _controller.load(_ids[(_ids.indexOf(data.videoId) + 1)]);
+                _showSnackBar('Next Video Started!');
+              } else {
+                print('dayno ${this.widget.dayNo}');
+                if (unFinished != null) {
+                  prcntgeProvider.getPrsntg(
+                      this.finished,
+                      this.unFinished,
+                      this.totalnum,
+                      'week${this.widget.weekNo}',
+                      int.parse(this.widget.dayNo));
                 }
-              },
-              //  'https://img.youtube.com/vi/${_ids[_ids.indexOf(_videoMetaData.videoId) + 1]}/maxresdefault.jpg',
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                child: Container(
-                  color: Color(0xffe1d4e5),
-                  child: ((_ids.indexOf(_videoMetaData.videoId) + 1) < totalnum)
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                'https://img.youtube.com/vi/${_ids[_ids.indexOf(_videoMetaData.videoId) + 1]}/maxresdefault.jpg',
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                          ),
-                        )
-                      : ((_ids.indexOf(_videoMetaData.videoId) + 1) == totalnum)
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Container(
-                                  child: Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    0.0, 0.0, 0.0, 100.0),
+
+                Stream mystream =
+                    CloudData().getweeksstream(this.widget.weekNo);
+                int current = await DatabaseService().getcurrentday();
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((current + 1) % 7) == 0
+                            ? (context) => Explore()
+                            : (context) => DayScreen(
+                                  dayNo: ((current + 1) % 7).toString(),
+                                  week: mystream,
+                                  weekNo: this.widget.weekNo,
+                                )));
+              }
+            },
+          ),
+          builder: (context, player) => Scaffold(
+            backgroundColor: Color(0xffF7F7F7),
+            bottomNavigationBar: BottomAppBar(
+              color: Color(0xffF7F7F7),
+              child: GestureDetector(
+                onTap: () {
+                  if ((_ids.indexOf(_videoMetaData.videoId)) + 1 < totalnum) {
+                    _controller.pause();
+                    print(this.dayno);
+                    setState(() {
+                      unFinished += ((_controller.metadata.duration.inSeconds -
+                              (_controller.metadata.duration.inSeconds -
+                                  _controller.value.position.inSeconds)) /
+                          _controller.metadata.duration.inSeconds);
+                    });
+
+                    if (unFinished != null) {
+                      prcntgeProvider.getPrsntg(
+                          this.finished,
+                          this.unFinished,
+                          this.totalnum,
+                          'week${this.widget.weekNo}',
+                          this.dayno);
+                    }
+                    _controller
+                        .load(_ids[(_ids.indexOf(_videoMetaData.videoId)) + 1]);
+                    _showSnackBar(
+                      'Next Video Started!',
+                    );
+                  }
+                },
+                //  'https://img.youtube.com/vi/${_ids[_ids.indexOf(_videoMetaData.videoId) + 1]}/maxresdefault.jpg',
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                  child: Container(
+                    color: Color(0xffF7F7F7),
+                    child: ((_ids.indexOf(_videoMetaData.videoId) + 1) <
+                            totalnum)
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  'https://img.youtube.com/vi/${_ids[_ids.indexOf(_videoMetaData.videoId) + 1]}/maxresdefault.jpg',
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
+                          )
+                        : ((_ids.indexOf(_videoMetaData.videoId) + 1) ==
+                                totalnum)
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Container(
+                                    child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      0.0, 0.0, 0.0, 100.0),
+                                  child: Text('well Done!',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 26,
+                                          fontFamily: 'mija',
+                                          color:
+                                              Colors.black.withOpacity(0.3))),
+                                )))
+                            : Center(
                                 child: Text('well Done!',
-                                    textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 26,
+                                        fontSize: 36,
                                         fontFamily: 'mija',
-                                        color: Colors.black.withOpacity(0.3))),
-                              )))
-                          : Center(
-                              child: Text('well Done!',
-                                  style: TextStyle(
-                                      fontSize: 36,
-                                      fontFamily: 'mija',
-                                      color: Colors.black.withOpacity(0.3)))),
+                                        color: Colors.black.withOpacity(0.3)))),
+                  ),
                 ),
               ),
             ),
-          ),
-          key: _scaffoldKey,
-          body: Column(
-            children: [
-              player,
-            ],
+            key: _scaffoldKey,
+            body: Column(
+              children: [
+                player,
+              ],
+            ),
           ),
         ),
       ),

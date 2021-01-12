@@ -160,6 +160,16 @@ class _LogInState extends State<LogIn> {
                       ),
                       LRbutton(
                         onpressedfunc: () async {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                      valueColor:
+                                          new AlwaysStoppedAnimation<Color>(
+                                              Colors.white)),
+                                );
+                              });
                           try {
                             await auth.signInWithEmailAndPassword(
                                 _emailController.text,
@@ -181,6 +191,7 @@ class _LogInState extends State<LogIn> {
                                   );
                                 });
                           }
+
                           auth.setuserprogress();
                           Navigator.pushNamed(context, '/Explore');
                         },

@@ -26,7 +26,9 @@ class NewDayTile extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl:
                         'https://img.youtube.com/vi/$vidID/maxresdefault.jpg',
-                    placeholder: (context, url) => CircularProgressIndicator(),
+                    placeholder: (context, url) => CircularProgressIndicator(
+                        valueColor:
+                            new AlwaysStoppedAnimation<Color>(Colors.white)),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),

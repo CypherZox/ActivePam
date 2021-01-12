@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/models/day_vid_list.dart';
-import 'package:get_active_prf/models/weeks_list.dart';
 import 'package:get_active_prf/screens/log_in.dart';
 import 'package:get_active_prf/services/auth.dart';
 import 'package:get_active_prf/services/cloud_data.dart';
@@ -11,6 +9,9 @@ import 'package:get_active_prf/widgets/weektile2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:get_active_prf/custom_icons/options_icons.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import '../main.dart';
+import 'package:intl/intl.dart';
 
 class Explore extends StatefulWidget {
   @override
@@ -18,6 +19,8 @@ class Explore extends StatefulWidget {
 }
 
 class _ExploreState extends State<Explore> {
+  DateTime _alarmTime;
+  String _alarmTimeString;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User get user {
     return _auth.currentUser;
@@ -28,34 +31,53 @@ class _ExploreState extends State<Explore> {
   final CollectionReference progCollection =
       FirebaseFirestore.instance.collection('userprogress');
   String get name {
-    return user.displayName;
+    if (mounted) {
+      return user.displayName;
+    }
   }
 
   AuthService auth = AuthService();
   DayVidList _dayVidList = DayVidList();
   String getusername() {
-    var user = _auth.currentUser;
-    String name = user.displayName;
+    if (mounted) {
+      var user = _auth.currentUser;
+      String name = user.displayName;
+    }
     return name;
   }
 
   int currentweek1 = 1;
   void currentWeek() async {
     int current = await DatabaseService().getcurrentweek();
-    setState(() {
-      currentweek1 = current;
-    });
+    if (mounted) {
+      setState(() {
+        currentweek1 = current;
+      });
+    }
   }
 
   int currentday1 = 1;
   void currentDay() async {
     int current = await DatabaseService().getcurrentday();
-    setState(() {
-      currentday1 = current;
-    });
+    if (mounted) {
+      setState(() {
+        currentday1 = current;
+      });
+    }
+  }
+
+  int weekprctng = 0;
+  void weekPrctng() async {
+    int current = await DatabaseService().getweekprctng();
+    if (mounted) {
+      setState(() {
+        weekprctng = current;
+      });
+    }
   }
 
   void initstate() {
+    _alarmTime = DateTime.now();
     super.initState();
   }
 
@@ -84,18 +106,142 @@ class _ExploreState extends State<Explore> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         GestureDetector(
-                          onTap: () async {
-                            await AuthService().signOut();
-                            Navigator.pushReplacement(
-                                context,
-                                PageTransition(
-                                    duration: Duration(milliseconds: 250),
-                                    child: LogIn(),
-                                    type: PageTransitionType
-                                        .rightToLeftWithFade));
+                          onTap: () {
+                            {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor: Colors.transparent,
+                                      title: Padding(
+                                        padding: EdgeInsets.fromLTRB(
+                                            0.0, 200, 0.0, 0.0),
+                                        child: Center(
+                                          child: Text(
+                                            'Add reminders',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 22,
+                                                fontFamily: 'mija',
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                      ),
+                                      content: Stack(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0.0, 0.0, 0.0, 5.0),
+                                            child: Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Text(
+                                                'Choose prefered timing for your daily workouts remaiders',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                    fontSize: 15,
+                                                    fontFamily: 'mija',
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                66.0, 60.0, 0.0, 0.0),
+                                            child: MaterialButton(
+                                              child: Text(
+                                                'Select time',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w100,
+                                                    fontSize: 19,
+                                                    fontFamily: 'mija',
+                                                    color: Colors.black),
+                                              ),
+                                              onPressed: () async {
+                                                var selectedTime =
+                                                    await showTimePicker(
+                                                  context: context,
+                                                  initialTime: TimeOfDay.now(),
+                                                );
+                                                if (selectedTime != null) {
+                                                  final now = DateTime.now();
+                                                  var selectedDateTime =
+                                                      DateTime(
+                                                          now.year,
+                                                          now.month,
+                                                          now.day,
+                                                          selectedTime.hour,
+                                                          selectedTime.minute);
+                                                  _alarmTime = selectedDateTime;
+                                                  setState(() {
+                                                    _alarmTimeString =
+                                                        DateFormat('HH:mm')
+                                                            .format(
+                                                                selectedDateTime);
+                                                  });
+                                                }
+                                              },
+                                              color: Color(0xfff0a500),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                50.0, 150.0, 0.0, 0.0),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  child: MaterialButton(
+                                                      child: Text(
+                                                        'Cancel',
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            fontSize: 17,
+                                                            fontFamily: 'mija',
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      }),
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border(
+                                                          left: BorderSide(
+                                                              width: 4.0,
+                                                              color: Colors
+                                                                  .black))),
+                                                  child: MaterialButton(
+                                                    child: Text(
+                                                      'Ok',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          fontSize: 17,
+                                                          fontFamily: 'mija',
+                                                          color: Colors.black),
+                                                    ),
+                                                    onPressed: () {
+                                                      onSaveAlarm();
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            }
                           },
                           child: Text(
-                            'Log Out',
+                            'Reminders',
                             style: TextStyle(
                                 fontSize: 36,
                                 fontFamily: 'mija',
@@ -113,7 +259,40 @@ class _ExploreState extends State<Explore> {
                                 fontFamily: 'mija',
                                 color: Colors.black),
                           ),
-                        )
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                PageRouteBuilder(pageBuilder:
+                                    (BuildContext context, Animation animation,
+                                        Animation secondaryAnimation) {
+                                  return LogIn();
+                                }, transitionsBuilder: (BuildContext context,
+                                    Animation<double> animation,
+                                    Animation<double> secondaryAnimation,
+                                    Widget child) {
+                                  return new SlideTransition(
+                                    position: new Tween<Offset>(
+                                      begin: const Offset(1.0, 0.0),
+                                      end: Offset.zero,
+                                    ).animate(animation),
+                                    child: child,
+                                  );
+                                }),
+                                (Route route) => false);
+                          },
+                          child: Text(
+                            'Log Out',
+                            style: TextStyle(
+                                fontSize: 34,
+                                fontFamily: 'mija',
+                                color: Colors.black.withOpacity(0.7)),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -203,6 +382,7 @@ class _ExploreState extends State<Explore> {
                       builder: (context, AsyncSnapshot snap) {
                         currentWeek();
                         currentDay();
+                        weekPrctng();
                         if (snap.hasError) {
                           return Text('Something went wrong');
                         }
@@ -218,11 +398,15 @@ class _ExploreState extends State<Explore> {
                             _dayVidList.getvids(noofweeks, currentweek1);
                         List flags =
                             _dayVidList.flagvids(noofweeks, currentweek1);
+                        List prcntg = _dayVidList.weekprcntg(
+                            noofweeks, currentweek1, weekprctng);
                         return ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             final no = vids[index];
+                            final mprcntg = prcntg[index];
                             return WeekTile2(
+                              weekprctng: mprcntg,
                               dayNo: currentday1.toString(),
                               no: no.toString(),
                               flags: flags,
@@ -239,5 +423,42 @@ class _ExploreState extends State<Explore> {
         ),
       ),
     );
+  }
+
+  void scheduleAlarm(DateTime scheduledNotificationDateTime) async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'alarm_notif',
+      'alarm_notif',
+      'Channel for Alarm notification',
+      icon: 'ucon',
+      // sound: RawResourceAndroidNotificationSound('a_long_cold_sting'),
+      largeIcon: DrawableResourceAndroidBitmap('ucon'),
+    );
+
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails(
+        sound: 'a_long_cold_sting.wav',
+        presentAlert: true,
+        presentBadge: true,
+        presentSound: true);
+    var platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.schedule(
+        0,
+        'Active time!',
+        "let's workout",
+        scheduledNotificationDateTime,
+        platformChannelSpecifics);
+  }
+
+  void onSaveAlarm() {
+    DateTime scheduleAlarmDateTime;
+    if (_alarmTime.isAfter(DateTime.now()))
+      scheduleAlarmDateTime = _alarmTime;
+    else
+      scheduleAlarmDateTime = _alarmTime.add(Duration(days: 1));
+
+    scheduleAlarm(scheduleAlarmDateTime);
   }
 }

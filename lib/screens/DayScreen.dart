@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_active_prf/custom_icons/options_icons.dart';
+import 'package:get_active_prf/custom_icons/rarow_icons.dart';
 import 'package:get_active_prf/screens/explore.dart';
 import 'package:get_active_prf/screens/jussst.dart';
 import 'package:get_active_prf/screens/vid_screen.dart';
@@ -7,6 +9,7 @@ import 'package:get_active_prf/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:get_active_prf/custom_icons/forwared_arrow_icons.dart';
+import 'package:get_active_prf/custom_icons/next_icons.dart';
 import 'package:get_active_prf/widgets/DayNumber.dart';
 
 class DayScreen extends StatefulWidget {
@@ -66,17 +69,17 @@ class _DayScreenState extends State<DayScreen> {
     return GestureDetector(
       onPanUpdate: (details) {
         if (details.delta.dx > 0) {
+          Navigator.of(context).popUntil((route) => route.isFirst);
           Navigator.pushReplacement(
               context,
               PageTransition(
-                  duration: Duration(milliseconds: 35),
+                  duration: Duration(milliseconds: 150),
                   child: Explore(),
                   type: PageTransitionType.leftToRight));
-          ;
         }
       },
       child: Scaffold(
-        backgroundColor: Color(0xffe1d4e5),
+        backgroundColor: Color(0xffF7F7F7),
         body: StreamBuilder(
             stream: this.widget.week,
             builder: (context, AsyncSnapshot snap) {
@@ -86,7 +89,9 @@ class _DayScreenState extends State<DayScreen> {
               if (snap.connectionState == ConnectionState.waiting) {
                 return Text("Loading");
               }
+
               final vids = snap.data.data()['day${this.widget.dayNo}'];
+
               return Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -97,8 +102,12 @@ class _DayScreenState extends State<DayScreen> {
                       children: [
                         Flexible(
                           child: Container(
-                            width: 40,
-                            color: Color(0xffCABECE),
+                            decoration: BoxDecoration(
+                                color: Color(0xffF7F7F7).withOpacity(0.7),
+                                border: Border(
+                                    right: BorderSide(
+                                        width: 0.7, color: Colors.black))),
+                            width: 60,
                             child: Padding(
                               padding:
                                   const EdgeInsets.fromLTRB(0.0, 90, 0.0, 0.0),
@@ -131,6 +140,16 @@ class _DayScreenState extends State<DayScreen> {
                                       });
                                     },
                                   ),
+
+                                  DayNumber(
+                                    no: '4',
+                                    numberChosen: () {
+                                      setState(() {
+                                        this.widget.dayNo = '4';
+                                        // prcntg = snap.data.data()['week1'][2];
+                                      });
+                                    },
+                                  ),
                                   // DayNumber(no: '4', numberChosen: onNumberTapped('4')),
                                   DayNumber(
                                     no: '5',
@@ -147,6 +166,15 @@ class _DayScreenState extends State<DayScreen> {
                                       setState(() {
                                         this.widget.dayNo = '6';
                                         // prcntg = snap.data.data()['week1'][4];
+                                      });
+                                    },
+                                  ),
+                                  DayNumber(
+                                    no: '7',
+                                    numberChosen: () {
+                                      setState(() {
+                                        this.widget.dayNo = '7';
+                                        // prcntg = snap.data.data()['week1'][2];
                                       });
                                     },
                                   ),
@@ -197,21 +225,23 @@ _buildStoryPage(
         padding: const EdgeInsets.fromLTRB(11.0, 50, 0.0, 0.0),
         child: Align(
           alignment: Alignment.topLeft,
-          child: Text(
-            '$version',
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 27,
-                fontFamily: 'mija',
-                color: Colors.black),
-          ),
+          child: version != null
+              ? Text(
+                  '$version',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 27,
+                      fontFamily: 'mija',
+                      color: Colors.black),
+                )
+              : Text(" "),
         ),
       ),
       Padding(
         padding: const EdgeInsets.fromLTRB(11.0, 2.0, 0.0, 0.0),
         child: Align(
             alignment: Alignment.topLeft,
-            child: title != null
+            child: title != 'Rest Day'
                 ? Text(
                     '$title',
                     style: TextStyle(
@@ -220,52 +250,51 @@ _buildStoryPage(
                         fontFamily: 'mija',
                         color: Colors.black.withOpacity(0.4)),
                   )
-                : Text('')),
+                : Text(
+                    'Rest Day',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 30,
+                        fontFamily: 'mija',
+                        color: Colors.black),
+                  )),
       ),
       Expanded(
         flex: 4,
         child: Align(
           alignment: Alignment.topLeft,
           child: AnimatedContainer(
-            width: 200,
+            width: 190,
             duration: Duration(milliseconds: 500),
             curve: Curves.easeOutQuint,
             margin: EdgeInsets.only(top: top, bottom: 0, left: 11),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(40),
-              //  boxShadow: [
-              //   BoxShadow(
-              //       color: Colors.black87,
-              //       blurRadius: blur,
-              //       offset: Offset(offset, offset))
-              // ]
-            ),
-            child: Jusst(vidIds: vids),
+            child: (vids.length > 0) ? Jusst(vidIds: vids) : Container(),
           ),
         ),
       ),
       Expanded(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(90, 0, 0, 9),
-          child: IconButton(
-              alignment: Alignment.bottomLeft,
-              onPressed: () {
-                print('$dayNo');
-                Navigator.push(
-                    context,
-                    PageTransition(
-                        type: PageTransitionType.upToDown,
-                        child: VidScreen(
-                          ids: vids,
-                          dayNo: dayNo,
-                          weekNo: weekNo,
-                          version: version,
-                        )));
-              },
-              icon: Icon(
-                ForwaredArrow.right_arrow,
-                size: 26,
-              )),
+          padding: const EdgeInsets.fromLTRB(130, 0, 0, 9),
+          child: (vids.length > 0)
+              ? IconButton(
+                  alignment: Alignment.bottomLeft,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.upToDown,
+                            child: VidScreen(
+                              ids: vids,
+                              dayNo: dayNo,
+                              weekNo: weekNo,
+                              version: version,
+                            )));
+                  },
+                  icon: Icon(
+                    Rarow.right_arrow__1_,
+                    size: 26,
+                  ))
+              : Container(),
         ),
       ),
     ],

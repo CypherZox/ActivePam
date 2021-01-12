@@ -8,6 +8,14 @@ class DayVidList {
     return vids;
   }
 
+  List weekprcntg(int numberofweeks, currentweek, weekprctng) {
+    List vids = [for (var i = 1; i <= numberofweeks; i += 1) 0];
+    vids = vids.sublist(currentweek - 1) +
+        List.from(vids.sublist(0, currentweek - 1).reversed);
+    vids[0] = weekprctng;
+    return vids;
+  }
+
   List flagvids(int numberofweeks, currentweek) {
     List list = [for (var i = 1; i <= numberofweeks; i += 1) false];
     list.fillRange((numberofweeks - currentweek + 1), list.length, true);

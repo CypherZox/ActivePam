@@ -38,8 +38,8 @@ class _JusstState extends State<Jusst> {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Color(0xfff6eaf6),
+          borderRadius: BorderRadius.circular(4.0),
+          color: Color(0xffDEDEDE),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 11.0, horizontal: 7.0),
