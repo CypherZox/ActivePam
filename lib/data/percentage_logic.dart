@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get_active_prf/services/auth.dart';
 import 'package:get_active_prf/services/database_service.dart';
 
 class PrcntgLogic extends ChangeNotifier {

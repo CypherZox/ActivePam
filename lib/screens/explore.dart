@@ -7,7 +7,6 @@ import 'package:get_active_prf/services/cloud_data.dart';
 import 'package:get_active_prf/services/database_service.dart';
 import 'package:get_active_prf/widgets/weektile2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:get_active_prf/custom_icons/options_icons.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../main.dart';
@@ -226,8 +225,9 @@ class _ExploreState extends State<Explore> {
                                                           fontFamily: 'mija',
                                                           color: Colors.black),
                                                     ),
-                                                    onPressed: () {
-                                                      onSaveAlarm();
+                                                    onPressed: () async {
+                                                      await onSaveAlarm();
+                                                      Navigator.pop(context);
                                                     },
                                                   ),
                                                 ),

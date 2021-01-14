@@ -113,20 +113,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  curved_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: curved_navigation_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.4"
-  dots_indicator:
-    dependency: "direct main"
-    description:
-      name: dots_indicator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.2.0"
   fake_async:
     dependency: transitive
     description:
@@ -197,13 +183,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
-  fluentui_icons:
-    dependency: "direct main"
-    description:
-      name: fluentui_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -230,6 +209,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0+4"
+  flutter_launcher_icons:
+    dependency: "direct main"
+    description:
+      name: flutter_launcher_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.1"
   flutter_local_notifications:
     dependency: "direct main"
     description:
@@ -374,7 +360,7 @@ packages:
     source: hosted
     version: "1.8.0-nullsafety"
   path_provider:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path_provider
       url: "https://pub.dartlang.org"
@@ -415,13 +401,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.2"
-  percent_indicator:
-    dependency: "direct main"
-    description:
-      name: percent_indicator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.7+3"
   petitparser:
     dependency: transitive
     description:
@@ -471,13 +450,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.25.0"
-  sembast:
-    dependency: "direct main"
-    description:
-      name: sembast
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.4.7+6"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -546,13 +518,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.19-nullsafety"
-  thumbnails:
-    dependency: "direct main"
-    description:
-      name: thumbnails
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   timezone:
     dependency: transitive
     description:
@@ -581,13 +546,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0-nullsafety.2"
-  vertical_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: vertical_navigation_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.2"
   win32:
     dependency: transitive
     description:
@@ -609,6 +567,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.5.1"
+  yaml:
+    dependency: transitive
+    description:
+      name: yaml
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.1"
   youtube_player_flutter:
     dependency: "direct main"
     description:

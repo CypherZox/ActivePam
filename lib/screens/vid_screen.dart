@@ -104,13 +104,13 @@ class _VidScreenState extends State<VidScreen> {
           showDialog(
             context: context,
             builder: (context) => new AlertDialog(
-              backgroundColor: Color(0xfff6eaf6),
+              backgroundColor: Color(0xffF7F7F7),
               title: new Text('Are you sure?',
                   style: TextStyle(
                       fontSize: 21,
                       fontFamily: 'mija',
                       color: Colors.black.withOpacity(0.8))),
-              content: new Text('Do you want to exit this session?',
+              content: new Text('Do you want to exit this workout session?',
                   style: TextStyle(
                       fontSize: 21,
                       fontFamily: 'mija',
@@ -201,6 +201,11 @@ class _VidScreenState extends State<VidScreen> {
                 onPressed: () {
                   log('Settings Tapped!');
                 },
+              ),
+              SizedBox(height: 10),
+              FullScreenButton(
+                controller: _controller,
+                color: Colors.white,
               ),
             ],
             onReady: () {

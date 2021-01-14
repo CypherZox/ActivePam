@@ -13,7 +13,7 @@ class Video {
     return Video(
       id: snippet['resourceId']['videoId'],
       title: snippet['title'],
-      thumbnailUrl: snippet['thumbnails']['high']['url'],
+      thumbnailUrl: snippet['']['high']['url'],
     );
   }
 }

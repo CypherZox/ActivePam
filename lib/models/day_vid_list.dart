@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 class DayVidList {
   List getvids(int numberofweeks, currentweek) {
     List vids = [for (var i = 1; i <= numberofweeks; i += 1) i];

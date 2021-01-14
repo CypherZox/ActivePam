@@ -142,6 +142,7 @@ class _RegisterState extends State<Register> {
                             'week1': [0, 0, 0, 0, 0, 0, 0],
                             'current_day': 1,
                             'current_week': 1,
+                            'weekprctng': 0,
                           });
                           await showDialog(
                               context: context,
@@ -222,6 +223,7 @@ class _RegisterState extends State<Register> {
                                   'week1': [0, 0, 0, 0, 0, 0, 0],
                                   'current_day': 1,
                                   'current_week': 1,
+                                  'weekprctng': 0,
                                 });
                               } catch (e) {
                                 print('$e');

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_active_prf/custom_icons/options_icons.dart';
 import 'package:get_active_prf/custom_icons/rarow_icons.dart';
 import 'package:get_active_prf/screens/explore.dart';
 import 'package:get_active_prf/screens/jussst.dart';
@@ -8,8 +7,6 @@ import 'package:get_active_prf/services/cloud_data.dart';
 import 'package:get_active_prf/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:get_active_prf/custom_icons/forwared_arrow_icons.dart';
-import 'package:get_active_prf/custom_icons/next_icons.dart';
 import 'package:get_active_prf/widgets/DayNumber.dart';
 
 class DayScreen extends StatefulWidget {
@@ -66,6 +63,7 @@ class _DayScreenState extends State<DayScreen> {
   // final week = CloudData().vidIds.doc('week1').snapshots();
   @override
   Widget build(BuildContext context) {
+    List<bool> _list = [false, false, false, false, false, false, false];
     return GestureDetector(
       onPanUpdate: (details) {
         if (details.delta.dx > 0) {
@@ -109,81 +107,155 @@ class _DayScreenState extends State<DayScreen> {
                                         width: 0.7, color: Colors.black))),
                             width: 60,
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(0.0, 90, 0.0, 0.0),
-                              child: Column(
-                                children: [
-                                  DayNumber(
-                                    no: '1',
-                                    numberChosen: () {
-                                      setState(() {
-                                        this.widget.dayNo = '1';
-                                        // prcntg = snap.data.data()['week1'][0];
-                                      });
-                                    },
-                                  ),
-                                  DayNumber(
-                                    no: '2',
-                                    numberChosen: () {
-                                      setState(() {
-                                        this.widget.dayNo = '2';
-                                        // prcntg = snap.data.data()['week1'][2];
-                                      });
-                                    },
-                                  ),
-                                  DayNumber(
-                                    no: '3',
-                                    numberChosen: () {
-                                      setState(() {
-                                        this.widget.dayNo = '3';
-                                        // prcntg = snap.data.data()['week1'][2];
-                                      });
-                                    },
-                                  ),
+                                padding: const EdgeInsets.fromLTRB(
+                                    0.0, 90, 0.0, 0.0),
+                                child: Column(
+                                  children: [
+                                    RotatedBox(
+                                      quarterTurns: -3,
+                                      child: ToggleButtons(
+                                        children: [
+                                          DayNo(
+                                            no: '1',
+                                          ),
+                                          DayNo(
+                                            no: '2',
+                                          ),
+                                          DayNo(
+                                            no: '3',
+                                          ),
+                                          DayNo(
+                                            no: '4',
+                                          ),
+                                          DayNo(
+                                            no: '5',
+                                          ),
+                                          DayNo(
+                                            no: '6',
+                                          ),
+                                          DayNo(
+                                            no: '7',
+                                          ),
+                                        ],
+                                        isSelected: _list,
+                                        onPressed: (index) {
+                                          setState(() {
+                                            for (int indexBtn = 0;
+                                                indexBtn < _list.length;
+                                                indexBtn++) {
+                                              if (indexBtn == index) {
+                                                _list[indexBtn] =
+                                                    !_list[indexBtn];
+                                              } else {
+                                                _list[indexBtn] = false;
+                                              }
+                                            }
+                                            setState(() {
+                                              this.widget.dayNo =
+                                                  '${index + 1}';
+                                            });
+                                          });
+                                        },
+                                        selectedColor: Color(0xfff0a500),
+                                        fillColor: Colors.amber,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                                // child: ListView.builder(
+                                //     itemCount: 7,
+                                //     scrollDirection: Axis.vertical,
+                                //     itemBuilder: (context, index) {
+                                //       final no = days[index];
+                                //       Color mycolor = colors[index];
 
-                                  DayNumber(
-                                    no: '4',
-                                    numberChosen: () {
-                                      setState(() {
-                                        this.widget.dayNo = '4';
-                                        // prcntg = snap.data.data()['week1'][2];
-                                      });
-                                    },
-                                  ),
-                                  // DayNumber(no: '4', numberChosen: onNumberTapped('4')),
-                                  DayNumber(
-                                    no: '5',
-                                    numberChosen: () {
-                                      setState(() {
-                                        this.widget.dayNo = '5';
-                                        // prcntg = snap.data.data()['week1'][3];
-                                      });
-                                    },
-                                  ),
-                                  DayNumber(
-                                    no: '6',
-                                    numberChosen: () {
-                                      setState(() {
-                                        this.widget.dayNo = '6';
-                                        // prcntg = snap.data.data()['week1'][4];
-                                      });
-                                    },
-                                  ),
-                                  DayNumber(
-                                    no: '7',
-                                    numberChosen: () {
-                                      setState(() {
-                                        this.widget.dayNo = '7';
-                                        // prcntg = snap.data.data()['week1'][2];
-                                      });
-                                    },
-                                  ),
-                                  //
-                                ],
-                              ),
-                            ),
+                                //       return DayNumber(
+                                //         mycolor: _list[index]
+                                //             ? Color(0xfff0a500).withOpacity(0.4)
+                                //             : Colors.black,
+                                //         no: no,
+                                //         numberChosen: () {
+                                //           setState(() {
+                                //             _list[index] = !_list[index];
+                                //             this.widget.dayNo = no;
+                                //             print(_list);
+                                //             // prcntg = snap.data.data()['week1'][2];
+                                //           });
+                                //         },
+                                //       );
+                                //     })
+                                // child: Column(
+                                //   children: [
+                                //     DayNumber(
+                                //       no: '1',
+                                //       numberChosen: () {
+                                //         setState(() {
+                                //           this.widget.dayNo = '1';
+                                //           // prcntg = snap.data.data()['week1'][0];
+                                //         });
+                                //       },
+                                //     ),
+                                //     DayNumber(
+                                //       no: '2',
+                                //       numberChosen: () {
+                                //         setState(() {
+                                //           this.widget.dayNo = '2';
+                                //           // prcntg = snap.data.data()['week1'][2];
+                                //         });
+                                //       },
+                                //     ),
+                                //     DayNumber(
+                                //       no: '3',
+                                //       numberChosen: () {
+                                //         setState(() {
+                                //           this.widget.dayNo = '3';
+                                //           // prcntg = snap.data.data()['week1'][2];
+                                //         });
+                                //       },
+                                //     ),
+
+                                //     DayNumber(
+                                //       no: '4',
+                                //       numberChosen: () {
+                                //         setState(() {
+                                //           this.widget.dayNo = '4';
+                                //           // prcntg = snap.data.data()['week1'][2];
+                                //         });
+                                //       },
+                                //     ),
+                                //     // DayNumber(no: '4', numberChosen: onNumberTapped('4')),
+                                //     DayNumber(
+                                //       no: '5',
+                                //       numberChosen: () {
+                                //         setState(() {
+                                //           this.widget.dayNo = '5';
+                                //           // prcntg = snap.data.data()['week1'][3];
+                                //         });
+                                //       },
+                                //     ),
+                                //     DayNumber(
+                                //       no: '6',
+                                //       numberChosen: () {
+                                //         setState(() {
+                                //           this.widget.dayNo = '6';
+                                //           // prcntg = snap.data.data()['week1'][4];
+                                //         });
+                                //       },
+                                //     ),
+                                //     DayNumber(
+                                //       no: '7',
+                                //       numberChosen: () {
+                                //         setState(() {
+                                //           this.widget.dayNo = '7';
+                                //           // prcntg = snap.data.data()['week1'][2];
+                                //         });
+                                //       },
+                                //     ),
+                                //     //
+                                //   ],
+                                ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -209,11 +281,28 @@ class _DayScreenState extends State<DayScreen> {
   }
 }
 
+class DayNo extends StatelessWidget {
+  final String no;
+  DayNo({this.no});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(0.0, 14.0, 0.0, 9.0),
+        child: RotatedBox(
+          quarterTurns: -1,
+          child: Text(
+            '$no',
+            style: TextStyle(
+                color: Colors.black, fontFamily: 'mija', fontSize: 15),
+          ),
+        ));
+  }
+}
+
 _buildStoryPage(
     Map data, bool active, BuildContext context, String dayNo, String weekNo) {
   // Animated Properties
-  final double blur = active ? 2 : 0;
-  final double offset = active ? 0 : 0;
   final double top = active ? 30 : 80;
   final String title = data['title'];
   final String version = data['version'];
