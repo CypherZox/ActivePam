@@ -28,7 +28,7 @@ ActivePam includes easy access to weekly home workout plans created by fitness i
 * Send scheduled daily remainders.
  
 ## Screenshots
-[Sign_up](sign_up.gif)
+![Sign_up](sign_up.gif)
 [log_in](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/log_in.gif)
 [day_screen](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/day.gif)
 [vido_screen](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/vid_screen_1.gif)
