@@ -15,8 +15,8 @@ ActivePam is workout schedules flutter app.
 ActivePam includes easy access to weekly home workout plans created by fitness influencer Pamela Reif. With progress tracking and daily reminders option.
  
 ## Technologies
-* ![Flutter] <img src="https://img.icons8.com/color/48/000000/flutter.png"/> Flutter.
-* ![Firebase] <img src="https://img.icons8.com/color/48/000000/firebase.png"/> Firebase. <br/>
+*  <img src="https://img.icons8.com/color/48/000000/flutter.png"/> Flutter.
+*  <img src="https://img.icons8.com/color/48/000000/firebase.png"/> Firebase. <br/>
 -Firebase Authentication. <br/>
 -Cloud Firestore. <br/>
  
