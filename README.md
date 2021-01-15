@@ -15,8 +15,8 @@ ActivePam is workout schedules flutter app.
 ActivePam includes easy access to weekly home workout plans created by fitness influencer Pamela Reif. With progress tracking and daily reminders option.
  
 ## Technologies
-[1.2] Flutter.
-[1.1] Firebase :
+[Flutter](<img src="https://img.icons8.com/color/48/000000/flutter.png"/>) .
+ [Firebase](<img src="https://img.icons8.com/color/48/000000/firebase.png"/>) .
 -Firebase Authentication.
 -Cloud Firestore.
  
@@ -28,22 +28,22 @@ ActivePam includes easy access to weekly home workout plans created by fitness i
 * Send scheduled daily remainders.
  
 ## Screenshots
-[Sign_up]()
-[log_in]()
-[day_screen]()
-[vido_screen]()
-[transitoin_in_video_screen]()
-[quitting_video_screen]()
-[set_reminder]()
-[log_out]()
+[Sign_up](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/sign_up.gif)
+[log_in](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/log_in.gif)
+[day_screen](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/day.gif)
+[vido_screen](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/vid_screen_1.gif)
+[transitoin_in_video_screen](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/vid_trans.gif)
+[quitting_video_screen](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/quit_vid.gif)
+[set_reminder](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/set_reminder.gif)
+[log_out](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/log_out.gif)
  
  
 ## Used Flutter Packeges
-[youtube_player_flutter 7.0.0+7](https://pub.dev/packages/youtube_player_flutter)
-[firebase_auth: ^0.20.0](https://pub.dev/packages/firebase_auth)
-[firebase_core: ^0.7.0](https://pub.dev/packages/firebase_core)
-[cloud_firestore: ^0.16.0](https://pub.dev/packages/cloud_firestore)
-[flutter_local_notifications: ^3.0.3](https://pub.dev/packages/flutter_local_notifications)
+* [youtube_player_flutter 7.0.0+7](https://pub.dev/packages/youtube_player_flutter)
+* [firebase_auth: ^0.20.0](https://pub.dev/packages/firebase_auth)
+* [firebase_core: ^0.7.0](https://pub.dev/packages/firebase_core)
+* [cloud_firestore: ^0.16.0](https://pub.dev/packages/cloud_firestore)
+* [flutter_local_notifications: ^3.0.3](https://pub.dev/packages/flutter_local_notifications)
  
  
 ## Potential updates 
@@ -57,8 +57,5 @@ With this app, I can access all the videos more conveniently.
 ## code sources
 * The animation in the day screen was from FireShip's [tutorial](https://fireship.io/lessons/flutter-slider-like-reflectly/).
  
- 
-< !-- icons -->
-[1.1]: <img src="https://img.icons8.com/color/48/000000/firebase.png"/>
-[1.2]: <img src="https://img.icons8.com/color/48/000000/flutter.png"/>
+
 
