@@ -15,10 +15,10 @@ ActivePam is workout schedules flutter app.
 ActivePam includes easy access to weekly home workout plans created by fitness influencer Pamela Reif. With progress tracking and daily reminders option.
  
 ## Technologies
-[Flutter](<img src="https://img.icons8.com/color/48/000000/flutter.png"/>) .
- [Firebase](<img src="https://img.icons8.com/color/48/000000/firebase.png"/>) .
--Firebase Authentication.
--Cloud Firestore.
+* ![Flutter](<img src="https://img.icons8.com/color/48/000000/flutter.png"/>) Flutter.
+* ![Firebase](<img src="https://img.icons8.com/color/48/000000/firebase.png"/>)Firebase. <br/>
+-Firebase Authentication. <br/>
+-Cloud Firestore. <br/>
  
 ## Features
 * User authentication with Firebase (email and password + google sign in).
@@ -28,23 +28,23 @@ ActivePam includes easy access to weekly home workout plans created by fitness i
 * Send scheduled daily remainders.
  
 ## Screenshots
-* Sign Up
+* Sign Up <br/>
 ![](sign_up.gif)
-* Log in
+* Log in <br/>
 ![log_in](log_in.gif)
-* Day Screen
+* Day Screen <br/>
 ![day_screen](day.gif)
-* Video Screen
+* Video Screen <br/>
 ![vido_screen](vid_screen_1.gif)
-* Next Video
+* Next Video <br/>
 ![transitoin_in_video_screen](vid_trans.gif)
-* Quitting Video Screen
+* Quitting Video Screen <br/>
 ![quitting_video_screen](quit_vid.gif)
-* Set Reminder option
+* Set Reminder option <br/>
 ![set_reminder](set_reminder.gif)
-* Log out 
+* Log out  <br/>
 ![log_out](log_out.gif)
-* Weekly Progress indicator(percentage)
+* Weekly Progress indicator(percentage) <br/>
 ![prcntge](progress_indi.gif)
  
 ## Used Flutter Packeges
