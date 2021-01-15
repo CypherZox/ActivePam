@@ -18,7 +18,7 @@ ActivePam includes easy access to weekly home workout plans created by fitness i
 *  <img src="https://img.icons8.com/color/48/000000/flutter.png"/> Flutter.
 *  <img src="https://img.icons8.com/color/48/000000/firebase.png"/> Firebase. <br/>
 -Firebase Authentication. <br/>
--Cloud Firestore. <br/>
+-Cloud Firestore(For Storage). <br/>
  
 ## Features
 * User authentication with Firebase (email and password + google sign in).
