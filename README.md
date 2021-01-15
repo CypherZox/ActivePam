@@ -60,8 +60,9 @@ ActivePam includes easy access to weekly home workout plans created by fitness i
 * Visualization of usage analysis(Calendar + Frequency + Streaks + History)
  
 ## Inspiration 
-Facing the problem of searching every single video from the weekly plans pictures manually, and having to remember all the videos before starting my workout.
+Facing the problem of searching every single video from the weekly plans pictures manually, also having to remember all the videos before starting my workout.
 With this app, I can access all the videos more conveniently.
+Pamela Rief insta: @pamela_rf
  
 ## code sources
 * The animation in the day screen was from FireShip's [tutorial](https://fireship.io/lessons/flutter-slider-like-reflectly/).
