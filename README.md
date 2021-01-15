@@ -28,23 +28,23 @@ ActivePam includes easy access to weekly home workout plans created by fitness i
 * Send scheduled daily remainders.
  
 ## Screenshots
-Sign Up
+* Sign Up
 ![](sign_up.gif)
-Log in
+* Log in
 ![log_in](log_in.gif)
-Day Screen
+* Day Screen
 ![day_screen](day.gif)
-Video Screen
+* Video Screen
 ![vido_screen](vid_screen_1.gif)
-Next Video
+* Next Video
 ![transitoin_in_video_screen](vid_trans.gif)
-Quitting Video Screen
+* Quitting Video Screen
 ![quitting_video_screen](quit_vid.gif)
-Set Reminder option
+* Set Reminder option
 ![set_reminder](set_reminder.gif)
-Log out 
+* Log out 
 ![log_out](log_out.gif)
-Weekly Progress indicator(percentage)
+* Weekly Progress indicator(percentage)
 ![prcntge](progress_indi.gif)
  
 ## Used Flutter Packeges
