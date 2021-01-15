@@ -1,6 +1,6 @@
 # ActivePam - Pamela Rief Workout Schedules App
  
-ActivePam is workout schedules flutter app.
+ActivePam is a workout app that features weekly home workout plans.
  
 ## Table of contents
 * [Introduction](#Introduction)
