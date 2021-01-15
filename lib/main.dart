@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/screens/DayScreen.dart';
 import 'package:get_active_prf/screens/explore.dart';
-import 'package:get_active_prf/screens/jussst.dart';
 import 'package:get_active_prf/screens/log_in.dart';
 import 'package:get_active_prf/screens/register.dart';
-import 'package:get_active_prf/screens/test.dart';
-import 'package:get_active_prf/screens/testest.dart';
 import 'package:get_active_prf/screens/vid_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -47,9 +44,6 @@ class MyApp extends StatelessWidget {
         '/Register': (context) => Register(),
         '/Explore': (context) => Explore(),
         '/VidScreen': (context) => VidScreen(),
-        '/testScreen': (context) => TestScreen(),
-        '/just': (context) => JustAtest(),
-        '/jusst': (context) => Jusst(),
         '/dayscreen': (context) => DayScreen(),
       },
     );

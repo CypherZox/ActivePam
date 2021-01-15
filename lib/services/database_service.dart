@@ -3,10 +3,6 @@ import 'package:get_active_prf/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseService {
-  // final String uid;
-  // DatabaseService({this.uid});
-
-  // collection reference
   final FirebaseAuth auth = FirebaseAuth.instance;
   User get user {
     return auth.currentUser;

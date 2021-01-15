@@ -45,6 +45,7 @@ class _ExploreState extends State<Explore> {
     return name;
   }
 
+//function to retrieve current week from cloud firestore
   int currentweek1 = 1;
   void currentWeek() async {
     int current = await DatabaseService().getcurrentweek();
@@ -55,6 +56,7 @@ class _ExploreState extends State<Explore> {
     }
   }
 
+//function to retrieve current day from cloud firestore to pass it to Day Screen.
   int currentday1 = 1;
   void currentDay() async {
     int current = await DatabaseService().getcurrentday();
@@ -65,6 +67,7 @@ class _ExploreState extends State<Explore> {
     }
   }
 
+//function to retrieve week percentage from cloud firestore
   int weekprctng = 0;
   void weekPrctng() async {
     int current = await DatabaseService().getweekprctng();
@@ -90,6 +93,7 @@ class _ExploreState extends State<Explore> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       endDrawer: Drawer(
+        //options drawer (info, logout, adding reminders)
         child: Container(
           color: Color(0xffF7F7F7),
           child: Column(
@@ -226,6 +230,7 @@ class _ExploreState extends State<Explore> {
                                                           color: Colors.black),
                                                     ),
                                                     onPressed: () async {
+                                                      //function to add schedueled alarms
                                                       await onSaveAlarm();
                                                       Navigator.pop(context);
                                                     },
@@ -325,26 +330,6 @@ class _ExploreState extends State<Explore> {
                     },
                   ),
                 ),
-                // Align(
-                //   alignment: Alignment.topRight,
-                //   child: GestureDetector(
-                //     onTap: () {
-                //       auth.signOut();
-                //       Navigator.push(
-                //           context,
-                //           PageTransition(
-                //               child: LogIn(), type: PageTransitionType.upToDown));
-                //     },
-                //     child: Text(
-                //       'Log out',
-                //       style: TextStyle(
-                //           fontSize: 20,
-                //           fontFamily: 'mija',
-                //           color: Colors.black.withOpacity(0.4)),
-                //     ),
-
-                //   ),
-                // ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0.0, 30, 0.0, 0.0),
                   child: Column(
@@ -380,6 +365,7 @@ class _ExploreState extends State<Explore> {
                   child: StreamBuilder(
                       stream: weeksstream,
                       builder: (context, AsyncSnapshot snap) {
+                        //calling functions to return values and show them in week tile and pass them to Day Screen.
                         currentWeek();
                         currentDay();
                         weekPrctng();
@@ -390,10 +376,6 @@ class _ExploreState extends State<Explore> {
                           return Text("Loading");
                         }
                         final noofweeks = snap.data.data()['no_of_weeks'];
-                        // final weeky = snap.data['no_of_weeks'];
-                        // int currentweek = currentWeek();
-
-                        // int currentweek = currentweek1;
                         List vids =
                             _dayVidList.getvids(noofweeks, currentweek1);
                         List flags =
@@ -425,13 +407,13 @@ class _ExploreState extends State<Explore> {
     );
   }
 
+//helper function to scheduel notifications using #local_notifications package.
   void scheduleAlarm(DateTime scheduledNotificationDateTime) async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'alarm_notif',
       'alarm_notif',
       'Channel for Alarm notification',
       icon: 'ucon',
-      // sound: RawResourceAndroidNotificationSound('a_long_cold_sting'),
       largeIcon: DrawableResourceAndroidBitmap('ucon'),
     );
 
@@ -458,7 +440,6 @@ class _ExploreState extends State<Explore> {
       scheduleAlarmDateTime = _alarmTime;
     else
       scheduleAlarmDateTime = _alarmTime.add(Duration(days: 1));
-
     scheduleAlarm(scheduleAlarmDateTime);
   }
 }

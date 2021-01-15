@@ -5,16 +5,16 @@ import 'package:get_active_prf/widgets/new_day_tile.dart';
 // import 'package:provider/provider.dart';
 // import 'package:get_active_prf/data/percentage_logic.dart';
 
-class Jusst extends StatefulWidget {
+class VidsListView extends StatefulWidget {
   final String title;
   final String version;
   final List vidIds;
-  Jusst({this.title, this.version, this.vidIds});
+  VidsListView({this.title, this.version, this.vidIds});
   @override
-  _JusstState createState() => _JusstState();
+  _VidsListViewState createState() => _VidsListViewState();
 }
 
-class _JusstState extends State<Jusst> {
+class _VidsListViewState extends State<VidsListView> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   User get user {
     return auth.currentUser;
@@ -22,10 +22,6 @@ class _JusstState extends State<Jusst> {
 
   String get name {
     return user.displayName;
-  }
-
-  List get mylist {
-    return ['DHOPWvO3ZcI', 'QN5Nu1aeYyc', 'QUn2iTnPOyw'];
   }
 
   Future updateUserName(String name, User currentUser) async {

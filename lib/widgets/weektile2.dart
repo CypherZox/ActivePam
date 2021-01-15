@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/screens/DayScreen.dart';
-import 'package:get_active_prf/screens/jussst.dart';
+import 'package:get_active_prf/widgets/DaysList.dart';
 import 'package:get_active_prf/services/cloud_data.dart';
 import 'package:get_active_prf/services/database_service.dart';
 import 'package:page_transition/page_transition.dart';

@@ -12,8 +12,6 @@ import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get_active_prf/services/cloud_data.dart';
 
-// var globalContext;
-
 class VidScreen extends StatefulWidget {
   final List<dynamic> ids;
   final String weekNo;
@@ -91,6 +89,7 @@ class _VidScreenState extends State<VidScreen> {
     return int.parse(widget.dayNo) - 1;
   }
 
+//variables to count day progress
   int finished = 0;
   double unFinished = 0;
   PrcntgLogic progressprcntg;
@@ -100,6 +99,7 @@ class _VidScreenState extends State<VidScreen> {
     final prcntgeProvider = Provider.of<PrcntgLogic>(context, listen: true);
     return GestureDetector(
       onPanUpdate: (details) {
+        //when user swipes => require confirmation from user to pop screen .
         if (details.delta.dx > 0) {
           showDialog(
             context: context,
@@ -135,7 +135,9 @@ class _VidScreenState extends State<VidScreen> {
                                   _controller.value.position.inSeconds)) /
                           _controller.metadata.duration.inSeconds);
                     });
+
                     if (unFinished != null) {
+                      //calling the get percentagefunction (how much of the video was played by user) after quitting video.
                       prcntgeProvider.getPrsntg(
                           this.finished,
                           this.unFinished,
@@ -143,6 +145,7 @@ class _VidScreenState extends State<VidScreen> {
                           'week${this.widget.weekNo}',
                           this.dayno);
                     }
+                    //retrieve week video ids from cloud firestore to pass it back to Day Screen
                     Stream mystream =
                         CloudData().getweeksstream(this.widget.weekNo);
                     int current = await DatabaseService().getcurrentday();
@@ -219,7 +222,6 @@ class _VidScreenState extends State<VidScreen> {
                 _controller.load(_ids[(_ids.indexOf(data.videoId) + 1)]);
                 _showSnackBar('Next Video Started!');
               } else {
-                print('dayno ${this.widget.dayNo}');
                 if (unFinished != null) {
                   prcntgeProvider.getPrsntg(
                       this.finished,
@@ -228,7 +230,7 @@ class _VidScreenState extends State<VidScreen> {
                       'week${this.widget.weekNo}',
                       int.parse(this.widget.dayNo));
                 }
-
+                //retrieve week video ids from cloud firestore to pass it back to Day Screen
                 Stream mystream =
                     CloudData().getweeksstream(this.widget.weekNo);
                 int current = await DatabaseService().getcurrentday();
@@ -254,7 +256,7 @@ class _VidScreenState extends State<VidScreen> {
                 onTap: () {
                   if ((_ids.indexOf(_videoMetaData.videoId)) + 1 < totalnum) {
                     _controller.pause();
-                    print(this.dayno);
+
                     setState(() {
                       unFinished += ((_controller.metadata.duration.inSeconds -
                               (_controller.metadata.duration.inSeconds -
@@ -277,7 +279,6 @@ class _VidScreenState extends State<VidScreen> {
                     );
                   }
                 },
-                //  'https://img.youtube.com/vi/${_ids[_ids.indexOf(_videoMetaData.videoId) + 1]}/maxresdefault.jpg',
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50.0),
                   child: Container(
