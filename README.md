@@ -28,15 +28,24 @@ ActivePam includes easy access to weekly home workout plans created by fitness i
 * Send scheduled daily remainders.
  
 ## Screenshots
-![Sign_up](sign_up.gif)
-[log_in](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/log_in.gif)
-[day_screen](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/day.gif)
-[vido_screen](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/vid_screen_1.gif)
-[transitoin_in_video_screen](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/vid_trans.gif)
-[quitting_video_screen](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/quit_vid.gif)
-[set_reminder](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/set_reminder.gif)
-[log_out](https://github.com/CypherZox/ActivePam/blob/master/assets/Screenshots/log_out.gif)
- 
+Sign Up
+![](sign_up.gif)
+Log in
+![log_in](log_in.gif)
+Day Screen
+![day_screen](day.gif)
+Video Screen
+![vido_screen](vid_screen_1.gif)
+Next Video
+![transitoin_in_video_screen](vid_trans.gif)
+Quitting Video Screen
+![quitting_video_screen](quit_vid.gif)
+Set Reminder option
+![set_reminder](set_reminder.gif)
+Log out 
+![log_out](log_out.gif)
+Weekly Progress indicator(percentage)
+![prcntge](progress_indi.gif)
  
 ## Used Flutter Packeges
 * [youtube_player_flutter 7.0.0+7](https://pub.dev/packages/youtube_player_flutter)
