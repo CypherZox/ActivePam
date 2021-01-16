@@ -1,6 +1,6 @@
 # ActivePam - Pamela Rief Workout Schedules App
  
-ActivePam is workout schedules flutter app.
+ActivePam is a workout app that features weekly home workout plans.
  
 ## Table of contents
 * [Introduction](#Introduction)
@@ -15,10 +15,15 @@ ActivePam is workout schedules flutter app.
 ActivePam includes easy access to weekly home workout plans created by fitness influencer Pamela Reif. With progress tracking and daily reminders option.
  
 ## Technologies
+<<<<<<< HEAD
 * ![](<img src="https://img.icons8.com/color/48/000000/flutter.png"/>) Flutter.
 * ![](<img src="https://img.icons8.com/color/48/000000/firebase.png"/>)Firebase. <br/>
+=======
+*  <img src="https://img.icons8.com/color/48/000000/flutter.png"/> Flutter.
+*  <img src="https://img.icons8.com/color/48/000000/firebase.png"/> Firebase. <br/>
+>>>>>>> 68da8fb4ea02c6123f779594e0719d6efcacda01
 -Firebase Authentication. <br/>
--Cloud Firestore. <br/>
+-Cloud Firestore(For Storage). <br/>
  
 ## Features
 * User authentication with Firebase (email and password + google sign in).
@@ -75,8 +80,9 @@ Using another function weekly progress is also indicated and shown to user in th
 * Visualization of usage analysis(Calendar + Frequency + Streaks + History)
  
 ## Inspiration 
-Facing the problem of searching every single video from the weekly plans pictures manually, and having to remember all the videos before starting my workout.
+Facing the problem of searching every single video from the weekly plans pictures manually, also having to remember all the videos before starting my workout.
 With this app, I can access all the videos more conveniently.
+Pamela Rief insta: @pamela_rf
  
 ## code sources
 * The animation in the day screen was from FireShip's [tutorial](https://fireship.io/lessons/flutter-slider-like-reflectly/).
