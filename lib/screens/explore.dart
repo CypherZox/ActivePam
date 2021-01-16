@@ -150,7 +150,7 @@ class _ExploreState extends State<Explore> {
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(
-                                                66.0, 60.0, 0.0, 0.0),
+                                                35.0, 60.0, 0.0, 0.0),
                                             child: MaterialButton(
                                               child: Text(
                                                 'Select time',
@@ -190,7 +190,7 @@ class _ExploreState extends State<Explore> {
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(
-                                                50.0, 150.0, 0.0, 0.0),
+                                                15.0, 150.0, 0.0, 0.0),
                                             child: Row(
                                               children: [
                                                 Container(

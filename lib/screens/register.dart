@@ -194,7 +194,7 @@ class _RegisterState extends State<Register> {
                                 color: Colors.black.withOpacity(0.7), width: 2),
                             child: Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
                               child: Row(
                                 children: [
                                   Icon(
