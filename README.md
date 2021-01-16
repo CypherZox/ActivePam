@@ -46,7 +46,7 @@ Log in code can handle errors if the password is wrong, or user is facing connec
 Day screen is a screen that shows the daily workouts consisting of different versions of plans(30 minutes, 45 minutes, or beiginner workout). User can transition between the different versions with smooth animation transitions.
 *Used cloude firestore to store YouTube video IDs, to show the videos thumbnails also to pass them into the video screen. <br/>
 [code](https://github.com/CypherZox/ActivePam/blob/master/lib/screens/DayScreen.dart) <br/>
-![day_screen](day_new.gif)
+![day_screen](day_new1.gif)
 * Video Screen <br/>
 Video screen uses [Youtube_player_package](https://pub.dev/packages/youtube_player_flutter), first the Youtube videos IDs are retrieved from the cloud firestore and then passed them in a list. <br/>
 [code](https://github.com/CypherZox/ActivePam/blob/master/lib/screens/vid_screen.dart) <br/>
