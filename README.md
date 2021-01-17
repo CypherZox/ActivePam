@@ -34,7 +34,7 @@ ActivePam includes easy access to weekly home workout plans created by fitness i
  
 ## Screenshots
 * Sign Up <br/>
-User can sign up with eighther email and password or google account.
+Users can sign up with eighther email and password or a google account.
 Code handles errors if email is already used for another existing account. <br/>Developed using firebase authentication services.<br/>
 [code](https://github.com/CypherZox/ActivePam/blob/master/lib/screens/register.dart) <br/>
 ![](sign_up_new.gif)
@@ -43,8 +43,8 @@ Log in code can handle errors if the password is wrong, or user is facing connec
 [code](https://github.com/CypherZox/ActivePam/blob/master/lib/screens/log_in.dart)<br/> 
 ![log_in](log_in_new.gif)
 * Day Screen <br/>
-Day screen is a screen that shows the daily workouts consisting of different versions of plans(30 minutes, 45 minutes, or beiginner workout). User can transition between the different versions with smooth animation transitions.
-*Used cloude firestore to store YouTube video IDs, to show the videos thumbnails also to pass them into the video screen. <br/>
+Day screen is a screen that shows the daily workouts consisting of different versions of plans(30 minutes, 45 minutes, or beginner workout). Users can transition between the different versions with smooth animation transitions.
+* Used cloude firestore to store YouTube video IDs, for showing the videos thumbnails also to pass them into the video screen. <br/>
 [code](https://github.com/CypherZox/ActivePam/blob/master/lib/screens/DayScreen.dart) <br/>
 ![day_screen](day_new1.gif)
 * Video Screen <br/>
@@ -57,14 +57,14 @@ User can skip one video and move on to the next one with one click <br/>
 * Exiting Video Screen <br/>
 ![quitting_video_screen](quit_vid.gif)
 * Set Reminder option <br/>
-User have the choice to set schedueled daily reminders as notifications.
+Users have the choice to set scheduled daily reminders as notifications.
 Developed this feature with the help of [flutter_local_notifications: ^3.0.3](https://pub.dev/packages/flutter_local_notifications) . <br/>
 ![set_reminder](set_reminder_new.gif)
 * Log out  <br/>
 ![log_out](log_out_new.gif)
 * Weekly Progress indicator(percentage) <br/>
-The app uses a function that counts how much of progress user has made in one day and store the progress as a percentage in Cloud FireStore. using this [code](https://github.com/CypherZox/ActivePam/blob/master/lib/data/percentage_logic.dart) <br/> 
-Using another function weekly progress is also indicated and shown to user in the [week_tile](https://github.com/CypherZox/ActivePam/blob/master/lib/widgets/weektile2.dart)<br/>
+The app uses a function that counts how much of progress the user has made in one day and store that progress as a percentage in Cloud FireStore. using this [code](https://github.com/CypherZox/ActivePam/blob/master/lib/data/percentage_logic.dart) <br/> 
+With the use of another function weekly progress is also indicated and shown to the user in the [week_tile](https://github.com/CypherZox/ActivePam/blob/master/lib/widgets/weektile2.dart)<br/>
 ![prcntge](progress_indi_new.gif)
  
 ## Used Flutter Packeges
@@ -82,7 +82,7 @@ Using another function weekly progress is also indicated and shown to user in th
 ## Inspiration 
 Facing the problem of searching every single video from the weekly plans pictures manually, also having to remember all the videos before starting my workout.
 With this app, I can access all the videos more conveniently.
-Pamela Rief insta: @pamela_rf
+Pamela Rief install: @pamela_rf
  
 ## code sources
 * The animation in the day screen was from FireShip's [tutorial](https://fireship.io/lessons/flutter-slider-like-reflectly/).
