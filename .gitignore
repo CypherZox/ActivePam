@@ -30,9 +30,8 @@
 .pub-cache/
 .pub/
 /build/
-lib/screens/test.dart
-lib/screens/jussst.dart
-lib/screens/testest.dart
+android/app/google-services.json
+android/build/
 # Web related
 lib/generated_plugin_registrant.dart
 

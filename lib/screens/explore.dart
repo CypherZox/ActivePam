@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/models/day_vid_list.dart';
+import 'package:get_active_prf/models/progress.dart';
 import 'package:get_active_prf/screens/log_in.dart';
 import 'package:get_active_prf/services/auth.dart';
 import 'package:get_active_prf/services/cloud_data.dart';
@@ -49,7 +50,13 @@ class _ExploreState extends State<Explore> {
   int currentweek1 = 1;
   void currentWeek() async {
     int current = await DatabaseService().getcurrentweek();
+    auth.getUserProgress();
+    UserProgress userProgress = await auth.getUserProgress();
+    int _progressprcnt = userProgress.getprogressPrcntge();
     if (mounted) {
+      if (_progressprcnt > 95) {
+        current += 1;
+      }
       setState(() {
         currentweek1 = current;
       });
@@ -366,6 +373,7 @@ class _ExploreState extends State<Explore> {
                       stream: weeksstream,
                       builder: (context, AsyncSnapshot snap) {
                         //calling functions to return values and show them in week tile and pass them to Day Screen.
+
                         currentWeek();
                         currentDay();
                         weekPrctng();

@@ -10,9 +10,13 @@ import 'package:provider/provider.dart';
 import 'package:cupertino_will_pop_scope/cupertino_will_pop_scope.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
+
+// Assign widget based on availability of currentUser
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIOverlays([]);
@@ -21,6 +25,7 @@ void main() async {
   // var initializationSettings =
   //     InitializationSettings(android: initializationSettingsAndroid);
   await Firebase.initializeApp();
+
   runApp(ChangeNotifierProvider(
       create: (context) => PrcntgLogic(), child: MyApp()));
 }
@@ -29,6 +34,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    User firebaseUser = FirebaseAuth.instance.currentUser;
+    Widget firstWidget;
+
+    if (firebaseUser != null) {
+      firstWidget = Explore();
+    } else {
+      firstWidget = LogIn();
+    }
     return MaterialApp(
       theme: ThemeData(
           primaryColor: Colors.black,
@@ -38,7 +51,7 @@ class MyApp extends StatelessWidget {
             TargetPlatform.iOS: CupertinoWillPopScopePageTransionsBuilder(),
           })),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/log_n',
+      home: firstWidget,
       routes: {
         '/log_n': (context) => LogIn(),
         '/Register': (context) => Register(),

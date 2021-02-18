@@ -85,6 +85,10 @@ class _VidScreenState extends State<VidScreen> {
     return _ids.length;
   }
 
+  List get progress_list {
+    return List.filled(_ids.length, 0);
+  }
+
   int get dayno {
     return int.parse(widget.dayNo) - 1;
   }

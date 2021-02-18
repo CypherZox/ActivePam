@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/custom_icons/rarow_icons.dart';
 import 'package:get_active_prf/screens/explore.dart';
+import 'package:get_active_prf/services/auth.dart';
 import 'package:get_active_prf/widgets/DaysList.dart';
 import 'package:get_active_prf/screens/vid_screen.dart';
 import 'package:get_active_prf/services/cloud_data.dart';
@@ -204,7 +205,7 @@ _buildStoryPage(
     Map data, bool active, BuildContext context, String dayNo, String weekNo) {
   // Animated Properties
   final double top = active ? 30 : 80;
-  final String title = data['title'];
+  final String title = data['title'] != null ? data['title'] : null;
   final String version = data['version'];
   final List vids = data['vids'];
 
@@ -230,7 +231,7 @@ _buildStoryPage(
         padding: const EdgeInsets.fromLTRB(11.0, 2.0, 0.0, 0.0),
         child: Align(
             alignment: Alignment.topLeft,
-            child: title != 'Rest Day'
+            child: title != 'Rest Day' && title != null
                 ? Text(
                     '$title',
                     style: TextStyle(

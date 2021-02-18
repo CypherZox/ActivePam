@@ -191,8 +191,8 @@ class _LogInState extends State<LogIn> {
                                   );
                                 });
                           }
-
                           auth.setuserprogress();
+                          auth.getUserProgress();
                           Navigator.pushNamed(context, '/Explore');
                         },
                         title: 'log in',

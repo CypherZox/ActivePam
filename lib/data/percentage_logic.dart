@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get_active_prf/models/progress.dart';
+import 'package:get_active_prf/services/auth.dart';
 import 'package:get_active_prf/services/database_service.dart';
 
 class PrcntgLogic extends ChangeNotifier {
@@ -9,16 +11,17 @@ class PrcntgLogic extends ChangeNotifier {
   double progressprcntg;
   int weekprctng = 0;
   T sum<T extends dynamic>(T lhs, T rhs) => lhs + rhs;
-  // PrcntgLogic({this.finished, this.totalnum, this.unFinished});
   void getPrsntg(finished, unFinished, totalnum, String week, int day) async {
-    // int currentWeek = await DatabaseService().getcurrentweek();
-    // int currenDay = await DatabaseService().getcurrentday();
+    UserProgress userProgress = await AuthService().getUserProgress();
     progressprcntg = ((finished + unFinished) / totalnum * 100);
     if (progressprcntg >= 0 && progressprcntg < 10000) {
       List<dynamic> weeklist =
           await databaseService.chngdata(week, day, progressprcntg.toInt());
-      int weekprctng = ((((weeklist.reduce(sum)) * 100)) ~/ 600);
-      print(weekprctng);
+      int weekprctng = ((((weeklist.reduce(sum)) * 100)) ~/ 500);
+      if (weekprctng > userProgress.getprogressPrcntge()) {
+        userProgress.setprogressPrcntge(weekprctng);
+      }
+
       databaseService.updateweekprcntg(weekprctng);
       changecurrents(weekprctng, progressprcntg);
       notifyListeners();

@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get_active_prf/models/progress.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +18,23 @@ class AuthService extends ChangeNotifier {
     return (_firebaseAuth.currentUser).uid;
   }
 
+  Future<UserProgress> getUserProgress() async {
+    UserProgress userProgress;
+    String uid = getCurrentUID();
+    await FirebaseFirestore.instance
+        .collection('userprogress')
+        .doc(uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        Map<String, dynamic> documentDate = documentSnapshot.data();
+        userProgress = new UserProgress(documentDate['current_day'],
+            documentDate['current_week'], documentDate['weekprctng']);
+      }
+    });
+    return userProgress;
+  }
+
   // Email & Password Sign Up
   Future<String> createUserWithEmailAndPassword(
       String email, String password, String name) async {
@@ -24,9 +43,20 @@ class AuthService extends ChangeNotifier {
       password: password,
     );
 
-    // Update the username
-    // await updateUserName(name, authResult.user);
-
+    try {
+      FirebaseFirestore.instance
+          .collection('userprogress')
+          .doc(authResult.user.uid)
+          .set({
+        'week1': [0, 0, 0, 0, 0],
+        'current_day': 1,
+        'current_week': 1,
+        'weekprctng': 0,
+      });
+    } catch (e) {}
+    await authResult.user.updateProfile(
+      displayName: name,
+    );
     return authResult.user.uid;
   }
 
@@ -86,6 +116,20 @@ class AuthService extends ChangeNotifier {
       idToken: _googleAuth.idToken,
       accessToken: _googleAuth.accessToken,
     );
+    try {
+      final FirebaseAuth _auth = FirebaseAuth.instance;
+      User currentUser = _auth.currentUser;
+      FirebaseFirestore.instance
+          .collection('userprogress')
+          .doc(currentUser.uid)
+          .set({
+        'week1': [0, 0, 0, 0, 0],
+        'current_day': 1,
+        'current_week': 1,
+        'weekprctng': 0,
+      });
+    } catch (e) {}
+
     return (await _firebaseAuth.signInWithCredential(credential)).user.uid;
   }
 }

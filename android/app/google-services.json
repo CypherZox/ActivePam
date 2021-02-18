@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "738418482182-ivs43ditkpl57qh3il0osfavdjve6o2k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hanzy.get_active_prf",
+            "certificate_hash": "a5c4adcd4b616c9e464553b8c8ba3f7d4af22269"
+          }
+        },
+        {
           "client_id": "738418482182-dc4l3uhhcu6evbvfkmhdk90lodvaltha.apps.googleusercontent.com",
           "client_type": 3
         }

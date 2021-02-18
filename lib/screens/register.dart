@@ -135,15 +135,15 @@ class _RegisterState extends State<Register> {
                                   );
                                 });
                           }
-                          final FirebaseAuth _auth = FirebaseAuth.instance;
-                          User currentUser = _auth.currentUser;
-                          print(currentUser.uid);
-                          progCollection.doc('${currentUser.uid}').set({
-                            'week1': [0, 0, 0, 0, 0, 0, 0],
-                            'current_day': 1,
-                            'current_week': 1,
-                            'weekprctng': 0,
-                          });
+                          // final FirebaseAuth _auth = FirebaseAuth.instance;
+                          // User currentUser = _auth.currentUser;
+                          // print(currentUser.uid);
+                          // progCollection.doc('${currentUser.uid}').set({
+                          //   'week1': [0, 0, 0, 0, 0, 0, 0],
+                          //   'current_day': 1,
+                          //   'current_week': 1,
+                          //   'weekprctng': 0,
+                          // });
                           await showDialog(
                               context: context,
                               builder: (context) {
@@ -160,10 +160,10 @@ class _RegisterState extends State<Register> {
                                 );
                               });
 
-                          await currentUser.updateProfile(
-                            displayName: _nameController.text,
-                          );
-                          print(currentUser.displayName);
+                          // await currentUser.updateProfile(
+                          //   displayName: _nameController.text,
+                          // );
+                          // print(currentUser.displayName);
 
                           Navigator.pushNamed(context, '/log_n');
                         },
@@ -215,16 +215,16 @@ class _RegisterState extends State<Register> {
                             onPressed: () async {
                               try {
                                 await auth.signInWithGoogle();
-                                final FirebaseAuth _auth =
-                                    FirebaseAuth.instance;
-                                User currentUser = _auth.currentUser;
-                                print(currentUser.uid);
-                                progCollection.doc('${currentUser.uid}').set({
-                                  'week1': [0, 0, 0, 0, 0, 0, 0],
-                                  'current_day': 1,
-                                  'current_week': 1,
-                                  'weekprctng': 0,
-                                });
+                                // final FirebaseAuth _auth =
+                                //     FirebaseAuth.instance;
+                                // User currentUser = _auth.currentUser;
+                                // print(currentUser.uid);
+                                // progCollection.doc('${currentUser.uid}').set({
+                                //   'week1': [0, 0, 0, 0, 0],
+                                //   'current_day': 1,
+                                //   'current_week': 1,
+                                //   'weekprctng': 0,
+                                // });
                               } catch (e) {
                                 print('$e');
                               }
