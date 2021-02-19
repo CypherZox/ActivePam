@@ -1,31 +1,32 @@
 class UserProgress {
-  int _currentWeek, _currentDay, _progressPrcntge = 0;
-  UserProgress(currentDay, currentWeek, progressPrcntge) {
-    this._currentDay = currentDay;
-    this._currentWeek = currentWeek;
-    this._progressPrcntge = progressPrcntge;
-  }
-  int getcurrentDay() {
-    return _currentDay;
+  int currentWeek = 0, currentDay = 0, progressPrcntge = 0, noofweeks = 0;
+
+  UserProgress(
+      {this.currentWeek,
+      this.currentDay,
+      this.progressPrcntge,
+      this.noofweeks});
+
+  factory UserProgress.fromMap(
+    Map data,
+  ) {
+    data = data ?? {};
+    return UserProgress(
+      currentDay: data['current_day'] ?? 0,
+      currentWeek: data['current_week'] ?? 0,
+      progressPrcntge: data['weekprctng'] ?? 0,
+    );
   }
 
-  setcurrentDay(currentDay) {
-    this._currentDay = currentDay;
+  int getcurrentDay() {
+    return currentDay;
   }
 
   int getcurrentWeek() {
-    return _currentWeek;
-  }
-
-  setcurrentWeek(currentWeek) {
-    this._currentWeek = currentWeek;
+    return currentWeek;
   }
 
   int getprogressPrcntge() {
-    return _progressPrcntge;
-  }
-
-  setprogressPrcntge(progressPrcntge) {
-    this._progressPrcntge = progressPrcntge;
+    return progressPrcntge;
   }
 }

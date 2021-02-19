@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/custom_icons/rarow_icons.dart';
 import 'package:get_active_prf/screens/explore.dart';
-import 'package:get_active_prf/services/auth.dart';
 import 'package:get_active_prf/widgets/DaysList.dart';
 import 'package:get_active_prf/screens/vid_screen.dart';
 import 'package:get_active_prf/services/cloud_data.dart';
 import 'package:get_active_prf/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:get_active_prf/widgets/DayNumber.dart';
 
 class DayScreen extends StatefulWidget {
   final Stream week;

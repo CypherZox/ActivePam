@@ -28,8 +28,6 @@ class AuthService extends ChangeNotifier {
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         Map<String, dynamic> documentDate = documentSnapshot.data();
-        userProgress = new UserProgress(documentDate['current_day'],
-            documentDate['current_week'], documentDate['weekprctng']);
       }
     });
     return userProgress;

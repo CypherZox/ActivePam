@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_active_prf/models/progress.dart';
 import 'package:get_active_prf/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,6 +16,21 @@ class DatabaseService {
   final CollectionReference progCollection =
       FirebaseFirestore.instance.collection('userprogress');
   DocumentSnapshot snapshot;
+  Stream<UserProgress> getUerProgress(String id) {
+    return progCollection
+        .doc(id)
+        .snapshots()
+        .map((snap) => UserProgress.fromMap(snap.data()));
+  }
+
+  Stream<int> setnoofweeks(String id) {
+    return FirebaseFirestore.instance
+        .collection('no_of_weeks')
+        .doc('no_of_weeks')
+        .snapshots()
+        .map((snap) => snap.data()['no_of_weeks']);
+  }
+
   void getmyData() async {
     //use a Async-await function to get the data
     final data = await progCollection.doc(uid).get(); //get the data

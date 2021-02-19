@@ -38,6 +38,7 @@ class WeekTile2 extends StatelessWidget {
             onPanUpdate: (details) async {
               if (details.delta.dy < 0) {
                 print('week on tile is $no');
+                print('week on tile is $dayNo');
                 Stream mystream = await CloudData().getweeksstream(no);
                 Navigator.push(
                     context,
