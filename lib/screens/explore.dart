@@ -52,11 +52,13 @@ class _ExploreState extends State<Explore> {
   DatabaseService db = DatabaseService();
   @override
   Widget build(BuildContext context) {
+    UserProgress userProgress = UserProgress();
     UserProgress userpog = Provider.of<UserProgress>(context, listen: true);
     final int noofweeks = Provider.of<int>(context) ?? 1;
-    int _currentDay = userpog?.currentDay;
+    int _currentDay = userpog?.currentDay ?? userProgress.getcurrentDay();
     int _currentWeek = userpog?.currentWeek ?? 1;
-    int progressprcnt = userpog?.progressPrcntge;
+    int progressprcnt =
+        userpog?.progressPrcntge ?? userProgress.getprogressPrcntge();
 
     List vids = _dayVidList.getvids(noofweeks, _currentWeek);
     List flags = _dayVidList.flagvids(noofweeks, _currentWeek);

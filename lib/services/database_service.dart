@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_active_prf/models/progress.dart';
 import 'package:get_active_prf/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 class DatabaseService {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -31,14 +32,15 @@ class DatabaseService {
         .map((snap) => snap.data()['no_of_weeks']);
   }
 
-  void getmyData() async {
+  Future<DocumentSnapshot> getmyData() async {
     //use a Async-await function to get the data
     final data = await progCollection.doc(uid).get(); //get the data
     snapshot = data;
+    return data;
   }
 
   Future<List> getData(String week) async {
-    List weeky = await progCollection.doc(uid).get().then((value) {
+    List weeky = await getmyData().then((value) {
       {
         if (value.data()['$week'] != null) {
           return value.data()['$week'];
@@ -49,21 +51,21 @@ class DatabaseService {
   }
 
   Future<int> getcurrentweek() async {
-    int currentweek = await progCollection.doc(uid).get().then((value) {
+    int currentweek = await getmyData().then((value) {
       return value.data()['current_week'];
     });
     return currentweek;
   }
 
   Future<int> getcurrentday() async {
-    int currentday = await progCollection.doc(uid).get().then((value) {
+    int currentday = await getmyData().then((value) {
       return value.data()['current_day'];
     });
     return currentday;
   }
 
   Future<int> getweekprctng() async {
-    int weekprctng = await progCollection.doc(uid).get().then((value) {
+    int weekprctng = await getmyData().then((value) {
       return value.data()['weekprctng'];
     });
     return weekprctng;
@@ -71,29 +73,40 @@ class DatabaseService {
 
   Future<List> chngdata(String week, int dayNo, int prcntg) async {
     List toEditList = [0, 0, 0, 0, 0];
+    print('day no is' + dayNo.toString());
     List currentWeek = await getData(week);
     if (currentWeek != null) {
       toEditList = currentWeek;
     }
-    if (prcntg <= 100 && prcntg > 0) {
+    if (prcntg <= 100 && prcntg >= 0) {
       if (prcntg >= toEditList[dayNo]) {
+        print(prcntg);
         toEditList[dayNo] = prcntg;
       }
+      // } else if (prcntg < toEditList[dayNo]) {
+      //   print(prcntg);
+      //   toEditList[dayNo] = toEditList[dayNo];
+      // }
     } else {
+      print(prcntg);
       toEditList[dayNo] = 100;
     }
     // print(toEditList);
     progCollection.doc(uid).update({
       '$week': toEditList,
     });
+
     return getData(week);
   }
 
-  void updateweekprcntg(int weekprctng) {
+  void updateweekprcntg(int weekprctng) async {
+    int currentweekprcntge = await getcurrentweek();
     if (weekprctng != null) {
-      progCollection.doc(uid).update({
-        'weekprctng': weekprctng,
-      });
+      if (weekprctng > currentweekprcntge) {
+        progCollection.doc(uid).update({
+          'weekprctng': weekprctng,
+        });
+      }
     }
   }
 

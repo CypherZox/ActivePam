@@ -96,11 +96,10 @@ class _VidScreenState extends State<VidScreen> {
 //variables to count day progress
   int finished = 0;
   double unFinished = 0;
-  PrcntgLogic progressprcntg;
+  PrcntgLogic progressprcntg = PrcntgLogic();
   DatabaseService databaseService = DatabaseService();
   @override
   Widget build(BuildContext context) {
-    final prcntgeProvider = Provider.of<PrcntgLogic>(context, listen: true);
     return GestureDetector(
       onPanUpdate: (details) {
         //when user swipes => require confirmation from user to pop screen .
@@ -139,10 +138,10 @@ class _VidScreenState extends State<VidScreen> {
                                   _controller.value.position.inSeconds)) /
                           _controller.metadata.duration.inSeconds);
                     });
-
+                    print('widget day is ' + this.dayno.toString());
                     if (unFinished != null) {
                       //calling the get percentagefunction (how much of the video was played by user) after quitting video.
-                      prcntgeProvider.getPrsntg(
+                      progressprcntg.getPrsntg(
                           this.finished,
                           this.unFinished,
                           this.totalnum,
@@ -226,8 +225,9 @@ class _VidScreenState extends State<VidScreen> {
                 _controller.load(_ids[(_ids.indexOf(data.videoId) + 1)]);
                 _showSnackBar('Next Video Started!');
               } else {
+                print('widget day is ' + this.dayno.toString());
                 if (unFinished != null) {
-                  prcntgeProvider.getPrsntg(
+                  progressprcntg.getPrsntg(
                       this.finished,
                       this.unFinished,
                       this.totalnum,
@@ -242,10 +242,10 @@ class _VidScreenState extends State<VidScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: ((current + 1) % 7) == 0
+                        builder: ((current + 1) % 5) == 0
                             ? (context) => Explore()
                             : (context) => DayScreen(
-                                  dayNo: ((current + 1) % 7).toString(),
+                                  dayNo: ((current + 1) % 5).toString(),
                                   week: mystream,
                                   weekNo: this.widget.weekNo,
                                 )));
@@ -269,7 +269,8 @@ class _VidScreenState extends State<VidScreen> {
                     });
 
                     if (unFinished != null) {
-                      prcntgeProvider.getPrsntg(
+                      print('widget day is ' + this.dayno.toString());
+                      progressprcntg.getPrsntg(
                           this.finished,
                           this.unFinished,
                           this.totalnum,

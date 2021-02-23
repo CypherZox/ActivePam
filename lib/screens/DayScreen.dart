@@ -57,7 +57,7 @@ class _DayScreenState extends State<DayScreen> {
       onPanUpdate: (details) {
         if (details.delta.dx > 0) {
           Navigator.of(context).popUntil((route) => route.isFirst);
-          Navigator.pushReplacement(
+          Navigator.push(
               context,
               PageTransition(
                   duration: Duration(milliseconds: 150),

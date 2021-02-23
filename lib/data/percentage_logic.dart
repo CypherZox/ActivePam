@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_active_prf/services/database_service.dart';
 
 class PrcntgLogic extends ChangeNotifier {
-  // int finished;
-  // double unFinished;
-  // int totalnum;
   DatabaseService databaseService = DatabaseService();
   double progressprcntg;
   int weekprctng = 0;
@@ -17,8 +14,8 @@ class PrcntgLogic extends ChangeNotifier {
     if (progressprcntg >= 0 && progressprcntg < 10000) {
       List<dynamic> weeklist =
           await databaseService.chngdata(week, day, progressprcntg.toInt());
-      int weekprctng = ((((weeklist.reduce(sum)) * 100)) ~/ 600);
-      print(weekprctng);
+      int weekprctng = ((((weeklist.reduce(sum)) * 100)) ~/ 500);
+      print('week prcntg is' + weekprctng.toString());
       databaseService.updateweekprcntg(weekprctng);
       changecurrents(weekprctng, progressprcntg);
       notifyListeners();
