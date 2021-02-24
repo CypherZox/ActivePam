@@ -338,6 +338,8 @@ class _SideDrawerState extends State<SideDrawer> {
                       ),
                       GestureDetector(
                         onTap: () async {
+                          await AuthService().signOut();
+
                           Navigator.pushAndRemoveUntil(
                               context,
                               PageRouteBuilder(pageBuilder:

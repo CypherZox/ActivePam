@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
     if (firebaseUser != null) {
       firstWidget = StreamProvider<UserProgress>.value(
         // All children will have access to SuperHero data
-        value: db.getUerProgress(firebaseUser.uid),
+        value: db.getUerProgress(),
         child: Explore(),
       );
     } else {
@@ -48,9 +48,8 @@ class MyApp extends StatelessWidget {
     }
     return MultiProvider(
       providers: [
-        StreamProvider<UserProgress>.value(
-            value: db.getUerProgress(firebaseUser.uid)),
-        StreamProvider<int>.value(value: db.setnoofweeks(firebaseUser.uid)),
+        StreamProvider<UserProgress>.value(value: db.getUerProgress()),
+        StreamProvider<int>.value(value: db.setnoofweeks()),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -67,7 +66,7 @@ class MyApp extends StatelessWidget {
           '/Register': (context) => Register(),
           '/Explore': (context) => StreamProvider<UserProgress>.value(
                 // All children will have access to SuperHero data
-                value: db.getUerProgress(firebaseUser.uid),
+                value: db.getUerProgress(),
                 child: Explore(),
               ),
           '/VidScreen': (context) => VidScreen(),

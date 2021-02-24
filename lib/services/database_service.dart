@@ -11,20 +11,19 @@ class DatabaseService {
   }
 
   String get uid {
-    return user.uid;
+    return user?.uid;
   }
-
   final CollectionReference progCollection =
       FirebaseFirestore.instance.collection('userprogress');
   DocumentSnapshot snapshot;
-  Stream<UserProgress> getUerProgress(String id) {
+  Stream<UserProgress> getUerProgress() {
     return progCollection
-        .doc(id)
+        .doc(uid)
         .snapshots()
         .map((snap) => UserProgress.fromMap(snap.data()));
   }
 
-  Stream<int> setnoofweeks(String id) {
+  Stream<int> setnoofweeks() {
     return FirebaseFirestore.instance
         .collection('no_of_weeks')
         .doc('no_of_weeks')
