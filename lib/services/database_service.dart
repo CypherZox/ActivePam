@@ -13,6 +13,7 @@ class DatabaseService {
   String get uid {
     return user?.uid;
   }
+
   final CollectionReference progCollection =
       FirebaseFirestore.instance.collection('userprogress');
   DocumentSnapshot snapshot;
@@ -77,30 +78,35 @@ class DatabaseService {
     if (currentWeek != null) {
       toEditList = currentWeek;
     }
-    if (prcntg <= 100 && prcntg >= 0) {
-      if (prcntg >= toEditList[dayNo]) {
-        print(prcntg);
-        toEditList[dayNo] = prcntg;
+    if (dayNo != 3 || dayNo != 7) {
+      if (3 < dayNo && dayNo < 6) {
+        dayNo -= 1;
       }
-      // } else if (prcntg < toEditList[dayNo]) {
-      //   print(prcntg);
-      //   toEditList[dayNo] = toEditList[dayNo];
-      // }
-    } else {
-      print(prcntg);
-      toEditList[dayNo] = 100;
+      if (prcntg <= 100 && prcntg >= 0) {
+        if (prcntg >= toEditList[dayNo]) {
+          print(prcntg);
+          toEditList[dayNo] = prcntg;
+        }
+      } else {
+        print(prcntg);
+        toEditList[dayNo] = 100;
+      }
+      // print(toEditList);
+      progCollection.doc(uid).update({
+        '$week': toEditList,
+      });
+      print('infunc prcntg' + toEditList.toString());
     }
-    // print(toEditList);
-    progCollection.doc(uid).update({
-      '$week': toEditList,
-    });
 
-    return getData(week);
+    return toEditList;
   }
 
   void updateweekprcntg(int weekprctng) async {
+    print('upp');
     int currentweekprcntge = await getcurrentweek();
+    print('current week prcntg' + currentweekprcntge.toString());
     if (weekprctng != null) {
+      print('stage1');
       if (weekprctng > currentweekprcntge) {
         progCollection.doc(uid).update({
           'weekprctng': weekprctng,

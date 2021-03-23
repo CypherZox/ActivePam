@@ -140,6 +140,10 @@ class _VidScreenState extends State<VidScreen> {
                     });
                     print('widget day is ' + this.dayno.toString());
                     if (unFinished != null) {
+                      print(_controller.metadata.duration.inSeconds);
+                      print(unFinished);
+                      print(finished);
+                      print(totalnum);
                       //calling the get percentagefunction (how much of the video was played by user) after quitting video.
                       progressprcntg.getPrsntg(
                           this.finished,
@@ -153,13 +157,15 @@ class _VidScreenState extends State<VidScreen> {
                         CloudData().getweeksstream(this.widget.weekNo);
                     int current = await DatabaseService().getcurrentday();
                     Navigator.of(context).popUntil((route) => route.isFirst);
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DayScreen(
-                                dayNo: current.toString(),
-                                week: mystream,
-                                weekNo: this.widget.weekNo)));
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DayScreen(
+                              dayNo: current.toString(),
+                              week: mystream,
+                              weekNo: this.widget.weekNo)),
+                      ModalRoute.withName('/'),
+                    );
                     _controller.reset();
                   },
                   child: Text("YES",
@@ -227,6 +233,9 @@ class _VidScreenState extends State<VidScreen> {
               } else {
                 print('widget day is ' + this.dayno.toString());
                 if (unFinished != null) {
+                  print(finished);
+                  print(unFinished);
+                  print(totalnum);
                   progressprcntg.getPrsntg(
                       this.finished,
                       this.unFinished,
