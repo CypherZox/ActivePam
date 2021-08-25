@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/screens/DayScreen.dart';
-import 'package:get_active_prf/widgets/DaysList.dart';
 import 'package:get_active_prf/services/cloud_data.dart';
-import 'package:get_active_prf/services/database_service.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 
+//ignore: must_be_immutable
 class WeekTile2 extends StatelessWidget {
   final String no;
   final List flags;
@@ -39,14 +36,12 @@ class WeekTile2 extends StatelessWidget {
               if (details.delta.dy < 0) {
                 print('week on tile is $no');
                 print('week on tile is $dayNo');
-                Stream mystream = await CloudData().getweeksstream(no);
+                Stream mystream = CloudData().getweeksstream(no);
                 Navigator.push(
                     context,
-                    PageTransition(
-                        duration: Duration(microseconds: 150),
-                        child:
-                            DayScreen(week: mystream, weekNo: no, dayNo: dayNo),
-                        type: PageTransitionType.downToUp));
+                    MaterialPageRoute(
+                        builder: (context) => DayScreen(
+                            week: mystream, weekNo: no, dayNo: dayNo)));
               }
             },
             child: Container(

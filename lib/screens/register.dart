@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/custom_icons/google_icon_icons.dart';
 import 'package:get_active_prf/screens/log_in.dart';

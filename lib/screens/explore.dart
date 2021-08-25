@@ -4,15 +4,12 @@ import 'package:get_active_prf/models/day_vid_list.dart';
 import 'package:get_active_prf/models/progress.dart';
 import 'package:get_active_prf/screens/log_in.dart';
 import 'package:get_active_prf/services/auth.dart';
-import 'package:get_active_prf/services/cloud_data.dart';
 import 'package:get_active_prf/services/database_service.dart';
 import 'package:get_active_prf/services/setalarm.dart';
 import 'package:get_active_prf/widgets/weektile2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_active_prf/custom_icons/options_icons.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
-import '../main.dart';
 import 'package:intl/intl.dart';
 
 class Explore extends StatefulWidget {
@@ -30,7 +27,7 @@ class _ExploreState extends State<Explore> {
 
   final CollectionReference progCollection =
       FirebaseFirestore.instance.collection('userprogress');
-  String get name {
+  get name {
     if (mounted) {
       return user.displayName;
     }
@@ -61,6 +58,8 @@ class _ExploreState extends State<Explore> {
         userpog?.progressPrcntge ?? userProgress.getprogressPrcntge();
 
     List vids = _dayVidList.getvids(noofweeks, _currentWeek);
+    List prcntg =
+        _dayVidList.weekprcntg(noofweeks, _currentWeek, progressprcnt);
     List flags = _dayVidList.flagvids(noofweeks, _currentWeek);
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -117,7 +116,6 @@ class _ExploreState extends State<Explore> {
                               color: Colors.black.withOpacity(0.3)),
                         ),
                       ),
-                      Text(_currentDay.toString()),
                       SizedBox(
                         height: 120.0,
                       ),
@@ -129,7 +127,7 @@ class _ExploreState extends State<Explore> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     final no = vids[index];
-                    final mprcntg = progressprcnt;
+                    final mprcntg = prcntg[index];
                     return WeekTile2(
                       weekprctng: mprcntg,
                       dayNo: _currentDay.toString(),
@@ -149,6 +147,7 @@ class _ExploreState extends State<Explore> {
   }
 }
 
+//ignore: must_be_immutable
 class SideDrawer extends StatefulWidget {
   DateTime alarmTime;
   String alarmTimeString;
@@ -299,7 +298,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                                   ),
                                                   onPressed: () async {
                                                     //function to add schedueled alarms
-                                                    await onSaveAlarm();
+                                                    onSaveAlarm();
                                                     Navigator.pop(context);
                                                   },
                                                 ),

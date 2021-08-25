@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/models/progress.dart';
 import 'package:get_active_prf/screens/DayScreen.dart';
 import 'package:get_active_prf/screens/explore.dart';
@@ -29,6 +28,7 @@ void main() async {
   runApp(MyApp());
 }
 
+//ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   DatabaseService db = DatabaseService();
   // This widget is the root of your application.

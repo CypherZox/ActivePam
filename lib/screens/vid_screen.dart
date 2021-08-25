@@ -5,7 +5,6 @@ import 'package:get_active_prf/data/percentage_logic.dart';
 import 'package:get_active_prf/screens/DayScreen.dart';
 import 'package:get_active_prf/screens/explore.dart';
 import 'package:get_active_prf/services/database_service.dart';
-import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -85,7 +84,7 @@ class _VidScreenState extends State<VidScreen> {
     return _ids.length;
   }
 
-  List get progress_list {
+  List get progresList {
     return List.filled(_ids.length, 0);
   }
 
@@ -156,7 +155,7 @@ class _VidScreenState extends State<VidScreen> {
                     Stream mystream =
                         CloudData().getweeksstream(this.widget.weekNo);
                     int current = await DatabaseService().getcurrentday();
-                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    // Navigator.of(context).popUntil((route) => route.isFirst);
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -247,17 +246,18 @@ class _VidScreenState extends State<VidScreen> {
                 Stream mystream =
                     CloudData().getweeksstream(this.widget.weekNo);
                 int current = await DatabaseService().getcurrentday();
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: ((current + 1) % 5) == 0
-                            ? (context) => Explore()
-                            : (context) => DayScreen(
-                                  dayNo: ((current + 1) % 5).toString(),
-                                  week: mystream,
-                                  weekNo: this.widget.weekNo,
-                                )));
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((current + 1) % 5) == 0
+                          ? (context) => Explore()
+                          : (context) => DayScreen(
+                                dayNo: ((current + 1) % 5).toString(),
+                                week: mystream,
+                                weekNo: this.widget.weekNo,
+                              )),
+                  ModalRoute.withName('/'),
+                );
               }
             },
           ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/screens/DayScreen.dart';
-import 'package:get_active_prf/styles/decorations.dart';
 
 class DayNumber extends StatefulWidget {
   final String no;
@@ -25,25 +24,25 @@ class _DayNumberState extends State<DayNumber> {
           selectedColor: Colors.white,
           fillColor: Colors.blue,
           children: [
-            Day_no(
+            DayNo(
               no: '1',
             ),
-            Day_no(
+            DayNo(
               no: '2',
             ),
-            Day_no(
+            DayNo(
               no: '3',
             ),
-            Day_no(
+            DayNo(
               no: '4',
             ),
-            Day_no(
+            DayNo(
               no: '5',
             ),
-            Day_no(
+            DayNo(
               no: '6',
             ),
-            Day_no(
+            DayNo(
               no: '7',
             ),
           ],
@@ -85,9 +84,9 @@ class _DayNumberState extends State<DayNumber> {
   }
 }
 
-class Day_no extends StatelessWidget {
+class DayNo extends StatelessWidget {
   final String no;
-  Day_no({this.no});
+  DayNo({this.no});
 
   @override
   Widget build(BuildContext context) {

@@ -36,7 +36,7 @@ dependencies:
   provider: ^4.3.3
   cloud_firestore: ^0.14.0+2
   google_sign_in: ^4.5.4
-  page_transition: ^1.1.6
+  page_transition: ^2.0.2
   cached_network_image: ^2.4.1
   cupertino_will_pop_scope: ^1.0.4
   flutter_local_notifications: ^3.0.2

@@ -8,6 +8,7 @@ import 'package:get_active_prf/services/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
 
+//ignore: must_be_immutable
 class DayScreen extends StatefulWidget {
   final Stream week;
   final String weekNo;
@@ -269,14 +270,13 @@ _buildStoryPage(
                   onPressed: () {
                     Navigator.push(
                         context,
-                        PageTransition(
-                            type: PageTransitionType.upToDown,
-                            child: VidScreen(
-                              ids: vids,
-                              dayNo: dayNo,
-                              weekNo: weekNo,
-                              version: version,
-                            )));
+                        MaterialPageRoute(
+                            builder: (context) => VidScreen(
+                                  ids: vids,
+                                  dayNo: dayNo,
+                                  weekNo: weekNo,
+                                  version: version,
+                                )));
                   },
                   icon: Icon(
                     Rarow.right_arrow__1_,

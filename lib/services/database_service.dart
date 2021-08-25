@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_active_prf/models/progress.dart';
-import 'package:get_active_prf/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 
 class DatabaseService {
   final FirebaseAuth auth = FirebaseAuth.instance;
