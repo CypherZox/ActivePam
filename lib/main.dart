@@ -7,6 +7,7 @@ import 'package:get_active_prf/screens/register.dart';
 import 'package:get_active_prf/screens/vid_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get_active_prf/services/database_service.dart';
+import 'package:get_active_prf/themes/theme_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:cupertino_will_pop_scope/cupertino_will_pop_scope.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -48,30 +49,36 @@ class MyApp extends StatelessWidget {
     }
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => ThemeNotifier()),
         StreamProvider<UserProgress>.value(value: db.getUerProgress()),
         StreamProvider<int>.value(value: db.setnoofweeks()),
       ],
-      child: MaterialApp(
-        theme: ThemeData(
-            primaryColor: Colors.black,
-            platform: TargetPlatform.iOS,
-            pageTransitionsTheme: PageTransitionsTheme(builders: {
-              TargetPlatform.android: ZoomPageTransitionsBuilder(),
-              TargetPlatform.iOS: CupertinoWillPopScopePageTransionsBuilder(),
-            })),
-        debugShowCheckedModeBanner: false,
-        home: firstWidget,
-        routes: {
-          '/log_n': (context) => LogIn(),
-          '/Register': (context) => Register(),
-          '/Explore': (context) => StreamProvider<UserProgress>.value(
-                // All children will have access to SuperHero data
-                value: db.getUerProgress(),
-                child: Explore(),
-              ),
-          '/VidScreen': (context) => VidScreen(),
-          '/dayscreen': (context) => DayScreen(),
-        },
+      child: Consumer<ThemeNotifier>(
+        builder: (context, theme, _) => MaterialApp(
+          theme: theme.getTheme(),
+          // ThemeData(
+          //     primaryColor: Colors.black,
+          //     platform: TargetPlatform.iOS,
+          //     pageTransitionsTheme: PageTransitionsTheme(builders: {
+          //       TargetPlatform.android: ZoomPageTransitionsBuilder(),
+          //       TargetPlatform.iOS: CupertinoWillPopScopePageTransionsBuilder(),
+          //     })),
+          // darkTheme: ThemeData.dark(),
+          // themeMode: ThemeMode.system,
+          debugShowCheckedModeBanner: false,
+          home: firstWidget,
+          routes: {
+            '/log_n': (context) => LogIn(),
+            '/Register': (context) => Register(),
+            '/Explore': (context) => StreamProvider<UserProgress>.value(
+                  // All children will have access to SuperHero data
+                  value: db.getUerProgress(),
+                  child: Explore(),
+                ),
+            '/VidScreen': (context) => VidScreen(),
+            '/dayscreen': (context) => DayScreen(),
+          },
+        ),
       ),
     );
   }

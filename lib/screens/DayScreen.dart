@@ -67,7 +67,7 @@ class _DayScreenState extends State<DayScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: Color(0xffF7F7F7),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         body: StreamBuilder(
             stream: this.widget.week,
             builder: (context, AsyncSnapshot snap) {
@@ -92,7 +92,7 @@ class _DayScreenState extends State<DayScreen> {
                           //days list
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Color(0xffF7F7F7).withOpacity(0.7),
+                                color: Theme.of(context).colorScheme.onPrimary,
                                 border: Border(
                                     right: BorderSide(
                                         width: 0.7, color: Colors.black))),
@@ -194,7 +194,9 @@ class DayNo extends StatelessWidget {
           child: Text(
             '$no',
             style: TextStyle(
-                color: Colors.black, fontFamily: 'mija', fontSize: 15),
+                // color: Colors.black,
+                fontFamily: 'mija',
+                fontSize: 15),
           ),
         ));
   }
@@ -218,10 +220,11 @@ _buildStoryPage(
               ? Text(
                   '$version',
                   style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 27,
-                      fontFamily: 'mija',
-                      color: Colors.black),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 27,
+                    fontFamily: 'mija',
+                    // color: Colors.black
+                  ),
                 )
               : Text(" "),
         ),
@@ -231,21 +234,28 @@ _buildStoryPage(
         child: Align(
             alignment: Alignment.topLeft,
             child: title != 'Rest Day' && title != null
-                ? Text(
-                    '$title',
+                ? Text('$title',
                     style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 20,
-                        fontFamily: 'mija',
-                        color: Colors.black.withOpacity(0.4)),
-                  )
+                      fontWeight: FontWeight.w300,
+                      fontSize: 20,
+                      fontFamily: 'mija',
+
+                      // color: Colors.black.withOpacity(0.4)
+
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyText2
+                          .color
+                          .withOpacity(0.4),
+                    ))
                 : Text(
                     'Rest Day',
                     style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 30,
-                        fontFamily: 'mija',
-                        color: Colors.black),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 30,
+                      fontFamily: 'mija',
+                      // color: Colors.black
+                    ),
                   )),
       ),
       Expanded(

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_active_prf/data/percentage_logic.dart';
@@ -10,6 +9,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get_active_prf/services/cloud_data.dart';
+import 'package:wakelock/wakelock.dart';
 
 class VidScreen extends StatefulWidget {
   final List<dynamic> ids;
@@ -106,17 +106,25 @@ class _VidScreenState extends State<VidScreen> {
           showDialog(
             context: context,
             builder: (context) => new AlertDialog(
-              backgroundColor: Color(0xffF7F7F7),
+              backgroundColor: Theme.of(context).colorScheme.onPrimary,
               title: new Text('Are you sure?',
                   style: TextStyle(
                       fontSize: 21,
                       fontFamily: 'mija',
-                      color: Colors.black.withOpacity(0.8))),
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyText2
+                          .color
+                          .withOpacity(0.8))),
               content: new Text('Do you want to exit this workout session?',
                   style: TextStyle(
                       fontSize: 21,
                       fontFamily: 'mija',
-                      color: Colors.black.withOpacity(0.8))),
+                      color: Theme.of(context)
+                          .textTheme
+                          .bodyText2
+                          .color
+                          .withOpacity(0.8))),
               actions: <Widget>[
                 new GestureDetector(
                   onTap: () => Navigator.of(context).pop(false),
@@ -124,7 +132,11 @@ class _VidScreenState extends State<VidScreen> {
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: 'mija',
-                          color: Colors.black.withOpacity(0.7))),
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyText2
+                              .color
+                              .withOpacity(0.7))),
                 ),
                 SizedBox(height: 16),
                 new GestureDetector(
@@ -171,7 +183,11 @@ class _VidScreenState extends State<VidScreen> {
                       style: TextStyle(
                           fontSize: 16,
                           fontFamily: 'mija',
-                          color: Colors.black.withOpacity(0.7))),
+                          color: Theme.of(context)
+                              .textTheme
+                              .bodyText2
+                              .color
+                              .withOpacity(0.7))),
                 ),
               ],
             ),
@@ -179,17 +195,26 @@ class _VidScreenState extends State<VidScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: Color(0xffF7F7F7),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         body: YoutubePlayerBuilder(
           onExitFullScreen: () {
             // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
             SystemChrome.setPreferredOrientations(DeviceOrientation.values);
           },
           player: YoutubePlayer(
+            progressColors: ProgressBarColors(
+                backgroundColor: Colors.white12, playedColor: Colors.red),
             controller: _controller,
             showVideoProgressIndicator: true,
             progressIndicatorColor: Colors.white,
-            bottomActions: [CurrentPosition()],
+            bottomActions: [
+              CurrentPosition(),
+              Spacer(),
+              FullScreenButton(
+                controller: _controller,
+                color: Colors.white,
+              ),
+            ],
             topActions: <Widget>[
               const SizedBox(width: 8.0),
               Expanded(
@@ -203,32 +228,19 @@ class _VidScreenState extends State<VidScreen> {
                   maxLines: 1,
                 ),
               ),
-              IconButton(
-                icon: const Icon(
-                  Icons.settings,
-                  color: Colors.white,
-                  size: 25.0,
-                ),
-                onPressed: () {
-                  log('Settings Tapped!');
-                },
-              ),
-              SizedBox(height: 10),
-              FullScreenButton(
-                controller: _controller,
-                color: Colors.white,
-              ),
             ],
             onReady: () {
+              Wakelock.enable();
               _isPlayerReady = true;
             },
             onEnded: (data) async {
+              Wakelock.disable();
               setState(() {
                 finished += 1;
               });
               if ((_ids.indexOf(_videoMetaData.videoId) + 1) < _ids.length) {
                 _controller.load(_ids[(_ids.indexOf(data.videoId) + 1)]);
-                _showSnackBar('Next Video Started!');
+                _showSnackBar("Next Video's Starting!");
               } else {
                 print('widget day is ' + this.dayno.toString());
                 if (unFinished != null) {
@@ -262,9 +274,9 @@ class _VidScreenState extends State<VidScreen> {
             },
           ),
           builder: (context, player) => Scaffold(
-            backgroundColor: Color(0xffF7F7F7),
+            backgroundColor: Theme.of(context).colorScheme.primary,
             bottomNavigationBar: BottomAppBar(
-              color: Color(0xffF7F7F7),
+              color: Theme.of(context).colorScheme.primary,
               child: GestureDetector(
                 onTap: () {
                   if ((_ids.indexOf(_videoMetaData.videoId)) + 1 < totalnum) {
@@ -289,49 +301,56 @@ class _VidScreenState extends State<VidScreen> {
                     _controller
                         .load(_ids[(_ids.indexOf(_videoMetaData.videoId)) + 1]);
                     _showSnackBar(
-                      'Next Video Started!',
+                      "Next Video's Starting!",
                     );
                   }
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50.0),
                   child: Container(
-                    color: Color(0xffF7F7F7),
-                    child: ((_ids.indexOf(_videoMetaData.videoId) + 1) <
-                            totalnum)
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: CachedNetworkImage(
-                              imageUrl:
-                                  'https://img.youtube.com/vi/${_ids[_ids.indexOf(_videoMetaData.videoId) + 1]}/maxresdefault.jpg',
-                              placeholder: (context, url) =>
-                                  CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
-                            ),
-                          )
-                        : ((_ids.indexOf(_videoMetaData.videoId) + 1) ==
-                                totalnum)
+                    color: Theme.of(context).colorScheme.primary,
+                    child:
+                        ((_ids.indexOf(_videoMetaData.videoId) + 1) < totalnum)
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(12),
-                                child: Container(
-                                    child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      0.0, 0.0, 0.0, 100.0),
-                                  child: Text('well Done!',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 26,
-                                          fontFamily: 'mija',
-                                          color:
-                                              Colors.black.withOpacity(0.3))),
-                                )))
-                            : Center(
-                                child: Text('well Done!',
-                                    style: TextStyle(
-                                        fontSize: 36,
-                                        fontFamily: 'mija',
-                                        color: Colors.black.withOpacity(0.3)))),
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://img.youtube.com/vi/${_ids[_ids.indexOf(_videoMetaData.videoId) + 1]}/maxresdefault.jpg',
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                ),
+                              )
+                            : ((_ids.indexOf(_videoMetaData.videoId) + 1) ==
+                                    totalnum)
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Container(
+                                        child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0.0, 0.0, 0.0, 100.0),
+                                      child: Text('Well Done!',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 26,
+                                              fontFamily: 'mija',
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2
+                                                  .color
+                                                  .withOpacity(0.3))),
+                                    )))
+                                : Center(
+                                    child: Text('well Done!',
+                                        style: TextStyle(
+                                            fontSize: 36,
+                                            fontFamily: 'mija',
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2
+                                                .color
+                                                .withOpacity(0.3)))),
                   ),
                 ),
               ),
@@ -355,15 +374,16 @@ class _VidScreenState extends State<VidScreen> {
           message,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 36,
+              fontSize: 29,
               fontFamily: 'mija',
-              color: Colors.black.withOpacity(0.3)),
+              color:
+                  Theme.of(context).textTheme.bodyText2.color.withOpacity(0.3)),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
         behavior: SnackBarBehavior.floating,
         elevation: 1.0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.0),
+          borderRadius: BorderRadius.circular(40.0),
         ),
       ),
     );

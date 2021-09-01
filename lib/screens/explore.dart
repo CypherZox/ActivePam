@@ -6,16 +6,20 @@ import 'package:get_active_prf/screens/log_in.dart';
 import 'package:get_active_prf/services/auth.dart';
 import 'package:get_active_prf/services/database_service.dart';
 import 'package:get_active_prf/services/setalarm.dart';
+import 'package:get_active_prf/themes/theme_notifier.dart';
 import 'package:get_active_prf/widgets/weektile2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_active_prf/custom_icons/options_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:intl/intl.dart';
 
 class Explore extends StatefulWidget {
   @override
   _ExploreState createState() => _ExploreState();
 }
+
+bool status = false;
 
 class _ExploreState extends State<Explore> {
   DateTime _alarmTime;
@@ -68,7 +72,7 @@ class _ExploreState extends State<Explore> {
         alarmTime: _alarmTime,
         alarmTimeString: _alarmTimeString,
       ),
-      backgroundColor: Color(0xfff4f4f4),
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Builder(
         builder: (context) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -98,10 +102,8 @@ class _ExploreState extends State<Explore> {
                     children: [
                       Align(
                         alignment: Alignment.topLeft,
-                        child: Text(
-                          'Welcome,\n$name',
-                          style: TextStyle(fontSize: 46, fontFamily: 'mija'),
-                        ),
+                        child: Text('Welcome,\n$name',
+                            style: TextStyle(fontSize: 46, fontFamily: 'mija')),
                       ),
                       SizedBox(
                         height: 5,
@@ -113,7 +115,11 @@ class _ExploreState extends State<Explore> {
                           style: TextStyle(
                               fontSize: 36,
                               fontFamily: 'mija',
-                              color: Colors.black.withOpacity(0.3)),
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  .color
+                                  .withOpacity(0.5)),
                         ),
                       ),
                       SizedBox(
@@ -161,218 +167,260 @@ class SideDrawer extends StatefulWidget {
 class _SideDrawerState extends State<SideDrawer> {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      //options drawer (info, logout, adding reminders)
-      child: Container(
-        color: Color(0xffF7F7F7),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 21.0, 0.0),
-              child: SizedBox(
-                height: widget.height - 30,
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    backgroundColor: Colors.transparent,
-                                    title: Padding(
-                                      padding: EdgeInsets.fromLTRB(
-                                          0.0, 200, 0.0, 0.0),
-                                      child: Center(
-                                        child: Text(
-                                          'Add reminders',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 22,
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.45,
+      child: Drawer(
+        //options drawer (info, logout, adding reminders)
+        child: Container(
+          color: Theme.of(context).colorScheme.onPrimary,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10.0, 0.0, 21.0, 0.0),
+                child: SizedBox(
+                  height: widget.height - 30,
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FlutterSwitch(
+                          activeColor:
+                              Theme.of(context).colorScheme.primaryVariant,
+                          toggleColor: Theme.of(context).colorScheme.primary,
+                          width: 82.5,
+                          height: 27.5,
+                          valueFontSize: 12.5,
+                          toggleSize: 22.5,
+                          value: status,
+                          borderRadius: 15.0,
+                          padding: 3.0,
+                          // showOnOff: true,
+                          onToggle: (val) {
+                            Provider.of<ThemeNotifier>(context, listen: false)
+                                .toggleMode();
+                            setState(() {
+                              status = val;
+                            });
+                          },
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor: Colors.transparent,
+                                      title: Padding(
+                                        padding: EdgeInsets.fromLTRB(
+                                            0.0, 200, 0.0, 0.0),
+                                        child: Center(
+                                          child: Text(
+                                            'Add reminders',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 18,
                                               fontFamily: 'mija',
-                                              color: Colors.black),
+                                              // color: Colors.black
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    content: Stack(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              0.0, 0.0, 0.0, 5.0),
-                                          child: Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Text(
-                                              'Choose prefered timing for your daily workouts remaiders',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
+                                      content: Stack(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0.0, 0.0, 0.0, 5.0),
+                                            child: Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Text(
+                                                'Choose prefered timing for your daily workouts remaiders',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
                                                   fontWeight: FontWeight.w100,
                                                   fontSize: 15,
                                                   fontFamily: 'mija',
-                                                  color: Colors.white),
+                                                  // color: Colors.white
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              35.0, 60.0, 0.0, 0.0),
-                                          child: MaterialButton(
-                                            child: Text(
-                                              'Select time',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                35.0, 60.0, 0.0, 0.0),
+                                            child: MaterialButton(
+                                              child: Text(
+                                                'Select time',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
                                                   fontWeight: FontWeight.w100,
                                                   fontSize: 19,
                                                   fontFamily: 'mija',
-                                                  color: Colors.black),
+                                                  // color: Colors.black
+                                                ),
+                                              ),
+                                              onPressed: () async {
+                                                var selectedTime =
+                                                    await showTimePicker(
+                                                  context: context,
+                                                  initialTime: TimeOfDay.now(),
+                                                );
+                                                if (selectedTime != null) {
+                                                  final now = DateTime.now();
+                                                  var selectedDateTime =
+                                                      DateTime(
+                                                          now.year,
+                                                          now.month,
+                                                          now.day,
+                                                          selectedTime.hour,
+                                                          selectedTime.minute);
+                                                  this.widget.alarmTime =
+                                                      selectedDateTime;
+                                                  setState(() {
+                                                    this
+                                                            .widget
+                                                            .alarmTimeString =
+                                                        DateFormat('HH:mm')
+                                                            .format(
+                                                                selectedDateTime);
+                                                  });
+                                                }
+                                              },
+                                              color: Color(0xfff0a500),
                                             ),
-                                            onPressed: () async {
-                                              var selectedTime =
-                                                  await showTimePicker(
-                                                context: context,
-                                                initialTime: TimeOfDay.now(),
-                                              );
-                                              if (selectedTime != null) {
-                                                final now = DateTime.now();
-                                                var selectedDateTime = DateTime(
-                                                    now.year,
-                                                    now.month,
-                                                    now.day,
-                                                    selectedTime.hour,
-                                                    selectedTime.minute);
-                                                this.widget.alarmTime =
-                                                    selectedDateTime;
-                                                setState(() {
-                                                  this.widget.alarmTimeString =
-                                                      DateFormat('HH:mm')
-                                                          .format(
-                                                              selectedDateTime);
-                                                });
-                                              }
-                                            },
-                                            color: Color(0xfff0a500),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              15.0, 150.0, 0.0, 0.0),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                child: MaterialButton(
-                                                    child: Text(
-                                                      'Cancel',
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                15.0, 150.0, 0.0, 0.0),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  child: MaterialButton(
+                                                      child: Text(
+                                                        'Cancel',
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.w300,
                                                           fontSize: 17,
                                                           fontFamily: 'mija',
-                                                          color: Colors.black),
-                                                    ),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    }),
-                                              ),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    border: Border(
-                                                        left: BorderSide(
-                                                            width: 4.0,
-                                                            color:
-                                                                Colors.black))),
-                                                child: MaterialButton(
-                                                  child: Text(
-                                                    'Ok',
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
+                                                          // color:
+                                                          // Colors.black
+                                                        ),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      }),
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border(
+                                                          left: BorderSide(
+                                                              width: 4.0,
+                                                              color: Colors
+                                                                  .black))),
+                                                  child: MaterialButton(
+                                                    child: Text(
+                                                      'Ok',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.w300,
                                                         fontSize: 17,
                                                         fontFamily: 'mija',
-                                                        color: Colors.black),
+                                                        // color: Colors.black
+                                                      ),
+                                                    ),
+                                                    onPressed: () async {
+                                                      //function to add schedueled alarms
+                                                      onSaveAlarm();
+                                                      Navigator.pop(context);
+                                                    },
                                                   ),
-                                                  onPressed: () async {
-                                                    //function to add schedueled alarms
-                                                    onSaveAlarm();
-                                                    Navigator.pop(context);
-                                                  },
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                });
-                          }
-                        },
-                        child: Text(
-                          'Reminders',
-                          style: TextStyle(
-                              fontSize: 36,
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            }
+                          },
+                          child: Text(
+                            'Reminders',
+                            style: TextStyle(
+                              fontSize: 26,
                               fontFamily: 'mija',
-                              color: Colors.black),
+                              // color: Colors.black
+                            ),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        child: Text(
-                          'Info',
-                          style: TextStyle(
-                              fontSize: 36,
+                        SizedBox(
+                          height: 10,
+                        ),
+                        GestureDetector(
+                          child: Text(
+                            'Info',
+                            style: TextStyle(
+                              fontSize: 26,
                               fontFamily: 'mija',
-                              color: Colors.black),
+                              // color: Colors.black
+                            ),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () async {
-                          await AuthService().signOut();
+                        SizedBox(
+                          height: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            await AuthService().signOut();
 
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              PageRouteBuilder(pageBuilder:
-                                  (BuildContext context, Animation animation,
-                                      Animation secondaryAnimation) {
-                                return LogIn();
-                              }, transitionsBuilder: (BuildContext context,
-                                  Animation<double> animation,
-                                  Animation<double> secondaryAnimation,
-                                  Widget child) {
-                                return new SlideTransition(
-                                  position: new Tween<Offset>(
-                                    begin: const Offset(1.0, 0.0),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                  child: child,
-                                );
-                              }),
-                              (Route route) => false);
-                        },
-                        child: Text(
-                          'Log Out',
-                          style: TextStyle(
-                              fontSize: 34,
-                              fontFamily: 'mija',
-                              color: Colors.black.withOpacity(0.7)),
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                PageRouteBuilder(pageBuilder:
+                                    (BuildContext context, Animation animation,
+                                        Animation secondaryAnimation) {
+                                  return LogIn();
+                                }, transitionsBuilder: (BuildContext context,
+                                    Animation<double> animation,
+                                    Animation<double> secondaryAnimation,
+                                    Widget child) {
+                                  return new SlideTransition(
+                                    position: new Tween<Offset>(
+                                      begin: const Offset(1.0, 0.0),
+                                      end: Offset.zero,
+                                    ).animate(animation),
+                                    child: child,
+                                  );
+                                }),
+                                (Route route) => false);
+                          },
+                          child: Text(
+                            'Log Out',
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontFamily: 'mija',
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    .color
+                                    .withOpacity(0.7)),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

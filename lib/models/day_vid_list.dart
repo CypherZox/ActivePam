@@ -11,10 +11,9 @@ class DayVidList {
     for (var i = 0; i <= currentweek - 1; i += 1) {
       vids[i] = 100;
     }
-
     vids = vids.sublist(currentweek - 1) +
         List.from(vids.sublist(0, currentweek - 1).reversed);
-    vids[0] = weekprctng;
+    weekprctng != null ?? weekprctng > 95 ? vids[0] = 0 : vids[0] = weekprctng;
     return vids;
   }
 

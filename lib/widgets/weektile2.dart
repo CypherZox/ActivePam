@@ -61,6 +61,7 @@ class WeekTile2 extends StatelessWidget {
                       child: Text(
                         '0$no',
                         style: TextStyle(
+                          color: Colors.black,
                           fontSize: 46,
                           fontFamily: 'mija',
                         ),

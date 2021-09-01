@@ -35,7 +35,7 @@ class _VidsListViewState extends State<VidsListView> {
     return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.0),
-          color: Color(0xffDEDEDE),
+          color: Theme.of(context).colorScheme.onPrimary,
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 11.0, horizontal: 7.0),

@@ -80,6 +80,9 @@ class DatabaseService {
       if (3 < dayNo && dayNo < 6) {
         dayNo -= 1;
       }
+      if (dayNo == 6) {
+        dayNo = 4;
+      }
       if (prcntg <= 100 && prcntg >= 0) {
         if (prcntg >= toEditList[dayNo]) {
           print(prcntg);

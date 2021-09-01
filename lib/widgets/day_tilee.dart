@@ -20,7 +20,7 @@ class DayTilee extends StatelessWidget {
           ],
         ),
         decoration: BoxDecoration(
-            color: Colors.amberAccent,
+            color: Theme.of(context).colorScheme.onPrimary,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(12), bottomLeft: Radius.circular(12))),
       ),
